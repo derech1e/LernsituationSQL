@@ -1,44 +1,31 @@
 USE sql_training;
 
-
 CREATE OR REPLACE TABLE abteilungen(
 	id int NOT NULL,
 	name varchar(20) NULL,
-PRIMARY KEY 
-(
-	id ASC
-)
-)
-;
+	PRIMARY KEY (id ASC)
+	);
 
 CREATE OR REPLACE TABLE kunde(
 	ID int AUTO_INCREMENT NOT NULL,
 	Name varchar(50) NULL,
 	Vorname varchar(30) NULL,
 	Mitarbeiter_ID int NULL,
- CONSTRAINT PK_Kunde PRIMARY KEY 
-(
-	ID ASC
-)
-)
-;
-
+	CONSTRAINT PK_Kunde PRIMARY KEY (ID ASC)
+	);
 
 CREATE OR REPLACE TABLE mitarbeiter(
-id int NOT NULL,
-name varchar(20) NULL,
-vorname varchar(20) NULL,
-gebdatum date NULL,
-gehalt decimal(10,2) NULL,
-bonus decimal(10,2) NULL,
-chef_id int NULL,
-abteilungen_id int NULL,
-PRIMARY KEY 
-(
-	id ASC
-)
-)
-;
+	id int NOT NULL,
+	name varchar(20) NULL,
+	vorname varchar(20) NULL,
+	gebdatum date NULL,
+	gehalt decimal(10,2) NULL,
+	bonus decimal(10,2) NULL,
+	chef_id int NULL,
+	abteilungen_id int NULL,
+	PRIMARY KEY (id ASC)
+	);
+	
 INSERT abteilungen (id, name) VALUES (1, 'Leitung');
 INSERT abteilungen (id, name) VALUES (2, 'Vertrieb');
 INSERT abteilungen (id, name) VALUES (3, 'Produktion');
@@ -85,4 +72,3 @@ INSERT mitarbeiter (id, name, vorname, gebdatum, gehalt, bonus, chef_id, abteilu
 
 ALTER TABLE kunde ADD CONSTRAINT FK_MA_Kunde FOREIGN KEY(Mitarbeiter_ID) REFERENCES mitarbeiter (id) ON UPDATE CASCADE;
 ALTER TABLE mitarbeiter ADD CONSTRAINT FK_ABT_MA FOREIGN KEY(abteilungen_id) REFERENCES abteilungen (id) ON UPDATE CASCADE;
-
