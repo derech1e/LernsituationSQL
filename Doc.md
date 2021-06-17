@@ -18,17 +18,13 @@ Kurzbeschreibung
 > Aufgabenverteilung für die LS SQL
 
 ## Thomas
-DDL
-CREATE, ALTER, DROP Anwendungsfälle
+DDL: CREATE, ALTER, DROP Anwendungsfälle
 
-DML
-INSERT, UPDATE, DELETE
+DML: INSERT, UPDATE, DELETE
 
-DQL
-SELECT, JOIN, GROUP BY, SELEKTION, PROJEKTION mit WHERE, (DURCHSCHNITT etc.)
+DQL: SELECT, JOIN, GROUP BY, SELEKTION, PROJEKTION mit WHERE, (DURCHSCHNITT etc.)
 
-DCL
-GRANT, DENY
+DCL: GRANT, DENY
 
 Zustat: Benutzer Hinzufügen
 
