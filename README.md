@@ -137,6 +137,7 @@ Self Join
 (Lateral Join)
 Cross Join
 https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
+https://stackedit.io/app#
 
 
 
