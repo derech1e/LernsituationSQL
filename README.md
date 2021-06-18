@@ -23,7 +23,7 @@ Kurzbeschreibung
 
 ## Thomas
 ### DDL
-#### CREATE
+#### Create
 ```sql 
 CREATE TABLE Person (
     PersonID int NOT NULL PRIMARY KEY,
@@ -40,7 +40,7 @@ CREATE TABLE Mitarbeiter AS SELECT Nachname, Vorname FROM Person;
 ```sql 
 CREATE TABLE Mitarbeiter AS SELECT Nachname, Vorname FROM Person WHERE Stadt LIKE "%D%";
 ```
-#### ALTER
+#### Alter
 ```sql 
 ALTER TABLE Person ADD Email varchar(255);
 ```
@@ -61,7 +61,7 @@ ALTER TABLE Person ADD CONSTRAINT PK_Person PRIMARY KEY (PersonID, Nachname);
 ALTER TABLE Person DROP CONSTRAINT PK_Person;
 ```
 
-#### DROP
+#### Drop
 ```sql 
 DROP TABLE Person;
 ```
@@ -71,7 +71,7 @@ DROP TABLE Person;
 INSERT, UPDATE, DELETE
 
 ### DQL
-#### SELECT
+#### Select
 ```sql 
 SELECT * FROM Person;
 ```
@@ -88,7 +88,23 @@ SELECT Nachname, AVG(Alter) AS Durchschnittsalter WHERE Vorname = "Ben";
 SELECT Vorname, Nachname INTO PersonenNamen FROM Person WHERE PersonID > 10;
 ```
 
-#### JOIN
+#### Join
+##### Inner Join
+Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmenden Wert haben. 
+```sql 
+SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person INNER JOIN Mitarbeiter
+ON Mitarbeiter.Name = Person.Nachname;
+```
+##### Left Join
+Gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende Datensätze aus der "rechten Tabelle".
+##### Right Join
+Gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken " Tabelle.
+##### Full Join
+Gibt alle Datensätze zurück, wenn eine übereinstimmung in der linken oder der rechten Tabelle vorhanden ist.
+![Test123](https://www.w3schools.com/sql/img_innerjoin.gif)
+##### Full Outer Join
+
+
 #### GROUP BY
 #### SELEKTION
 #### PROJEKTION mit WHERE
