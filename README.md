@@ -86,7 +86,9 @@ SELECT Vorname, Nachname INTO PersonenNamen FROM Person WHERE PersonID > 10;
 #### Join
 ##### Inner Join
 Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmenden Wert haben. 
-![Inner Join](https://www.devart.com/dbforge/sql/sqlcomplete/images/inner-schema.png =500x)
+
+<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/inner-schema.png" width="500" height="300" />
+
 ```sql
 SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person INNER JOIN Mitarbeiter
 ON Mitarbeiter.Name = Person.Nachname;
@@ -96,7 +98,8 @@ Gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende 
 
 **Wichtig: Die Datensätze werden aus der linken Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit den Datensätzen aus der rechten Tabelle gibt.**
 
-![Left Outer Join](https://www.devart.com/dbforge/sql/sqlcomplete/images/left-outer-schema.png =500x)
+<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/left-outer-schema.png" width="500" height="300" />
+
 
 ```sql
 SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person LEFT JOIN Mitarbeiter
@@ -110,7 +113,8 @@ Gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende
 
 **Wichtig: Die Datensätze werden aus der rechten Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit Datensätzen aus der linken Tabelle gibt.**
 
-![Right Join](https://www.devart.com/dbforge/sql/sqlcomplete/images/right-outer-schema.png =500x)
+<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/right-outer-schema.png" width="500" height="300" />
+
 
 ```sql 
 SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person RIGHT JOIN Mitarbeiter
@@ -119,7 +123,9 @@ ON Mitarbeiter.Name = Person.Nachname;
 
 ##### Full [Outer] Join
 Gibt immer Datensätze zurück, unabhängig davon ob es eine Übereinstimmung in der anderen Tabelle gibt oder nicht. Es können keine Datensätze verschwinden.
-![Full Join](https://www.devart.com/dbforge/sql/sqlcomplete/images/all-joins.png =500x)
+
+<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/all-joins.png" width="500" height="300" />
+
 
 ```sql 
 SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person FULL JOIN Mitarbeiter
