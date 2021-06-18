@@ -1,4 +1,5 @@
 
+
 # Dokumentation Lernsituation SQL 
 
 Kurzbeschreibung
@@ -22,7 +23,48 @@ Kurzbeschreibung
 
 ## Thomas
 ### DDL
-CREATE, ALTER, DROP Anwendungsfälle
+#### CREATE
+```sql 
+CREATE TABLE Person (
+    PersonID int NOT NULL PRIMARY KEY,
+    Nachname varchar(255) NOT NULL,
+    Vorname varchar(255) NOT NULL,
+    Addresse varchar(255),
+    Stadt varchar(255)
+    );
+```
+```sql 
+CREATE TABLE Mitarbeiter AS SELECT Nachname, Vorname FROM Person;
+```
+```sql 
+CREATE TABLE Mitarbeiter AS SELECT Nachname, Vorname FROM Person WHERE Stadt LIKE "%D%";
+```
+#### ALTER
+```sql 
+ALTER TABLE Person ADD Email varchar(255);
+```
+
+```sql 
+ALTER TABLE Person DROP COLUMN Email;
+```
+
+```sql 
+ALTER TABLE Person MODIFY COLUMN Email varchar(100);
+```
+
+```sql 
+ALTER TABLE Person ADD CONSTRAINT PK_Person PRIMARY KEY (PersonID, Nachname);
+```
+
+```sql 
+ALTER TABLE Person DROP CONSTRAINT PK_Person;
+```
+
+#### DROP
+```sql 
+DROP TABLE Person;
+```
+
 
 ### DML
 INSERT, UPDATE, DELETE
