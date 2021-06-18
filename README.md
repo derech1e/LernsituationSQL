@@ -29,6 +29,7 @@ CREATE TABLE Person (
     PersonID int NOT NULL PRIMARY KEY,
     Nachname varchar(255) NOT NULL,
     Vorname varchar(255) NOT NULL,
+    Alter int,
     Addresse varchar(255),
     Stadt varchar(255)
     );
@@ -70,7 +71,28 @@ DROP TABLE Person;
 INSERT, UPDATE, DELETE
 
 ### DQL
-SELECT, JOIN, GROUP BY, SELEKTION, PROJEKTION mit WHERE, (DURCHSCHNITT etc.)
+#### SELECT
+```sql 
+SELECT * FROM Person;
+```
+
+```sql 
+SELECT Vorname, Nachname FROM Person WHERE Vorname LIKE "T%s" AND WHERE Nachname LIKE "_r%";
+```
+
+```sql 
+SELECT Nachname, AVG(Alter) AS Durchschnittsalter WHERE Vorname = "Ben";  
+```
+
+```sql 
+SELECT Vorname, Nachname INTO PersonenNamen FROM Person WHERE PersonID > 10;
+```
+
+#### JOIN
+#### GROUP BY
+#### SELEKTION
+#### PROJEKTION mit WHERE
+#### DURCHSCHNITT
 
 ### DCL
 GRANT, DENY
