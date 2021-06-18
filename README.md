@@ -91,21 +91,68 @@ SELECT Vorname, Nachname INTO PersonenNamen FROM Person WHERE PersonID > 10;
 #### Join
 ##### Inner Join
 Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmenden Wert haben. 
+![Inner Join](https://www.w3schools.com/sql/img_innerjoin.gif)
+
 ```sql 
 SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person INNER JOIN Mitarbeiter
 ON Mitarbeiter.Name = Person.Nachname;
 ```
-##### Left Join
-Gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende Datensätze aus der "rechten Tabelle".
-##### Right Join
+##### Left [Outer] Join
+Gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende Datensätze aus der "rechten" Tabelle. 
+
+**Wichtig: Die Datensätze werden aus der linken Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit den Datensätzen aus der rechten Tabelle gibt.**
+![Left Join](https://www.w3schools.com/sql/img_leftjoin.gif)
+
+```sql 
+SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person LEFT JOIN Mitarbeiter
+ON Mitarbeiter.Name = Person.Nachname ORDER BY Mitarbeiter.Name;
+```
+
+Todo: Order by erklärung
+
+
+##### Right [Outer] Join
 Gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken " Tabelle.
-##### Full Join
-Gibt alle Datensätze zurück, wenn eine übereinstimmung in der linken oder der rechten Tabelle vorhanden ist.
-![Test123](https://www.w3schools.com/sql/img_innerjoin.gif)
-##### Full Outer Join
+
+**Wichtig: Die Datensätze werden aus der rechten Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit Datensätzen aus der linken Tabelle gibt.**
+
+![Right Join](https://www.w3schools.com/sql/img_rightjoin.gif)
+
+```sql 
+SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person RIGHT JOIN Mitarbeiter
+ON Mitarbeiter.Name = Person.Nachname;
+```
+
+##### Full [Outer] Join
+Gibt immer Datensätze zurück, unabhängig davon ob es eine übereinstimmung in der anderen Tabelle gibt oder nicht. Es können keine Datensätze verschwinden.
+![Full Outer Join](https://www.w3schools.com/sql/img_fulljoin.gif)
+
+```sql 
+SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person FULL JOIN Mitarbeiter
+ON Mitarbeiter.Name = Person.Nachname;
+```
+Todo: Where Bedingung?
+Natural Join
+Self Join
+(Lateral Join)
+Cross Join
+https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
+
 
 
 #### GROUP BY
+```sql 
+SELECT COUNT(Alter), Nachname FROM Person WHERE Alter >= 18 GROUP BY Nachname ORDER BY Nachname;
+```
+
+```sql 
+SELECT COUNT(Person.Alter), Mitarbeiter.Name, Person.Nachname FROM Person LEFT JOIN Mitarbeiter
+ON Mitarbeiter.Name = Person.Nachname GROUP BY Nachname ORDER BY COUNT(Alter) DESC;
+```
+
+
+
+
 #### SELEKTION
 #### PROJEKTION mit WHERE
 #### DURCHSCHNITT
