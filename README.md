@@ -1,8 +1,6 @@
-
-
 # Dokumentation Lernsituation SQL 
 
-Lernsituation für SQL der IGD19
+Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
 
 # Inhaltsverzeichnis
 - [Auftragsanalyse](#Auftragsanalyse)
@@ -16,7 +14,7 @@ Lernsituation für SQL der IGD19
 	- [DML](#DML)
 	- [DQL](#DQL)
 	- [DCL](#DCL)
-	- [Zusatz: Benutzer Hinzufügen](#Zusatz)
+- [Quellen](#Quellen)
 
 # Auftragsanalyse
 
@@ -24,10 +22,16 @@ Lernsituation für SQL der IGD19
 ## Louis
 - Schutzbedarfsanalyse
 ## Anton
-- Dokumentation schreiben
+- DML
+- DCL 
 ## Thomas
+- DDL
+- DQL
+- Auftragsanalyse
 
 # USER-STORIES
+Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standart-Query-Language im Bezug auf den Auftrag "Ferienhaus".
+
 ## DDL
 ### Create
 ```sql 
@@ -214,6 +218,5 @@ REVOKE DROP ANY TABLE FROM {username_it_mitarbeiter};
 Mit folgendem SQL Statement kann man Rechte eines Benutzers entfernen. Die Befehle `SELECT`, `UPDATE`, `INSERT`, `DELETE` und `REFERENCES` des normalen Mitarbeiter Chefs werden alle auf einmal entfernt. 
 ```sql
 REVOKE ALL ON Ferienhaus FROM {username_mitarbeiter_chef};
-
-# Zusatz
-Benutzer Hinzufügen
+```
+# Quellen
