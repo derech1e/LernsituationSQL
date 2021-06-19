@@ -1,4 +1,5 @@
 
+
 # Dokumentation Lernsituation SQL 
 
 Kurzbeschreibung
@@ -17,12 +18,18 @@ Kurzbeschreibung
 	- [DCL](#DCL)
 	- [Zusatz: Benutzer Hinzufügen](#Zusatz)
 
-# Arbeitsplanung
-> Aufgabenverteilung für die LS SQL
+# Auftragsanalyse
 
+# Arbeitsplanung
+## Louis
+- Schutzbedarfsanalyse
+## Anton
+- Dokumentation schreiben
 ## Thomas
-### DDL
-#### Create
+
+# USER-STORIES
+## DDL
+### Create
 ```sql 
 CREATE TABLE Person (
     PersonID int NOT NULL PRIMARY KEY,
@@ -56,17 +63,17 @@ ALTER TABLE Person ADD CONSTRAINT PK_Person PRIMARY KEY (PersonID, Nachname);
 ALTER TABLE Person DROP CONSTRAINT PK_Person;
 ```
 
-#### Drop
+### Drop
 ```sql
 DROP TABLE Person;
 ```
 
 
-### DML
+## DML
 INSERT, UPDATE, DELETE
 
-### DQL
-#### Select
+## DQL
+### Select
 ```sql
 SELECT * FROM Person;
 ```
@@ -83,8 +90,8 @@ SELECT Nachname, AVG(Alter) AS Durchschnittsalter WHERE Vorname = "Ben";
 SELECT Vorname, Nachname INTO PersonenNamen FROM Person WHERE PersonID > 10;
 ```
 
-#### Join
-##### Inner Join
+## Join
+### Inner Join
 Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmenden Wert haben. 
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/inner-schema.png" width="500" height="300" />
@@ -93,7 +100,7 @@ Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmend
 SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person INNER JOIN Mitarbeiter
 ON Mitarbeiter.Name = Person.Nachname;
 ```
-##### Left [Outer] Join
+### Left [Outer] Join
 Gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende Datensätze aus der "rechten" Tabelle. 
 
 **Wichtig: Die Datensätze werden aus der linken Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit den Datensätzen aus der rechten Tabelle gibt.**
@@ -108,7 +115,7 @@ ON Mitarbeiter.Name = Person.Nachname ORDER BY Mitarbeiter.Name;
 Todo: Order by Erklärung
 
 
-##### Right [Outer] Join
+### Right [Outer] Join
 Gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken " Tabelle.
 
 **Wichtig: Die Datensätze werden aus der rechten Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit Datensätzen aus der linken Tabelle gibt.**
@@ -121,7 +128,7 @@ SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person RIGHT JOIN
 ON Mitarbeiter.Name = Person.Nachname;
 ```
 
-##### Full [Outer] Join
+### Full [Outer] Join
 Gibt immer Datensätze zurück, unabhängig davon ob es eine Übereinstimmung in der anderen Tabelle gibt oder nicht. Es können keine Datensätze verschwinden.
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/all-joins.png" width="500" height="300" />
@@ -139,9 +146,10 @@ Cross Join
 https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
 https://stackedit.io
 
+> Verweis zu erweitertem Join Doc
 
 
-#### GROUP BY
+## GROUP BY
 ```sql 
 SELECT COUNT(Alter), Nachname FROM Person WHERE Alter >= 18 GROUP BY Nachname ORDER BY Nachname;
 ```
@@ -157,20 +165,13 @@ ON Mitarbeiter.Name = Person.Nachname GROUP BY Nachname ORDER BY COUNT(Alter) DE
 
 
 
-#### SELEKTION
-#### PROJEKTION mit WHERE
-#### DURCHSCHNITT
+## SELEKTION
+## PROJEKTION mit WHERE
+## DURCHSCHNITT
 
-### DCL
-GRANT, DENY
+# DCL
+## GRANT
+## DENY
 
 ### Zusatz
 Benutzer Hinzufügen
-
-**Erst anwendungsfall dann Überlegung**
-
-## Anton
-- Dokumentation schreiben
-
-## Louis
-- Analyse einer DB
