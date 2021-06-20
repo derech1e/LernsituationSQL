@@ -1,3 +1,4 @@
+
 # Dokumentation Lernsituation SQL 
 
 Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
@@ -15,6 +16,7 @@ Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zus
 	- [DQL](#DQL)
 	- [DCL](#DCL)
 - [Quellen](#Quellen)
+- [TODO](#TODO)
 
 # Auftragsanalyse
 
@@ -72,7 +74,6 @@ ALTER TABLE Person DROP CONSTRAINT PK_Person;
 DROP TABLE Person;
 ```
 
-
 ## DML
 Mit den DMLs (Data Modifying Language(s)) *(dt. Datenmanipulations-Sprache)* kann man Daten bearbeiten, löschen, erstellen und, oder auslesen.
 ### INSERT
@@ -81,10 +82,22 @@ Mit den DMLs (Data Modifying Language(s)) *(dt. Datenmanipulations-Sprache)* kan
 
 
 ## DQL
-### Select
+In einer Datenbank werden verschiedene Abfragen und Operationen über mehre Tabellen hinweg ausgeführt. Als Ergebnis wird immer eine Tabelle zurückgegeben.
+
+**D**ata **Q**uery **L**anguage, bedueted übersetzt so viel wie Datenbankabfragesprache. Diese ist ein Bestandteil von SQL und dient zum konkreten Abfragen von Datensätzen aus Tabellen. 
+
+## Selektion & Projektion
+### Projektion (=Auswahl von speziellen Spalten)
+Die Projektion wird in SQL der `SELECT`-Klauses ausgeführt. Diese Klausel kann verschiedene Eigenschaften enthalten. Diese repräsentieren die Spaltennamen der entsprechenden Tabelle. Werden keine Eigenschaften in der Klausel angegeben, wird dies automatisch durch einen `*` in SQL ersetzt. 
 ```sql
 SELECT * FROM Person;
 ```
+```sql
+SELECT Vorname, Nachname FROM Person;
+```
+
+### Selektion (=Auswahl von Zeilen nach Bedingungen)
+Die Selektion wird in SQL mit der sogenannten `WHERE`-Bedingungen hinter dem eigentlichem `SELECT` Statement realisiert. Die `WHERE` -Bedingung kann mehrere Prädikate enthalten. Zurückgegeben wird  eine Tabelle mit einer bestimmten Ergebnismenge, die diese(s) Prädikate erfüllen. 
 
 ```sql
 SELECT Vorname, Nachname FROM Person WHERE Vorname LIKE "T%s" AND WHERE Nachname LIKE "_r%";
@@ -119,9 +132,6 @@ Gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende 
 SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person LEFT JOIN Mitarbeiter
 ON Mitarbeiter.Name = Person.Nachname ORDER BY Mitarbeiter.Name;
 ```
-Todo: Order by Erklärung
-
-
 ### Right [Outer] Join
 Gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken " Tabelle.
 
@@ -145,16 +155,6 @@ Gibt immer Datensätze zurück, unabhängig davon ob es eine Übereinstimmung in
 SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person FULL JOIN Mitarbeiter
 ON Mitarbeiter.Name = Person.Nachname;
 ```
-Todo: Where Bedingung?
-Natural Join
-Self Join
-(Lateral Join)
-Cross Join
-https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
-https://stackedit.io
-
-> Verweis zu erweitertem Join Doc
-
 
 ## GROUP BY
 ```sql 
@@ -165,10 +165,6 @@ SELECT COUNT(Alter), Nachname FROM Person WHERE Alter >= 18 GROUP BY Nachname OR
 SELECT COUNT(Person.Alter), Mitarbeiter.Name, Person.Nachname FROM Person LEFT JOIN Mitarbeiter
 ON Mitarbeiter.Name = Person.Nachname GROUP BY Nachname ORDER BY COUNT(Alter) DESC;
 ```
-
-## SELEKTION
-## PROJEKTION mit WHERE
-## DURCHSCHNITT
 
 # DCL
 ## GRANT
@@ -220,3 +216,16 @@ Mit folgendem SQL Statement kann man Rechte eines Benutzers entfernen. Die Befeh
 REVOKE ALL ON Ferienhaus FROM {username_mitarbeiter_chef};
 ```
 # Quellen
+
+# TODO
+
+ - [ ] Where Bedingung?
+ - [ ] Natural Join
+ - [ ] Self Join
+ - [ ] (Lateral Join)
+ - [ ] Cross Join
+ - [ ] https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
+ - [ ] https://stackedit.io
+ - [ ] Verweis zu erweitertem Join Doc
+ - [ ] Order by Erklärung
+ - [ ] SQL erklärung
