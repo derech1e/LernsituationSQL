@@ -91,6 +91,7 @@ Das Kreuzprodukt, lieft als Resultat alle Kombinationsmöglichkeiten beider Tabe
 | 1          | person1 | 1       | 3       | München  |
 | 2          | person2 | 1       | 3       | München  |
 | 3          | person3 | 2       | 3       | München  |
+
 *Tabelle 3: Personen- und Ortstabelle im Kreuzprodukt*
 
 ## Natural Join
