@@ -158,6 +158,8 @@ SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person FULL JOIN 
 ON Mitarbeiter.Name = Person.Nachname;
 ```
 
+**Weitere Join-Varianten die für MS SQL Server gelten sind [hier](https://github.com/derech1e/LernsituationSQL/blob/vortrag_joins/README.md) zu finden.**
+
 ## GROUP BY
 ```sql 
 SELECT COUNT(Alter), Nachname FROM Person WHERE Alter >= 18 GROUP BY Nachname ORDER BY Nachname;
