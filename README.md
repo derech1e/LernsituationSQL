@@ -61,7 +61,6 @@ Das Kreuzprodukt, lieft als Resultat alle Kombinationsmöglichkeiten beider Tabe
 
 **Beispiel**
 <table>
-<tr><th>Tabelle 1: Personentabelle</th><th>Tabelle 2: Ortstabelle</th></tr>
 <tr><td>
 
 | ID| Name | Ort_ID |
@@ -69,7 +68,8 @@ Das Kreuzprodukt, lieft als Resultat alle Kombinationsmöglichkeiten beider Tabe
 | 1 | person1 | 1 |
 | 2 | person2 | 1 |
 | 3 | person3 | 2 |
-
+ 
+*Tabelle 1: Personentabelle*
 </td><td>
 
 | Ort_ID| Ortsname |
@@ -77,7 +77,8 @@ Das Kreuzprodukt, lieft als Resultat alle Kombinationsmöglichkeiten beider Tabe
 | 1 | Berlin |
 | 2 | Hamburg |
 | 3 | München |
-
+ 
+*Tabelle 2: Ortstabelle*
 </td></tr> </table>
 
 | Person\_ID | Name    | Ort\_ID | Ort\_ID | Ortsname |
