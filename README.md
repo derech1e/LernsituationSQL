@@ -5,11 +5,105 @@ Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zus
 
 # Inhaltsverzeichnis
 - [Join-Arten](#Join-Arten)
+	- [Cross Join](#Cross-Join)
+	- [Natural Join](#Natural-Join)
+	- [Inner Join](#Inner-Join)
+	- [Left Join](#Left-Join)
+	- [Right Join](#Right-Join)
+	- [Full Join](#Full-Join)
+	- [Self Join](#Self-Join)
 - [Quellen](#Quellen)
 - [TODO](#TODO)
 
 
 # Join-Arten
+## Cross Join
+Der Cross Join ist der "standard" Join, es wird aus alle Einträgen der beiden Tabellen das Kreuzprodukt gebildet. Das Ergebnis des Join wird ungefiltert zurückgegeben.
+
+Das Kreuzprodukt, lieft als Resultat alle Kombinationsmöglichkeiten beider Tabellen.
+
+**Beispiel**
+<table>
+<tr><td>
+
+| ID| Name | Ort_ID |
+|--|--|--|
+| 1 | person1 | 1 |
+| 2 | person2 | 1 |
+| 3 | person3 | 2 |
+
+*Tabelle 1: Personentabelle*
+</td><td>
+
+| Ort_ID| Ortsname |
+|--|--|
+| 1 | Berlin |
+| 2 | Hamburg |
+| 3 | München |
+
+*Tabelle 2: Ortstabelle*
+</td></tr> </table>
+
+| Person\_ID | Name    | Ort\_ID | Ort\_ID | Ortsname |
+| ---------- | ------- | ------- | ------- | -------- |
+| 1          | person1 | 1       | 1       | Berlin   |
+| 2          | person2 | 1       | 1       | Berlin   |
+| 3          | person3 | 2       | 1       | Berlin   |
+| 1          | person1 | 1       | 2       | Hamburg  |
+| 2          | person2 | 1       | 2       | Hamburg  |
+| 3          | person3 | 2       | 2       | Hamburg  |
+| 1          | person1 | 1       | 3       | München  |
+| 2          | person2 | 1       | 3       | München  |
+| 3          | person3 | 2       | 3       | München  |
+
+*Tabelle 3: Personen- und Ortstabelle im Kreuzprodukt*
+
+Quelle: https://wiki.byte-welt.net/wiki/Cross_Join_(SQL)
+
+## Natural Join
+Der Natural Join ist eine Erweiterung des [Cross Join](#Cross-Join), wobei die zurückgegebene Tabelle automatisch gefiltert wird.
+
+**Syntax**
+```sql 
+NATURAL JOIN
+```
+```sql
+SELECT * FROM tabelle1 NATURAL JOIN tabelle2;
+```
+Es wird nach einer gleichnamigen Spalte geschaut und entsprechend automatisch gefiltert. 
+
+Quelle: https://wiki.byte-welt.net/wiki/Natural_Join_(SQL)
+
+**Beispiel**
+<table>
+<tr><td>
+
+| ID| Name | Ort_ID |
+|--|--|--|
+| 1 | person1 | 1 |
+| 2 | person2 | 1 |
+| 3 | person3 | 2 |
+
+*Tabelle 1: Personentabelle*
+</td><td>
+
+| Ort_ID| Ortsname |
+|--|--|
+| 1 | Berlin |
+| 2 | Hamburg |
+| 3 | München |
+
+*Tabelle 2: Ortstabelle*
+</td></tr> </table>
+
+| Person\_ID | Name    | Ort\_ID | Ort\_ID | Ortsname |
+| ---------- | ------- | ------- | ------- | -------- |
+| 1          | person1 | 1       | 1       | Berlin   |
+| 2          | person2 | 1       | 1       | Berlin   |
+| 3          | person3 | 2       | 2       | Hamburg  |
+
+*Tabelle 3: Ergebnis des Joins*
+
 ## Inner Join
 Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmenden Wert haben. 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/inner-schema.png" width="500" height="300" />
@@ -54,63 +148,7 @@ SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person FULL JOIN 
 ON Mitarbeiter.Name = Person.Nachname;
 ```
 
-## Cross Join
-Der Cross Join ist der "standard" Join, es wird aus alle Einträgen der beiden Tabellen das Kreuzprodukt gebildet. Das Ergebnis des Join wird ungefiltert zurückgegeben.
-
-Das Kreuzprodukt, lieft als Resultat alle Kombinationsmöglichkeiten beider Tabellen.
-
-**Beispiel**
-<table>
-<tr><td>
-
-| ID| Name | Ort_ID |
-|--|--|--|
-| 1 | person1 | 1 |
-| 2 | person2 | 1 |
-| 3 | person3 | 2 |
- 
-*Tabelle 1: Personentabelle*
-</td><td>
-
-| Ort_ID| Ortsname |
-|--|--|
-| 1 | Berlin |
-| 2 | Hamburg |
-| 3 | München |
- 
-*Tabelle 2: Ortstabelle*
-</td></tr> </table>
-
-| Person\_ID | Name    | Ort\_ID | Ort\_ID | Ortsname |
-| ---------- | ------- | ------- | ------- | -------- |
-| 1          | person1 | 1       | 1       | Berlin   |
-| 2          | person2 | 1       | 1       | Berlin   |
-| 3          | person3 | 2       | 1       | Berlin   |
-| 1          | person1 | 1       | 2       | Hamburg  |
-| 2          | person2 | 1       | 2       | Hamburg  |
-| 3          | person3 | 2       | 2       | Hamburg  |
-| 1          | person1 | 1       | 3       | München  |
-| 2          | person2 | 1       | 3       | München  |
-| 3          | person3 | 2       | 3       | München  |
-
-*Tabelle 3: Personen- und Ortstabelle im Kreuzprodukt*
-
-## Natural Join
-Der Natural Join ist eine Erweiterung des [Cross Join](#Cross-Join), wobei die zurückgegebene Tabelle automatisch gefiltert wird.
-
-**Syntax**
-```sql 
-NATURAL JOIN
-```
-```sql
-SELECT * FROM tabelle1 NATURAL JOIN tabelle2;
-```
-Es wird nach einer gleichnamigen Spalte geschaut und entsprechend automatisch gefiltert. 
-https://wiki.byte-welt.net/wiki/Natural_Join_(SQL)
-
 ## Self Join
-
-
 
 # Quellen
 
