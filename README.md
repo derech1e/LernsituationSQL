@@ -9,7 +9,7 @@ Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zus
 	- [Thomas](#Thomas)
 	- [Anton](#Anton)
 	- [Louis](#Louis)
-- [SOLL-IST Auswertung](#SOLL-IST)
+- [SOLL-IST Auswertung](#SOLL-IST-Auswertung)
 - [USER-STORIES](#USER-STORIES)
 	- [DDL](#DDL)
 	- [DML](#DML)
@@ -30,6 +30,8 @@ Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zus
 - DDL
 - DQL
 - Auftragsanalyse
+
+# SOLL-IST Auswertung
 
 # USER-STORIES
 Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standart-Query-Language im Bezug auf den Auftrag "Ferienhaus".
