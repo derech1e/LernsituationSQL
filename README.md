@@ -216,15 +216,10 @@ Mit folgendem SQL Statement kann man Rechte eines Benutzers entfernen. Die Befeh
 REVOKE ALL ON Ferienhaus FROM {username_mitarbeiter_chef};
 ```
 # Quellen
+- https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
 
 # TODO
-
  - [ ] Where Bedingung?
- - [ ] Natural Join
- - [ ] Self Join
- - [ ] (Lateral Join)
- - [ ] Cross Join
- - [ ] https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
  - [ ] https://stackedit.io
  - [ ] Verweis zu erweitertem Join Doc
  - [ ] Order by Erklärung
