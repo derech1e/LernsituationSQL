@@ -1,4 +1,4 @@
-# Dokumentation Lernsituation SQL
+# Dokumentation Lernsituation SQL 
 Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
 
 # Inhaltsverzeichnis
@@ -7,7 +7,7 @@ Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zus
 	- [Thomas](#Thomas)
 	- [Anton](#Anton)
 	- [Louis](#Louis)
-- [SOLL-IST Auswertung](#SOLL-IST)
+- [SOLL-IST Auswertung](#SOLL-IST-Auswertung)
 - [USER-STORIES](#USER-STORIES)
 	- [DDL](#DDL)
 	- [DML](#DML)
@@ -28,6 +28,8 @@ Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zus
 - DDL
 - DQL
 - Auftragsanalyse
+
+# SOLL-IST Auswertung
 
 # USER-STORIES
 Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standart-Query-Language im Bezug auf den Auftrag "Ferienhaus".
@@ -58,7 +60,7 @@ CREATE TABLE Dresdener AS [EDGE] SELECT Adresse.Address_ID, Name FROM Kunde INNE
 // [EDGE] wird nur in T-SQL benötigt.
 ```
 #### Alter
-Das `ALTER` Statement wird in SQL benutzt um Spalten und [Constrains](https://glossar.hs-augsburg.de/SQL_Integrit%C3%A4tsregeln) zu modifizieren. Constrains sind Integritätsregeln die Fehler und unschlüssigkeiten bei der Erstellung von Tabellen verhindern sollten. Durch richtig festgelegte Regeln werden fehlehafte Datensätze gar nicht erst von der Datenbank angenommen.
+Das `ALTER` Statement wird in SQL benutzt um Spalten und [Constrains](https://glossar.hs-augsburg.de/SQL_Integrit%C3%A4tsregeln) zu modifizieren. Constrains sind Integritätsregeln die Fehler und unschlüssigkeiten bei der Erstellung von Tabellen verhindern sollten. Durch richtig festgelegte Regeln werden fehlehafte Datensätze gar nicht erst von der Datenbank angenommen. 
 
 
 Löschen einer Spalte
@@ -96,7 +98,7 @@ ALTER TABLE Person DROP CONSTRAINT PK_Person;
 ```
 
 ### Drop
-Das `DROP` Statement wird in SQL benutzt um Datenbanken und Tabellen zu Löschen.
+Das `DROP` Statement wird in SQL benutzt um Datenbanken und Tabellen zu Löschen. 
 
 **Syntax**
 ```sql
@@ -172,6 +174,20 @@ SELECT ... FROM ... [WHERE ...][GROUP BY ... HAVING ...][ORDER BY ...];
 SELECT [{ ALL | * } | DISTINCT] element [AS spaltenname]
 ```
 
+
+
+## Selektion & Projektion
+### Projektion (=Auswahl von speziellen Spalten)
+Die Projektion wird in SQL der `SELECT`-Klauses ausgeführt. Diese Klausel kann verschiedene Eigenschaften enthalten. Diese repräsentieren die Spaltennamen der entsprechenden Tabelle. Werden keine Eigenschaften in der Klausel angegeben, wird dies automatisch durch einen `*` in SQL ersetzt. 
+
+**Syntax**
+```sql
+SELECT ... FROM ... [WHERE ...][GROUP BY ... HAVING ...][ORDER BY ...];
+```
+
+```sql
+SELECT [{ ALL | * } | DISTINCT] element [AS spaltenname]
+```
 
 ```sql
 SELECT * FROM Person;
@@ -332,15 +348,10 @@ REVOKE ALL ON Mietvertrag FROM <username_mitarbeiter_chef>;
 ```
 
 # Quellen
+- https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
 
 # TODO
-
  - [ ] Where Bedingung?
- - [ ] Natural Join
- - [ ] Self Join
- - [ ] (Lateral Join)
- - [ ] Cross Join
- - [ ] https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
  - [ ] https://stackedit.io
  - [ ] Verweis zu erweitertem Join Doc
  - [ ] Order by Erklärung
