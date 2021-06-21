@@ -1,4 +1,5 @@
 
+
 # Dokumentation Lernsituation SQL 
 
 Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
@@ -38,21 +39,30 @@ Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standart-Query-L
 
 ## DDL
 ### Create
+Das `CREATE` Statement wird in SQL benutzt um eine neue Datenbank oder Tabelle zu erstellen.
+Für die Erzeugung einer Tabelle gibt es eine standardtisierte Anweisung aber jede Datenbank hat eigene Erweiterungen.
+**Syntax der Anweisung**
+```sql
+CREATE TABLE <name> (<column>[,...] <constraint>[,...]);
+```
+
+**Beispiele**
 ```sql 
-CREATE TABLE Person (
-    PersonID int NOT NULL PRIMARY KEY,
-    Nachname varchar(255) NOT NULL,
-    Vorname varchar(255) NOT NULL,
-    Alter int,
-    Addresse varchar(255),
-    Stadt varchar(255)
-    );
+CREATE TABLE Adresse (
+	Address_ID int IDENTITY(1,1) NOT NULL,
+	PLZ nvarchar(5) NULL DEFAULT (NULL),
+	Stadt nvarchar(50) NULL DEFAULT (NULL),
+	Bundesland nvarchar(50) NULL DEFAULT (NULL),
+	Strasse nvarchar(75) NULL DEFAULT (NULL),
+	Hausnummer nvarchar(5) NULL DEFAULT (NULL),
+	Zusatz nvarchar(50) NULL DEFAULT (NULL),
+	Herkunftsland_ID int NULL DEFAULT NULL);
 ```
 ```sql
-CREATE TABLE Mitarbeiter AS SELECT Nachname, Vorname FROM Person;
+CREATE TABLE Dresdener AS SELECT Adress_ID, Name FROM Kunde INNER JOIN Adresse;
 ```
 ```sql
-CREATE TABLE Mitarbeiter AS SELECT Nachname, Vorname FROM Person WHERE Stadt LIKE "%D%";
+CREATE TABLE Dresdener AS SELECT Adress_ID, Name FROM Kunde INNER JOIN Adresse WHERE Name LIKE "%D%";
 ```
 #### Alter
 ```sql
