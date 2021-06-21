@@ -20,6 +20,28 @@ Lernsituation für SQL der IGD19
 # Arbeitsplanung
 > Aufgabenverteilung für die LS SQL
 
+## TEMPLATE
+Mit den DMLs (**D**ata **M**odifying **L**anguage(s)) *(dt. Übersetzung-Sprache(n))* kann man Daten ... .
+
+**BEFEHLE**
+
+ - [Befehl](#Befehl)
+ - [Befehl](#Befehl)
+ - [Befehl](#Befehl)
+
+#### BEFEHL_NAME
+Mit dem `<BEFEHL>` kann man ... .
+
+**Syntax**
+```sql
+TEMPLATE SQL SATEMENT FOR SYNTAX
+```
+**Userstory(s)**
+```sql
+TEMPLATE SQL STATEMENT FOR USERSTORY
+```
+**Quellen und Extras**
+
 ## Thomas
 ### DDL
 CREATE, ALTER, DROP Anwendungsfälle
@@ -32,7 +54,7 @@ Mit den DMLs (**D**ata **M**odifying **L**anguage(s)) *(dt. Datenmanipulationssp
  - [DELETE](#DELETE)
 
 #### INSERT
-Mit dem `INSERT` *(dt. einfügen)* Befehl kann man sich im Allgemeinen Daten hinzufügen.
+Mit dem `INSERT` *(dt. einfügen)* Befehl kann man im Allgemeinen Daten hinzufügen.
 
 Das Beiwort `INTO` bei dem Befehl `INSERT INTO` ist rein optional und unternimmt keinerlei Änderungen an der Verarbeitung des Befehls. Beide Varianten sind sozusagen identisch. 
 
@@ -66,7 +88,7 @@ WHERE  <condition>;
 ```
 
 **Userstory(s)**
-Der Mitarbeiter hat einen Fehler gemacht, als er dem Ehepaar Zander den Mietvertrag aufgesetzt hat. Er hat vor Unterschrift des Vertrages jenen Vertrag schon in die Datenbank eingepflegt, somit muss er den Mietvertrag erneuert aufsetzten und den neuen Vertrag dem Ehepaar Zander zusenden. Der Mitarbeiter hat das falsche Haus für die Buchung ausgewählt. 
+Ein Mitarbeiter hat einen Fehler gemacht, als er dem Ehepaar Zander den Mietvertrag aufgesetzte. Er hat vor Unterschrift des Vertrages jenen Vertrag schon in die Datenbank eingepflegt, somit muss er den Mietvertrag erneuert aufsetzten und den neuen Vertrag dem Ehepaar Zander zusenden. Der Mitarbeiter hat das falsche Haus für die Buchung ausgewählt. 
 
 ```sql
 UPDATE Mietvertrag
@@ -86,29 +108,42 @@ Mit den DCLs (Data Control Language(s)) *(dt. Datenkontrollsprache)* kann man Be
 `GRANT` *(dt. gewähren )* gewährt Datenbankbenutzern bestimmte Rechte auf eine Tabelle. 
 
 **Syntax**
+```sql
+GRANT <privilegename> 
+ON <objectname>
+TO <username>
+[WITH GRANT OPTION];
+```
+
+**Userstory(s)**
 In dieser Userstory bekommt ein neuer Mitarbeiter definierte Rechte auf die Tabellen *"Ferienhaus"* und *"Mietvertrag"*, damit dieser das System benutzen kann. 
 Er kann sich somit mit einer SQL Session verbinden und in dieser über ein UI arbeiten. 
 
 Der Befehl `ALTER` gibt in diesem Beispiel de  Benutzer die Rechte, dass er auf der Datenbank unendlich viele Daten speichern kann.  [Siehe mehr](#Alter)
-Er erhällt aus Sicherheitsgründen keine [UPDATE](#UPDATE) Rechte. 
+
+Er erhält aus Sicherheitsgründen keine [DELETE](#DELETE) und [UPDATE](#UPDATE) Rechte. 
+Diese werden dann von IT-Mitarbeitern übernommen. 
 ```sql
 GRANT CREATE SESSION TO <username_mitarbeiter>;
 GRANT SELECT ON Ferienhaus TO <username_mitarbeiter>;
-GRANT DELETE ON Ferienhaus TO <username_mitarbeiter>;
+GRANT INSERT ON Ferienhaus TO <username_mitarbeiter>;
 GRANT SELECT ON Mietvertrag TO <username_mitarbeiter>;
-GRANT DELETE ON Mietvertrag TO <username_mitarbeiter>;
+GRANT INSERT ON Mietvertrag TO <username_mitarbeiter>;
+GRANT SELECT ON Maengelanzeige TO <username_mitarbeiter>;
+GRANT INSERT ON Maengelanzeige TO <username_mitarbeiter>;
 ALTER USER <username_mitarbeiter> QUOTA UNLIMITED ON SYSTEM;
 ```
-Mit dem folgendem SQL Statement kann man die Rechte auf die Befehle `SELECT`, `UPDATE`, `INSERT`, `DELETE` und `REFERENCES` ([DML](#DML) / [DQL](#DQL)) alle auf einmal für einen Benutzer auf eine Tabelle, in dem Fall *"Ferienhaus"*, "*Mietvertrag"* und *"Maengelanzeige",* übergeben. In diesem Beispiel bekommt der Chef der Mitarbeiter alle Rechte auf die Ferienhaus Datenbank. Somit spart man sich zeit. 
+Mit dem folgendem SQL Statement kann man die Rechte auf die Befehle `SELECT`, `UPDATE`, `INSERT`, `DELETE` und `REFERENCES` alle auf einmal für einen Benutzer auf eine Tabelle, in dem Fall *"Ferienhaus"*, "*Mietvertrag"* und *"Maengelanzeige",* übergeben. Somit spart man sich Zeit und Arbeit. 
 
 ```sql
+GRANT CREATE SESSION TO <username_mitarbeiter_chef>;
 GRANT ALL ON Ferienhaus TO <username_mitarbeiter_chef>;
 GRANT ALL ON Mietvertrag TO <username_mitarbeiter_chef>;
 GRANT ALL ON Maengelanzeige TO <username_mitarbeiter_chef>;
 ```
 
 *Ein weiteres Beispiel:*
-Ein neuer IT-Mitarbeiter wird eingestellt, welcher einzelne Tabellen erstellen und löschen muss. Dazu erhält dieser auch alle Rechte auf die "Ferienhaus" Datenbank, damit dieser bestimmte Datensätze auch ändern kann.
+Ein neuer IT-Mitarbeiter wird eingestellt, welcher einzelne Tabellen erstellen und löschen muss. Dazu erhält dieser auch alle Rechte auf die *"Ferienhaus"* Tabelle, damit dieser bestimmte Datensätze auch ändern kann.
 
 ```sql
 GRANT CREATE ANY TABLE TO <username_it_mitarbeiter>; 
@@ -121,7 +156,7 @@ Der Befehl `Revoke` *(dt. widerrufen)* widerruft eine Berechtigung von einem Ben
 
 **Syntax**
 ```sql
-REVOKE <privilegename> ON <object_name> FROM <username>
+REVOKE <privilegename> ON <objectname> FROM <username>
 ```
 **Userstory(s)**
 Ein Mitarbeiter verlässt die Firma. Somit müssen auch seine Zugriffsrechte, aus Datensicherheitsgründen, weggenommen werden.
