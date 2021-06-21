@@ -1,7 +1,7 @@
 
 # Dokumentation Lernsituation SQL 
 
-Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
+Lernsituation für SQL der IGD19
 
 # Inhaltsverzeichnis
 - [Auftragsanalyse](#Auftragsanalyse)
@@ -15,159 +15,49 @@ Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zus
 	- [DML](#DML)
 	- [DQL](#DQL)
 	- [DCL](#DCL)
-- [Quellen](#Quellen)
-- [TODO](#TODO)
-
-# Auftragsanalyse
+	- [Zusatz: Benutzer Hinzufügen](#Zusatz)
 
 # Arbeitsplanung
-## Louis
-- Schutzbedarfsanalyse
-## Anton
-- DML
-- DCL 
+> Aufgabenverteilung für die LS SQL
+
 ## Thomas
-- DDL
-- DQL
-- Auftragsanalyse
+### DDL
+CREATE, ALTER, DROP Anwendungsfälle
 
-# USER-STORIES
-Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standart-Query-Language im Bezug auf den Auftrag "Ferienhaus".
+### DML
+Mit den DMLs (**D**ata **M**odifying **L**anguage(s)) *(dt. Datenmanipulationssprache)* kann man Daten bearbeiten, löschen, erstellen und, oder auslesen.
 
-## DDL
-### Create
-```sql 
-CREATE TABLE Person (
-    PersonID int NOT NULL PRIMARY KEY,
-    Nachname varchar(255) NOT NULL,
-    Vorname varchar(255) NOT NULL,
-    Alter int,
-    Addresse varchar(255),
-    Stadt varchar(255)
-    );
-```
+#### INSERT
+Mit dem `INSERT` *(dt. einfügen)* Befehl kann man sich im Allgemeinen Daten hinzufügen.
+
+Das Beiwort `INTO` bei dem Befehl `INSERT INTO` ist rein optional und unternimmt keinerlei Änderungen an der Verarbeitung des Befehls. Beide Varianten sind sozusagen identisch. 
+
+**Syntax**
 ```sql
-CREATE TABLE Mitarbeiter AS SELECT Nachname, Vorname FROM Person;
-```
-```sql
-CREATE TABLE Mitarbeiter AS SELECT Nachname, Vorname FROM Person WHERE Stadt LIKE "%D%";
-```
-#### Alter
-```sql
-ALTER TABLE Person ADD Email varchar(255);
-```
-```sql
-ALTER TABLE Person DROP COLUMN Email;
-```
-```sql
-ALTER TABLE Person MODIFY COLUMN Email varchar(100);
-```
-```sql
-ALTER TABLE Person ADD CONSTRAINT PK_Person PRIMARY KEY (PersonID, Nachname);
-```
-```sql
-ALTER TABLE Person DROP CONSTRAINT PK_Person;
+INSERT INTO <Tabelle> ()
 ```
 
-### Drop
-```sql
-DROP TABLE Person;
-```
-
-## DML
-Mit den DMLs (Data Modifying Language(s)) *(dt. Datenmanipulations-Sprache)* kann man Daten bearbeiten, löschen, erstellen und, oder auslesen.
-### INSERT
-### UPDATE
-### DELETE
-
-
-## DQL
-In einer Datenbank werden verschiedene Abfragen und Operationen über mehre Tabellen hinweg ausgeführt. Als Ergebnis wird immer eine Tabelle zurückgegeben.
-
-**D**ata **Q**uery **L**anguage, bedueted übersetzt so viel wie Datenbankabfragesprache. Diese ist ein Bestandteil von SQL und dient zum konkreten Abfragen von Datensätzen aus Tabellen. 
-
-## Selektion & Projektion
-### Projektion (=Auswahl von speziellen Spalten)
-Die Projektion wird in SQL der `SELECT`-Klauses ausgeführt. Diese Klausel kann verschiedene Eigenschaften enthalten. Diese repräsentieren die Spaltennamen der entsprechenden Tabelle. Werden keine Eigenschaften in der Klausel angegeben, wird dies automatisch durch einen `*` in SQL ersetzt. 
-```sql
-SELECT * FROM Person;
-```
-```sql
-SELECT Vorname, Nachname FROM Person;
-```
-
-### Selektion (=Auswahl von Zeilen nach Bedingungen)
-Die Selektion wird in SQL mit der sogenannten `WHERE`-Bedingungen hinter dem eigentlichem `SELECT` Statement realisiert. Die `WHERE` -Bedingung kann mehrere Prädikate enthalten. Zurückgegeben wird  eine Tabelle mit einer bestimmten Ergebnismenge, die diese(s) Prädikate erfüllen. 
+**Userstroys**
+In dieser Userstory möchte ein Mitarbeiter einen neuen Mietvertrag der Tabelle "Mietvertrag" einen Neuen Mietvertrag in die Datenbank über eine UI hinzufügen. Dieser Mietvertrag wird von einem Kunden (Ehepaar Zander) angefordert. Der Kunde hat vorher noch keinen Mietvertrag aufgesetzt und ist somit ein neuer Kunde und muss in das System eingepflegt werden. 
 
 ```sql
-SELECT Vorname, Nachname FROM Person WHERE Vorname LIKE "T%s" AND WHERE Nachname LIKE "_r%";
+/** Kunde anlegen: Ehepaar Zander **/
+INSERT INTO Kunde (Kunde_ID, Address_ID, Name)
+VALUES (5, 12, 'Ehepaar Zander')
+
+/** Mietvertrag anlegen **/
+INSERT INTO Mietvertrag (Mietvertrag_ID, Ferienhaus_ID, Kunde_ID, Beginn, Ende) 
+VALUES (1, 2, 5, CONVERT('2007-08-29'  AS  Date), CONVERT('2007-09-19'  AS  Date))
 ```
 
-```sql
-SELECT Nachname, AVG(Alter) AS Durchschnittsalter WHERE Vorname = "Ben";  
-```
+### DQL
+SELECT, JOIN, GROUP BY, SELEKTION, PROJEKTION mit WHERE, (DURCHSCHNITT etc.)
 
-```sql
-SELECT Vorname, Nachname INTO PersonenNamen FROM Person WHERE PersonID > 10;
-```
-
-## Join
-### Inner Join
-Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmenden Wert haben. 
-<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/inner-schema.png" width="500" height="300" />
-
-```sql
-SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person INNER JOIN Mitarbeiter
-ON Mitarbeiter.Name = Person.Nachname;
-```
-### Left [Outer] Join
-Gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende Datensätze aus der "rechten" Tabelle. 
-
-**Wichtig: Die Datensätze werden aus der linken Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit den Datensätzen aus der rechten Tabelle gibt.**
-
-<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/left-outer-schema.png" width="500" height="300" />
+### DCL
+Mit den DCLs (Data Control Language(s)) *(dt. Datenkontrollsprache)* kann man Berechtigungen verteilen und entziehen.
 
 
-```sql
-SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person LEFT JOIN Mitarbeiter
-ON Mitarbeiter.Name = Person.Nachname ORDER BY Mitarbeiter.Name;
-```
-### Right [Outer] Join
-Gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken " Tabelle.
-
-**Wichtig: Die Datensätze werden aus der rechten Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit Datensätzen aus der linken Tabelle gibt.**
-
-<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/right-outer-schema.png" width="500" height="300" />
-
-
-```sql 
-SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person RIGHT JOIN Mitarbeiter
-ON Mitarbeiter.Name = Person.Nachname;
-```
-
-### Full [Outer] Join
-Gibt immer Datensätze zurück, unabhängig davon ob es eine Übereinstimmung in der anderen Tabelle gibt oder nicht. Es können keine Datensätze verschwinden.
-
-<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/all-joins.png" width="500" height="300" />
-
-
-```sql 
-SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person FULL JOIN Mitarbeiter
-ON Mitarbeiter.Name = Person.Nachname;
-```
-
-## GROUP BY
-```sql 
-SELECT COUNT(Alter), Nachname FROM Person WHERE Alter >= 18 GROUP BY Nachname ORDER BY Nachname;
-```
-
-```sql 
-SELECT COUNT(Person.Alter), Mitarbeiter.Name, Person.Nachname FROM Person LEFT JOIN Mitarbeiter
-ON Mitarbeiter.Name = Person.Nachname GROUP BY Nachname ORDER BY COUNT(Alter) DESC;
-```
-
-# DCL
-## GRANT
+#### GRANT
 `GRANT` *(dt. gewähren )* gibt Datenbankbenutzern bestimmte Rechte auf eine Datenbank. 
 
 In dieser Userstory bekommt ein neuer Mitarbeiter Rechte auf die Datenbank, damit dieser das System benutzen kann. Er kann sich somit mit einer SQL Session verbinden und in dieser arbeiten. 
@@ -175,27 +65,27 @@ In dieser Userstory bekommt ein neuer Mitarbeiter Rechte auf die Datenbank, dami
 Der Befehl `ALTER` gibt in diesem Beispiel de  Benutzer die Rechte, dass er auf der Datenbank unendlich viele Daten speichern kann.  [Siehe mehr](#Alter)
 
 ```sql
-GRANT CREATE SESSION TO {username_mitarbeiter};
-GRANT SELECT ON Ferienhaus TO {username_mitarbeiter};
-GRANT DELETE ON Ferienhaus TO {username_mitarbeiter};
-GRANT UPDATE ON Ferienhaus TO {username_mitarbeiter};
-ALTER USER {username_mitarbeiter} QUOTA UNLIMITED ON SYSTEM;
+GRANT CREATE SESSION TO <username_mitarbeiter>;
+GRANT SELECT ON Ferienhaus TO <username_mitarbeiter>;
+GRANT DELETE ON Ferienhaus TO <username_mitarbeiter>;
+GRANT UPDATE ON Ferienhaus TO <username_mitarbeiter>;
+ALTER USER <username_mitarbeiter> QUOTA UNLIMITED ON SYSTEM;
 ```
 Mit dem folgendem SQL Statement kann man die Rechte auf die Befehle `SELECT`, `UPDATE`, `INSERT`, `DELETE` und `REFERENCES` alle auf einmal für einen Benutzer auf eine Datenbank übergeben. Wichtig hierbei ist die Angabe der Datenbank, in dem Fall "Ferienhaus". In diesem Beispiel bekommt der Chef der Mitarbeiter alle Rechte auf die Ferienhaus Datenbank. Somit spart man sich zeit. 
 ```sql
-GRANT ALL ON Ferienhaus TO {username_mitarbeiter_chef};
+GRANT ALL ON Ferienhaus TO <username_mitarbeiter_chef>;
 ```
 
 *Ein weiteres Beispiel:*
 Ein neuer IT-Mitarbeiter wird eingestellt, welcher einzelne Tabellen erstellen und löschen muss. Dazu erhällt dieser auch alle Rechte auf die "Ferienhaus" Datenbank, damit dieser bestimmte Datensätze auch ändern kann. 
 
 ```sql
-GRANT CREATE ANY TABLE TO {username_it_mitarbeiter}; 
-GRANT DROP ANY TABLE TO {username_it_mitarbeiter};
-GRANT ALL ON Ferienhaus TO {username_it_mitarbeiter};
+GRANT CREATE ANY TABLE TO <username_it_mitarbeiter>; 
+GRANT DROP ANY TABLE TO <username_it_mitarbeiter>;
+GRANT ALL ON Ferienhaus TO <username_it_mitarbeiter>;
 ```
 
-## REVOKE
+#### REVOKE
 
 Ein Mitarbeiter verlässt die Firma. Somit müssen auch seine Rechte, aus Datensicherheitsgründen, weggenommen werden. Dies ist mit dem Befehl `Revoke` *(dt. widerrufen)* möglich. 
 
@@ -215,17 +105,15 @@ Mit folgendem SQL Statement kann man Rechte eines Benutzers entfernen. Die Befeh
 ```sql
 REVOKE ALL ON Ferienhaus FROM {username_mitarbeiter_chef};
 ```
-# Quellen
 
-# TODO
+### Zusatz
+Benutzer Hinzufügen
 
- - [ ] Where Bedingung?
- - [ ] Natural Join
- - [ ] Self Join
- - [ ] (Lateral Join)
- - [ ] Cross Join
- - [ ] https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
- - [ ] https://stackedit.io
- - [ ] Verweis zu erweitertem Join Doc
- - [ ] Order by Erklärung
- - [ ] SQL erklärung
+**Erst Anwendungsfall dann Überlegung**
+
+## Anton
+- Arbeitsplanung
+- Dokumentation schreiben
+
+## Louis
+- Analyse einer DB
