@@ -20,7 +20,7 @@ Mit dem `<BEFEHL>` kann man ... .
 ```sql
 TEMPLATE SQL SATEMENT FOR SYNTAX
 ```
-**Userstory(s)**
+**User-Storys**
 ```sql
 TEMPLATE SQL STATEMENT FOR USERSTORY
 ```
