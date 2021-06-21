@@ -10,6 +10,12 @@ Mit der **D**ata **M**odifying **L**anguage *(dt. Datenmanipulationssprache)* ka
 #### BEFEHL_NAME
 Mit dem `<BEFEHL>` kann man ... .
 
+<xyz> = Parameter
+(xyz) = Mehre optionen die selbst optional sind
+Beispiel = (<xyz>[,...], <zyx>[,...])
+[xyz] = Optional
+[xyz | xyz] = Optionen im Optionalen
+
 **Syntax des Statements**
 ```sql
 TEMPLATE SQL SATEMENT FOR SYNTAX
