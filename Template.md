@@ -1,20 +1,13 @@
 ## TEMPLATE
 Mit der **D**ata **M**odifying **L**anguage *(dt. Datenmanipulationssprache)* kann man Daten bearbeiten, löschen, erstellen und auslesen. ...
 
-**Befehle**
-
+**Befehlsübersicht**
 - [Befehl](#Befehl)
 - [Befehl](#Befehl)
 - [Befehl](#Befehl)
 
-#### BEFEHL_NAME
-Mit dem `<BEFEHL>` kann man ... .
-
-- <xyz> = Parameter
-- (xyz) = Mehre optionen die selbst optional sind
-- Beispiel = (<xyz>[,...], <zyx>[,...])
-- [xyz] = Optional
-- [xyz | xyz] = Optionen im Optionalen
+### Statementname
+Mit dem `<Statement>` kann man ... .
 
 **Syntax des Statements**
 ```sql
