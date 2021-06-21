@@ -59,12 +59,31 @@ CREATE TABLE Adresse (
 	Herkunftsland_ID int NULL DEFAULT NULL);
 ```
 ```sql
-CREATE TABLE Dresdener AS SELECT Adress_ID, Name FROM Kunde INNER JOIN Adresse;
-```
-```sql
-CREATE TABLE Dresdener AS SELECT Adress_ID, Name FROM Kunde INNER JOIN Adresse WHERE Name LIKE "%D%";
+CREATE TABLE Dresdener AS [EDGE] SELECT Adresse.Address_ID, Name FROM Kunde INNER JOIN Adresse ON Adresse.Address_ID = Kunde.Address_ID WHERE Adresse.Stadt LIKE 'Dresden';
+// [EDGE] wird nur in T-SQL benötigt.
 ```
 #### Alter
+Das `ALTER` Statement wird in SQL benutzt um Spalten und [Constrains](https://glossar.hs-augsburg.de/SQL_Integrit%C3%A4tsregeln) zu modifizieren. Constrains sind Integritätsregeln die Fehler und unschlüssigkeiten bei der Erstellung von Tabellen verhindern sollten. Durch richtig festgelegte Regeln werden fehlehafte Datensätze gar nicht erst von der Datenbank angenommen. 
+
+
+Löschen einer Spalte
+```sql
+ALTER TABLE <table> DROP [COLUMN] <columnname> {RESTRICT | CASCADE}
+```
+Hinzufügen einer Spalte
+```sql
+ALTER TABLE <table> ADD [COLUMN] <columnname> <datatype> [[NOT]NULL] [DEFAULT <value>] [PRIMARY KEY] [REFERENCES <table> (<column>)]
+```
+
+Ändern einer Spalte
+```sql
+ALTER TABLE <table> ALTER [COLUMN] <columnname> SET DEFAULT  <defaultvalue> -- Setzen des Default-Werts
+ALTER TABLE <table> ALTER [COLUMN] <columnname> DROP DEFAULT -- Löschen des Default-Werts
+ALTER TABLE <table> ALTER [COLUMN] <columnname> ADD SCOPE <table> -- Hinzufügen einer Referenz auf einen Datentypen
+ALTER TABLE <table> ALTER [COLUMN] <columnname> DROP SCOPE {RESTRICT | CASCADE} -- Löschen einer Referenz
+```
+
+Beispiele
 ```sql
 ALTER TABLE Person ADD Email varchar(255);
 ```
@@ -82,8 +101,11 @@ ALTER TABLE Person DROP CONSTRAINT PK_Person;
 ```
 
 ### Drop
+Das `DROP` Statement wird in SQL benutzt um Datenbanken und Tabellen zu Löschen. 
+
+**Syntax**
 ```sql
-DROP TABLE Person;
+DROP { TABLE | DATABASE } <name>;
 ```
 
 ## DML
@@ -101,6 +123,17 @@ In einer Datenbank werden verschiedene Abfragen und Operationen über mehre Tabe
 ## Selektion & Projektion
 ### Projektion (=Auswahl von speziellen Spalten)
 Die Projektion wird in SQL der `SELECT`-Klauses ausgeführt. Diese Klausel kann verschiedene Eigenschaften enthalten. Diese repräsentieren die Spaltennamen der entsprechenden Tabelle. Werden keine Eigenschaften in der Klausel angegeben, wird dies automatisch durch einen `*` in SQL ersetzt. 
+
+**Syntax**
+```sql
+SELECT ... FROM ... [WHERE ...][GROUP BY ... HAVING ...][ORDER BY ...];
+```
+
+```sql
+SELECT [{ ALL | * } | DISTINCT] element [AS spaltenname]
+```
+
+
 ```sql
 SELECT * FROM Person;
 ```
