@@ -197,7 +197,7 @@ In einer Datenbank werden verschiedene Abfragen und Operationen über mehre Tabe
 
 **Befehlsübersicht**
 - [Projektion](#Projektion)
-- [Selektion ](#Selektion )
+- [Selektion ](#Selektion)
 - [Join](#Join)
 - [Group By](#Group-By)
 
@@ -261,6 +261,7 @@ SELECT Adresse.Address_ID, Name FROM Kunde INNER JOIN Adresse ON Adresse.Address
 ### Join
 #### Inner Join
 Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmenden Wert haben.
+
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/inner-schema.png" width="500" height="300" />
 
 ```sql
@@ -305,38 +306,47 @@ ON Mitarbeiter.Name = Person.Nachname;
 
 **Weitere Join-Varianten die für MS SQL Server gelten sind [hier](https://github.com/derech1e/LernsituationSQL/blob/vortrag_joins/README.md) zu finden.**
 
-### GROUP BY
-```sql 
-SELECT COUNT(Alter), Nachname FROM Person WHERE Alter >= 18 GROUP BY Nachname ORDER BY Nachname;
+### Group By
+Durch das `GROUP BY` ist es einem möglich, mehrere Datensätze anhand von gleichen Werten zu gruppieren. 
+
+**Syntax des Statements**
+```sql
+SELECT ... FROM ... [WHERE ...] GROUP BY <columnname> [ORDER BY ...]
+```
+
+**User-Storys**
+```sql
+-- Gruppiert alle Schlafzimmer von Ferienhäuser die nicht am 01.04.2008 eigestellt wurden und Sortiert der Anzahl nach aufsteigend 
+SELECT COUNT(Anzahl_Schlafzimmer), Name FROM Ferienhaus WHERE Einstell_dat != CAST('2008-04-01' AS Date) GROUP BY Name ORDER BY Anzahl_Schlafzimmer ASC;
 ```
 
 ```sql 
-SELECT COUNT(Person.Alter), Mitarbeiter.Name, Person.Nachname FROM Person LEFT JOIN Mitarbeiter
-ON Mitarbeiter.Name = Person.Nachname GROUP BY Nachname ORDER BY COUNT(Alter) DESC;
+-- Gruppiert alle Schlafzimmer von Ferienhäuser die nicht am 01.04.2008 eigestellt wurden, dem Eigenümer mit der ID 2 gehöhren und Sortiert diese der Schlafzimmeranzahl nach aufsteigend 
+SELECT COUNT(fer.Anzahl_Schlafzimmer), fer.Name, eig.Name FROM Ferienhaus fer RIGHT JOIN Eigentuemer eig ON eig.Eigentuemer_ID = 2 WHERE Einstell_dat != CAST('2008-04-01' AS Date) GROUP BY Name ORDER BY Anzahl_Schlafzimmer ASC;
 ```
 
 ## DCL
-Mit den DCLs (Data Control Language(s)) *(dt. Datenkontrollsprache)* kann man Berechtigungen verteilen und entziehen.
+Mit der **D**ata **C**ontrol **L**anguage *(dt. Datenkontrollsprache)* werden  Berechtigungen verteilt und entzogen. Die Sprache ist mit einem Berichtigungssystem vergleichbar.
 
+**Befehlsübersicht**
+- [Grant](#Grant)
+- [Revoke](#Revoke)
 
-### GRANT
-`GRANT` *(dt. gewähren )* gewährt Datenbankbenutzern bestimmte Rechte auf eine Tabelle.
+### Grant
+Über das `GRANT` Statement ist es möglich, Datenbankbenutzern bestimmte Rechte auf verschiedene Tabelle zu gewähren.
 
-**Syntax**
+**Syntax des Statements**
 ```sql
-GRANT <privilegename> 
-ON <objectname>
-TO <username>
-[WITH GRANT OPTION];
+GRANT <privilegename> ON <objectname> TO <username> [WITH GRANT OPTION];
 ```
 
-**Userstory(s)**
+**User-Storys**
 In dieser Userstory bekommt ein neuer Mitarbeiter definierte Rechte auf die Tabellen *"Ferienhaus"* und *"Mietvertrag"*, damit dieser das System benutzen kann.
 Er kann sich somit mit einer SQL Session verbinden und in dieser über ein UI arbeiten.
 
-Der Befehl `ALTER` gibt in diesem Beispiel de  Benutzer die Rechte, dass er auf der Datenbank unendlich viele Daten speichern kann.  [Siehe mehr](#Alter)
+Das `ALTER` Statement ermöglicht es dem Benutzer das Recht,  auf der Datenbank in eine Tabelle Strukturell zu modifizieren. Mehr Informationen zum Statement, sind [hier](#Alter) zu finden.
 
-Er erhält aus Sicherheitsgründen keine [DELETE](#DELETE) und [UPDATE](#UPDATE) Rechte.
+Er erhält aus Sicherheitsgründen keine [Delete](#Delete) und [Update](#Update) Rechte.
 Diese werden dann von IT-Mitarbeitern übernommen.
 ```sql
 GRANT CREATE SESSION TO <username_mitarbeiter>;
@@ -348,7 +358,7 @@ GRANT SELECT ON Maengelanzeige TO <username_mitarbeiter>;
 GRANT INSERT ON Maengelanzeige TO <username_mitarbeiter>;
 ALTER USER <username_mitarbeiter> QUOTA UNLIMITED ON SYSTEM;
 ```
-Mit dem folgendem SQL Statement kann man die Rechte auf die Befehle `SELECT`, `UPDATE`, `INSERT`, `DELETE` und `REFERENCES` alle auf einmal für einen Benutzer auf eine Tabelle, in dem Fall *"Ferienhaus"*, "*Mietvertrag"* und *"Maengelanzeige",* übergeben. Somit spart man sich Zeit und Arbeit.
+Mit dem folgendem SQL Statement ist es einem möglich die Rechte: `SELECT`, `UPDATE`, `INSERT`, `DELETE` und `REFERENCES`(siehe [DML](#DML) / [DQL](#DQL)) gleichzeitig für einen Benutzer in einer Tabelle, in dem Fall *"Ferienhaus"*, "*Mietvertrag"* und *"Maengelanzeige",* anzuwenden. Somit spart man sich Zeit und Arbeit.
 
 ```sql
 GRANT CREATE SESSION TO <username_mitarbeiter_chef>;
@@ -366,14 +376,14 @@ GRANT DROP ANY TABLE TO <username_it_mitarbeiter>;
 GRANT ALL ON Ferienhaus TO <username_it_mitarbeiter>;
 ```
 
-### REVOKE
-Der Befehl `Revoke` *(dt. widerrufen)* widerruft eine Berechtigung von einem Benutzer / Rolle.
+### Revoke
+Im `Revoke`-Statement ist es möglich Berechtigungen von Benutzern und Rollen zu wiederrufen.
 
-**Syntax**
+**Syntax des Statements**
 ```sql
 REVOKE <privilegename> ON <objectname> FROM <username>
 ```
-**Userstory(s)**
+**User-Storys**
 Ein Mitarbeiter verlässt die Firma. Somit müssen auch seine Zugriffsrechte, aus Datensicherheitsgründen, weggenommen werden.
 
 ```sql
@@ -387,7 +397,7 @@ REVOKE CREATE ANY TABLE FROM <username_it_mitarbeiter>;
 REVOKE DROP ANY TABLE FROM <username_it_mitarbeiter>;
 ```
 
-Die Befehle `SELECT`, `UPDATE`, `INSERT`, `DELETE` und `REFERENCES` ([DML](#DML) / [DQL](#DQL)) des Mitarbeiter Chefs werden alle auf einmal entfernt, sowie die Zugriffsrechte auf die Datenbank
+Die Befehle `SELECT`, `UPDATE`, `INSERT`, `DELETE` und `REFERENCES` (siehe [DML](#DML) / [DQL](#DQL)) des Mitarbeiter Chefs werden alle auf einmal entfernt, sowie die Zugriffsrechte auf die Datenbank.
 ```sql
 REVOKE CREATE SESSION FROM <username_mitarbeiter_chef>;
 REVOKE ALL ON Ferienhaus FROM <username_mitarbeiter_chef>;
@@ -396,11 +406,4 @@ REVOKE ALL ON Mietvertrag FROM <username_mitarbeiter_chef>;
 
 # Quellen
 - https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
-
-# TODO
- - [ ] Where Bedingung?
- - [ ] https://stackedit.io
- - [ ] Verweis zu erweitertem Join Doc
- - [ ] Order by Erklärung
- - [ ] SQL erklärung
- - [ ] Korrektur lesen
+- https://stackedit.io
