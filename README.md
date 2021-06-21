@@ -1,7 +1,7 @@
 
 # Dokumentation Lernsituation SQL 
 
-Lernsituation für SQL der IGD19
+Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
 
 # Inhaltsverzeichnis
 - [Auftragsanalyse](#Auftragsanalyse)
@@ -15,50 +15,68 @@ Lernsituation für SQL der IGD19
 	- [DML](#DML)
 	- [DQL](#DQL)
 	- [DCL](#DCL)
-	- [Zusatz: Benutzer Hinzufügen](#Zusatz)
+- [Quellen](#Quellen)
+- [TODO](#TODO)
+
+# Auftragsanalyse
 
 # Arbeitsplanung
-> Aufgabenverteilung für die LS SQL
-
-## TEMPLATE
-Mit den DMLs (**D**ata **M**odifying **L**anguage(s)) *(dt. Übersetzung-Sprache(n))* kann man Daten ... .
-
-**BEFEHLE**
-
- - [Befehl](#Befehl)
- - [Befehl](#Befehl)
- - [Befehl](#Befehl)
-
-#### BEFEHL_NAME
-Mit dem `<BEFEHL>` kann man ... .
-
-**Syntax**
-```sql
-TEMPLATE SQL SATEMENT FOR SYNTAX
-```
-**Userstory(s)**
-```sql
-TEMPLATE SQL STATEMENT FOR USERSTORY
-```
-**Quellen und Extras**
-
+## Louis
+- Schutzbedarfsanalyse
+## Anton
+- DML
+- DCL
 ## Thomas
-### DDL
-CREATE, ALTER, DROP Anwendungsfälle
+- DDL
+- DQL
+- Auftragsanalyse
+
+# USER-STORIES
+Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standart-Query-Language im Bezug auf den Auftrag "Ferienhaus".
+
+## DDL
+### Create
+```sql 
+CREATE TABLE Person (
+    PersonID int NOT NULL PRIMARY KEY,
+    Nachname varchar(255) NOT NULL,
+    Vorname varchar(255) NOT NULL,
+    Alter int,
+    Addresse varchar(255),
+    Stadt varchar(255)
+    );
+```
+```sql
+CREATE TABLE Mitarbeiter AS SELECT Nachname, Vorname FROM Person;
+```
+```sql
+CREATE TABLE Mitarbeiter AS SELECT Nachname, Vorname FROM Person WHERE Stadt LIKE "%D%";
+```
+#### Alter
+```sql
+ALTER TABLE Person ADD Email varchar(255);
+```
+```sql
+ALTER TABLE Person DROP COLUMN Email;
+```
+```sql
+ALTER TABLE Person MODIFY COLUMN Email varchar(100);
+```
+```sql
+ALTER TABLE Person ADD CONSTRAINT PK_Person PRIMARY KEY (PersonID, Nachname);
+```
+```sql
+ALTER TABLE Person DROP CONSTRAINT PK_Person;
+```
+
+### Drop
+```sql
+DROP TABLE Person;
+```
 
 ### DML
+
 Mit den DMLs (**D**ata **M**odifying **L**anguage(s)) *(dt. Datenmanipulationssprache(n))* kann man Daten bearbeiten, löschen, erstellen und, oder auslesen.
-
- - [INSERT](#INSERT)
- - [UPDATE](#UPDATE)
- - [DELETE](#DELETE)
-
-#### INSERT
-Mit dem `INSERT` *(dt. einfügen)* Befehl kann man im Allgemeinen Daten hinzufügen.
-
-Das Beiwort `INTO` bei dem Befehl `INSERT INTO` ist rein optional und unternimmt keinerlei Änderungen an der Verarbeitung des Befehls. Beide Varianten sind sozusagen identisch. 
-
-**Syntax**
 ```sql
 INSERT INTO <tabelle> (<column1>, ...)
 VALUES (<value1>, ...);
@@ -88,24 +106,102 @@ WHERE  <condition>;
 ```
 
 **Userstory(s)**
-Ein Mitarbeiter hat einen Fehler gemacht, als er dem Ehepaar Zander den Mietvertrag aufgesetzte. Er hat vor Unterschrift des Vertrages jenen Vertrag schon in die Datenbank eingepflegt, somit muss er den Mietvertrag erneuert aufsetzten und den neuen Vertrag dem Ehepaar Zander zusenden. Der Mitarbeiter hat das falsche Haus für die Buchung ausgewählt. 
+Ein Mitarbeiter hat einen Fehler gemacht, als er dem Ehepaar Zander den Mietvertrag aufgesetzte. Er hat vor Unterschrift des Vertrages jenen Vertrag schon in die Datenbank eingepflegt, somit muss er den Mietvertrag erneuert aufsetzten und den neuen Vertrag dem Ehepaar Zander zusenden. Der Mitarbeiter hat das falsche Haus für die Buchung ausgewählt.
 
 ```sql
 UPDATE Mietvertrag
 SET Ferienhaus_ID = 1
 WHERE Kunde_ID = 5 AND Beginn = CONVERT('2007-08-29'  AS  Date) AND Ferienhaus_ID = 2
 ```
-Das System muss die Änderung spezifisch auf das Ferienhaus auslegen, wo der Fehler unterlaufen ist, deswegen muss man mehrere Faktoren in die Conditions einfließen lassen. Da das Ehepaar Zander auch mehrere Ferienhäuser gebucht haben kann, muss man auch den Beginn mit hinzuzählen. 
+Das System muss die Änderung spezifisch auf das Ferienhaus auslegen, wo der Fehler unterlaufen ist, deswegen muss man mehrere Faktoren in die Conditions einfließen lassen. Da das Ehepaar Zander auch mehrere Ferienhäuser gebucht haben kann, muss man auch den Beginn mit hinzuzählen.
 
-### DQL
-SELECT, JOIN, GROUP BY, SELEKTION, PROJEKTION mit WHERE, (DURCHSCHNITT etc.)
+## DQL
+In einer Datenbank werden verschiedene Abfragen und Operationen über mehre Tabellen hinweg ausgeführt. Als Ergebnis wird immer eine Tabelle zurückgegeben.
 
-### DCL
-Mit den DCLs (Data Control Language(s)) *(dt. Datenkontrollsprache)* kann man Berechtigungen verteilen und entziehen.
+**D**ata **Q**uery **L**anguage, bedueted übersetzt so viel wie Datenbankabfragesprache. Diese ist ein Bestandteil von SQL und dient zum konkreten Abfragen von Datensätzen aus Tabellen. 
+
+## Selektion & Projektion
+### Projektion (=Auswahl von speziellen Spalten)
+Die Projektion wird in SQL der `SELECT`-Klauses ausgeführt. Diese Klausel kann verschiedene Eigenschaften enthalten. Diese repräsentieren die Spaltennamen der entsprechenden Tabelle. Werden keine Eigenschaften in der Klausel angegeben, wird dies automatisch durch einen `*` in SQL ersetzt. 
+```sql
+SELECT * FROM Person;
+```
+```sql
+SELECT Vorname, Nachname FROM Person;
+```
+
+### Selektion (=Auswahl von Zeilen nach Bedingungen)
+Die Selektion wird in SQL mit der sogenannten `WHERE`-Bedingungen hinter dem eigentlichem `SELECT` Statement realisiert. Die `WHERE` -Bedingung kann mehrere Prädikate enthalten. Zurückgegeben wird  eine Tabelle mit einer bestimmten Ergebnismenge, die diese(s) Prädikate erfüllen. 
+
+```sql
+SELECT Vorname, Nachname FROM Person WHERE Vorname LIKE "T%s" AND WHERE Nachname LIKE "_r%";
+```
+
+```sql
+SELECT Nachname, AVG(Alter) AS Durchschnittsalter WHERE Vorname = "Ben";  
+```
+
+```sql
+SELECT Vorname, Nachname INTO PersonenNamen FROM Person WHERE PersonID > 10;
+```
+
+## Join
+### Inner Join
+Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmenden Wert haben. 
+<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/inner-schema.png" width="500" height="300" />
+
+```sql
+SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person INNER JOIN Mitarbeiter
+ON Mitarbeiter.Name = Person.Nachname;
+```
+### Left [Outer] Join
+Gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende Datensätze aus der "rechten" Tabelle. 
+
+**Wichtig: Die Datensätze werden aus der linken Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit den Datensätzen aus der rechten Tabelle gibt.**
+
+<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/left-outer-schema.png" width="500" height="300" />
 
 
-#### GRANT
-`GRANT` *(dt. gewähren )* gewährt Datenbankbenutzern bestimmte Rechte auf eine Tabelle. 
+```sql
+SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person LEFT JOIN Mitarbeiter
+ON Mitarbeiter.Name = Person.Nachname ORDER BY Mitarbeiter.Name;
+```
+### Right [Outer] Join
+Gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken " Tabelle.
+
+**Wichtig: Die Datensätze werden aus der rechten Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit Datensätzen aus der linken Tabelle gibt.**
+
+<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/right-outer-schema.png" width="500" height="300" />
+
+
+```sql 
+SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person RIGHT JOIN Mitarbeiter
+ON Mitarbeiter.Name = Person.Nachname;
+```
+
+### Full [Outer] Join
+Gibt immer Datensätze zurück, unabhängig davon ob es eine Übereinstimmung in der anderen Tabelle gibt oder nicht. Es können keine Datensätze verschwinden.
+<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/all-joins.png" width="500" height="300" />
+
+
+```sql 
+SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person FULL JOIN Mitarbeiter
+ON Mitarbeiter.Name = Person.Nachname;
+```
+
+## GROUP BY
+```sql 
+SELECT COUNT(Alter), Nachname FROM Person WHERE Alter >= 18 GROUP BY Nachname ORDER BY Nachname;
+```
+
+```sql 
+SELECT COUNT(Person.Alter), Mitarbeiter.Name, Person.Nachname FROM Person LEFT JOIN Mitarbeiter
+ON Mitarbeiter.Name = Person.Nachname GROUP BY Nachname ORDER BY COUNT(Alter) DESC;
+```
+
+# DCL
+## GRANT
+`GRANT` *(dt. gewähren )* gibt Datenbankbenutzern bestimmte Rechte auf eine Datenbank. 
 
 **Syntax**
 ```sql
@@ -146,13 +242,13 @@ GRANT ALL ON Maengelanzeige TO <username_mitarbeiter_chef>;
 Ein neuer IT-Mitarbeiter wird eingestellt, welcher einzelne Tabellen erstellen und löschen muss. Dazu erhält dieser auch alle Rechte auf die *"Ferienhaus"* Tabelle, damit dieser bestimmte Datensätze auch ändern kann.
 
 ```sql
-GRANT CREATE ANY TABLE TO <username_it_mitarbeiter>; 
-GRANT DROP ANY TABLE TO <username_it_mitarbeiter>;
-GRANT ALL ON Ferienhaus TO <username_it_mitarbeiter>;
+GRANT CREATE ANY TABLE TO {username_it_mitarbeiter}; 
+GRANT DROP ANY TABLE TO {username_it_mitarbeiter};
+GRANT ALL ON Ferienhaus TO {username_it_mitarbeiter};
 ```
 
 #### REVOKE
-Der Befehl `Revoke` *(dt. widerrufen)* widerruft eine Berechtigung von einem Benutzer / Rolle. 
+Der Befehl `Revoke` *(dt. widerrufen)* widerruft eine Berechtigung von einem Benutzer / Rolle.
 
 **Syntax**
 ```sql
@@ -178,15 +274,17 @@ REVOKE CREATE SESSION FROM <username_mitarbeiter_chef>;
 REVOKE ALL ON Ferienhaus FROM <username_mitarbeiter_chef>;
 REVOKE ALL ON Mietvertrag FROM <username_mitarbeiter_chef>;
 ```
+# Quellen
 
-### Zusatz
-Benutzer Hinzufügen
+# TODO
 
-**Erst Anwendungsfall dann Überlegung**
-
-## Anton
-- Arbeitsplanung
-- Dokumentation schreiben
-
-## Louis
-- Analyse einer DB
+ - [ ] Where Bedingung?
+ - [ ] Natural Join
+ - [ ] Self Join
+ - [ ] (Lateral Join)
+ - [ ] Cross Join
+ - [ ] https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
+ - [ ] https://stackedit.io
+ - [ ] Verweis zu erweitertem Join Doc
+ - [ ] Order by Erklärung
+ - [ ] SQL erklärung
