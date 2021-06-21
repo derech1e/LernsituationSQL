@@ -42,7 +42,7 @@ Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standart-Query-L
 ## DDL
 Die **D**ata **D**efinition **L**anguage (dt. Datendefinitionssprache) dient zum beschreiben von Datenstrukturen und Elementen. Die Sprache beschreibt die Struktur und den Aufbau einer Datenbank.
 
-**Befehle**
+**Befehlsübersicht**
 - [Create](#Create)
 - [Alter](#Alter)
 - [Drop](#Drop)
@@ -53,10 +53,11 @@ Für die Erzeugung einer Tabelle gilt ein standardisierter Syntax. Datenbank abh
 
 **Syntax des Statements**
 ```sql
-CREATE TABLE <name> (<column>[,...] <constraint>[,...]);
+CREATE TABLE <name> [<column>(,...) <constraint>(,...)];
 ```
 
 **User-Storys**
+
 Im folgendem Beispiel wird eine Tabelle erstellt, die alle Adressen von Kunden, Eigentümern und den Ferienhäusern enthält. Über die Address_ID kann die jeweilige Adresse mithilfe eines [Join's](#Join) ermittelt werden.
 ```sql 
 CREATE TABLE Adresse (
@@ -69,65 +70,89 @@ CREATE TABLE Adresse (
 	Zusatz nvarchar(50) NULL DEFAULT (NULL),
 	Herkunftsland_ID int NULL DEFAULT (NULL));
 ```
+
 Im Beispiel sollen alle Kunden aus Dresden in der Tabelle `Dresdener` erfasst werden. Dies gelingt mithilfe eines [Join's](#Join).
 ```sql
 CREATE TABLE Dresdener AS [EDGE] SELECT Adresse.Address_ID, Name FROM Kunde INNER JOIN Adresse ON Adresse.Address_ID = Kunde.Address_ID WHERE Adresse.Stadt LIKE 'Dresden';
-// [EDGE] wird nur in T-SQL benötigt.
+-- [EDGE] wird nur in T-SQL benötigt.
 ```
 #### Alter
-Das `ALTER` Statement wird in SQL benutzt um Spalten und [Constrains](https://glossar.hs-augsburg.de/SQL_Integrit%C3%A4tsregeln) zu modifizieren. Constrains sind Integritätsregeln die Fehler und unschlüssigkeiten bei der Erstellung von Tabellen verhindern sollten. Durch richtig festgelegte Regeln werden fehlehafte Datensätze gar nicht erst von der Datenbank angenommen. 
+Das `ALTER` Statement wird in SQL benutzt um Spalten und [Constrains](https://glossar.hs-augsburg.de/SQL_Integrit%C3%A4tsregeln) zu modifizieren. Constrains sind Integritätsregeln die Fehler und Unschlüssigkeiten bei der Erstellung von Tabellen ausschließen sollen. Durch richtig festgelegte Regeln werden fehlerhafte Datensätze gar nicht erst von der Datenbank angenommen. 
 
+**Syntax der Statements**
 
-Löschen einer Spalte
+*Löschen einer Spalte*
 ```sql
 ALTER TABLE <table> DROP [COLUMN] <columnname> {RESTRICT | CASCADE}
 ```
-Hinzufügen einer Spalte
+*Hinzufügen einer Spalte*
 ```sql
-ALTER TABLE <table> ADD [COLUMN] <columnname> <datatype> [[NOT]NULL] [DEFAULT <value>] [PRIMARY KEY] [REFERENCES <table> (<column>)]
+ALTER TABLE <table> ADD [COLUMN] <columnname> <datatype> [(NOT)NULL] [DEFAULT <value>] [PRIMARY KEY] [REFERENCES <table> (<column>)]
 ```
 
-Ändern einer Spalte
+*Ändern einer Spalte*
 ```sql
-ALTER TABLE <table> ALTER [COLUMN] <columnname> SET DEFAULT  <defaultvalue> -- Setzen des Default-Werts
-ALTER TABLE <table> ALTER [COLUMN] <columnname> DROP DEFAULT -- Löschen des Default-Werts
-ALTER TABLE <table> ALTER [COLUMN] <columnname> ADD SCOPE <table> -- Hinzufügen einer Referenz auf einen Datentypen
-ALTER TABLE <table> ALTER [COLUMN] <columnname> DROP SCOPE {RESTRICT | CASCADE} -- Löschen einer Referenz
+-- Setzen des Default-Werts
+ALTER TABLE <table> ALTER [COLUMN] <columnname> SET DEFAULT  <defaultvalue>
+
+-- Löschen des Default-Werts
+ALTER TABLE <table> ALTER [COLUMN] <columnname> DROP DEFAULT
+
+-- Hinzufügen einer Referenz auf einen Datentypen
+ALTER TABLE <table> ALTER [COLUMN] <columnname> ADD SCOPE <table> 
+
+-- Löschen einer Referenz
+ALTER TABLE <table> ALTER [COLUMN] <columnname> DROP SCOPE {RESTRICT | CASCADE}
 ```
 
-Beispiele
+**User-Storys**
 ```sql
-ALTER TABLE Person ADD Email varchar(255);
+-- Fügt die Spalte `Email` zur Tabelle Kunde hinzu.
+ALTER TABLE Kunde ADD Email nvarchar(255);
 ```
 ```sql
-ALTER TABLE Person DROP COLUMN Email;
+-- Änderung der maximalen Zeichenanzahl auf 100
+ALTER TABLE Kunde MODIFY COLUMN Email nvarchar(100);
 ```
 ```sql
-ALTER TABLE Person MODIFY COLUMN Email varchar(100);
+-- Löschen der Spalte `Email`
+ALTER TABLE Kunde DROP COLUMN Email;
 ```
 ```sql
-ALTER TABLE Person ADD CONSTRAINT PK_Person PRIMARY KEY (PersonID, Nachname);
+-- Aktivierung der Einschränkung `FK_Adresse_Herkunftsland`
+ALTER TABLE Adresse CHECK CONSTRAINT FK_Adresse_Herkunftsland;
 ```
 ```sql
-ALTER TABLE Person DROP CONSTRAINT PK_Person;
+-- Löschen der Einschränkung `FK_Adresse_Herkunftsland`
+ALTER TABLE Person DROP CONSTRAINT FK_Adresse_Herkunftsland;
 ```
 
 ### Drop
 Das `DROP` Statement wird in SQL benutzt um Datenbanken und Tabellen zu Löschen. 
 
-**Syntax**
+**Syntax des Statements**
 ```sql
 DROP { TABLE | DATABASE } <name>;
 ```
 
+**User-Storys**
+```sql
+-- Löschen der Tabelle `Adresse` 
+DROP TABLE Adresse;
+```
+```sql
+-- Löschen der Datenbank `Ferienhaus`
+DROP DATABASE Ferienhaus;
+```
 ## DML
 Mit der **D**ata **M**odifying **L**anguage *(dt. Datenmanipulationssprache)* kann man Daten bearbeiten, löschen, erstellen und auslesen.
 
-- [INSERT](#INSERT)
-- [UPDATE](#UPDATE)
-- [DELETE](#DELETE)
+**Befehlsübersicht**
+- [Insert](#Insert)
+- [Update](#Update)
+- [Delete](#Delete)
 
-### INSERT
+### Insert
 Mit dem `INSERT` *(dt. einfügen)* Befehl kann man im Allgemeinen Daten hinzufügen.
 
 Das Beiwort `INTO` bei dem Befehl `INSERT INTO` ist rein optional und unternimmt keinerlei Änderungen an der Verarbeitung des Befehls. Beide Varianten sind sozusagen identisch.
@@ -151,8 +176,8 @@ INSERT INTO Mietvertrag (Mietvertrag_ID, Ferienhaus_ID, Kunde_ID, Beginn, Ende)
 VALUES (1, 2, 5, CONVERT('2007-08-29'  AS  Date), CONVERT('2007-09-19'  AS  Date));
 ```
 
-### UPDATE
-Mit dem `INSERT` Befehl kann man sich im Allgemeinen Daten updaten (vorhandene Daten bearbeiten).
+### Update
+Mit dem `UPDATE` Befehl kann man sich im Allgemeinen Daten updaten (vorhandene Daten bearbeiten).
 
 **Syntax**
 ```sql
