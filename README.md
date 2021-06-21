@@ -1,3 +1,4 @@
+
 # Dokumentation Lernsituation SQL 
 Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
 
@@ -8,13 +9,17 @@ Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zus
 	- [Anton](#Anton)
 	- [Louis](#Louis)
 - [SOLL-IST Auswertung](#SOLL-IST-Auswertung)
-- [USER-STORIES](#USER-STORIES)
+- [Hinweise zum Verständnis](#Hinweise-zum-Verständnis)
+- [SQL Bestandteile](#SQL-Bestandteile)
 	- [DDL](#DDL)
 	- [DML](#DML)
 	- [DQL](#DQL)
 	- [DCL](#DCL)
 - [Quellen](#Quellen)
 - [TODO](#TODO)
+
+# Hinweise zum Verständnis
+In den folgenden Punkten, werden zunächst die verschiedene Sprachbestandteile von SQL erklärt. Die Allgemeine Syntax des Befehls orientiert sich immer am Standard von SQL. Darüber hinaus sind die [Anwendungsbeispiele](#User-Storys)  für die im [MS-Server Mangament Studio](https://docs.microsoft.com/de-de/sql/ssms/sql-server-management-studio-ssms?view=sql-server-ver15) enthaltene [T-SQL](https://de.wikipedia.org/wiki/Transact-SQL) Sprache angepasst.
 
 # Auftragsanalyse
 
@@ -31,19 +36,28 @@ Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zus
 
 # SOLL-IST Auswertung
 
-# USER-STORIES
+# SQL Bestandteile
 Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standart-Query-Language im Bezug auf den Auftrag "Ferienhaus".
 
 ## DDL
+Die **D**ata **D**efinition **L**anguage (dt. Datendefinitionssprache) dient zum beschreiben von Datenstrukturen und Elementen. Die Sprache beschreibt die Struktur und den Aufbau einer Datenbank.
+
+**Befehle**
+- [Create](#Create)
+- [Alter](#Alter)
+- [Drop](#Drop)
+
 ### Create
 Das `CREATE` Statement wird in SQL benutzt um eine neue Datenbank oder Tabelle zu erstellen.
-Für die Erzeugung einer Tabelle gibt es eine standardtisierte Anweisung aber jede Datenbank hat eigene Erweiterungen.
-**Syntax der Anweisung**
+Für die Erzeugung einer Tabelle gilt ein standardisierter Syntax. Datenbank abhängig kann es eigene Erweiterungen geben.
+
+**Syntax des Statements**
 ```sql
 CREATE TABLE <name> (<column>[,...] <constraint>[,...]);
 ```
 
-**Beispiele**
+**User-Storys**
+Im folgendem Beispiel wird eine Tabelle erstellt, die alle Adressen von Kunden, Eigentümern und den Ferienhäusern enthält. Über die Address_ID kann die jeweilige Adresse mithilfe eines [Join's](#Join) ermittelt werden.
 ```sql 
 CREATE TABLE Adresse (
 	Address_ID int IDENTITY(1,1) NOT NULL,
@@ -53,8 +67,9 @@ CREATE TABLE Adresse (
 	Strasse nvarchar(75) NULL DEFAULT (NULL),
 	Hausnummer nvarchar(5) NULL DEFAULT (NULL),
 	Zusatz nvarchar(50) NULL DEFAULT (NULL),
-	Herkunftsland_ID int NULL DEFAULT NULL);
+	Herkunftsland_ID int NULL DEFAULT (NULL));
 ```
+Im Beispiel sollen alle Kunden aus Dresden in der Tabelle `Dresdener` erfasst werden. Dies gelingt mithilfe eines [Join's](#Join).
 ```sql
 CREATE TABLE Dresdener AS [EDGE] SELECT Adresse.Address_ID, Name FROM Kunde INNER JOIN Adresse ON Adresse.Address_ID = Kunde.Address_ID WHERE Adresse.Stadt LIKE 'Dresden';
 // [EDGE] wird nur in T-SQL benötigt.
@@ -106,7 +121,7 @@ DROP { TABLE | DATABASE } <name>;
 ```
 
 ## DML
-Mit den DMLs (**D**ata **M**odifying **L**anguage(s)) *(dt. Datenmanipulationssprache(n))* kann man Daten bearbeiten, löschen, erstellen und, oder auslesen.
+Mit der **D**ata **M**odifying **L**anguage *(dt. Datenmanipulationssprache)* kann man Daten bearbeiten, löschen, erstellen und auslesen.
 
 - [INSERT](#INSERT)
 - [UPDATE](#UPDATE)
@@ -356,3 +371,4 @@ REVOKE ALL ON Mietvertrag FROM <username_mitarbeiter_chef>;
  - [ ] Verweis zu erweitertem Join Doc
  - [ ] Order by Erklärung
  - [ ] SQL erklärung
+ - [ ] Korrektur lesen
