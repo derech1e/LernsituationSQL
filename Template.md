@@ -1,7 +1,7 @@
 ## TEMPLATE
-Mit den DMLs (**D**ata **M**odifying **L**anguage(s)) *(dt. Übersetzung-Sprache(n))* kann man Daten ... .
+Mit der **D**ata **M**odifying **L**anguage *(dt. Datenmanipulationssprache)* kann man Daten bearbeiten, löschen, erstellen und auslesen. ...
 
-**BEFEHLE**
+**Befehle**
 
 - [Befehl](#Befehl)
 - [Befehl](#Befehl)
@@ -18,4 +18,5 @@ TEMPLATE SQL SATEMENT FOR SYNTAX
 ```sql
 TEMPLATE SQL STATEMENT FOR USERSTORY
 ```
-**Quellen und Extras**
+
+**Quellen mit Verweis im Quellenverzeichnis hinzufügen**
