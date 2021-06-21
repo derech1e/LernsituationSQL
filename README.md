@@ -12,6 +12,7 @@ Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zus
 	- [Right Join](#Right-Join)
 	- [Full Join](#Full-Join)
 	- [Self Join](#Self-Join)
+	- [Apply](#Apply)
 - [Quellen](#Quellen)
 - [TODO](#TODO)
 
