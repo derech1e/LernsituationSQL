@@ -145,7 +145,7 @@ DROP TABLE Adresse;
 DROP DATABASE Ferienhaus;
 ```
 ## DML
-Mit der **D**ata **M**odifying **L**anguage *(dt. Datenmanipulationssprache)* kann man Daten bearbeiten, löschen, erstellen und auslesen.
+Die **D**ata **M**odifying **L**anguage *(dt. Datenmanipulationssprache)* dient zum erstellen, bearbeiten, löschen und auslesen von Daten.
 
 **Befehlsübersicht**
 - [Insert](#Insert)
@@ -153,46 +153,40 @@ Mit der **D**ata **M**odifying **L**anguage *(dt. Datenmanipulationssprache)* ka
 - [Delete](#Delete)
 
 ### Insert
-Mit dem `INSERT` *(dt. einfügen)* Befehl kann man im Allgemeinen Daten hinzufügen.
+Durch das  `INSERT` Statement werden im Allgemeinen neue Daten hinzufügen.
 
 Das Beiwort `INTO` bei dem Befehl `INSERT INTO` ist rein optional und unternimmt keinerlei Änderungen an der Verarbeitung des Befehls. Beide Varianten sind sozusagen identisch.
 
 **Syntax**
 ```sql
-INSERT INTO <tabelle> (<column1>, ...)
-VALUES (<value1>, ...);
+INSERT INTO <name> (<columnname>[,...]) VALUES (<value>[,...]);
 ```
 
-**Userstory(s)**
+**User-Storys**
 Ein Mitarbeiter möchte einen neuen Mietvertrag in die Tabelle "Mietvertrag" über ein UI hinzufügen. Dieser Mietvertrag wird von einem Kunden (Ehepaar Zander) angefordert. Der Kunde hatte vorher noch keinen Mietvertrag aufgesetzt und ist somit ein neuer Kunde und muss somit in das System eingepflegt werden.
 
 ```sql
-/** Kunde anlegen: Ehepaar Zander **/
+-- Kunde anlegen: Ehepaar Zander
 INSERT INTO Kunde (Kunde_ID, Address_ID, Name)
 VALUES (5, 12, 'Ehepaar Zander');
 
-/** Mietvertrag anlegen **/
-INSERT INTO Mietvertrag (Mietvertrag_ID, Ferienhaus_ID, Kunde_ID, Beginn, Ende) 
-VALUES (1, 2, 5, CONVERT('2007-08-29'  AS  Date), CONVERT('2007-09-19'  AS  Date));
+--Mietvertrag anlegen
+INSERT INTO Mietvertrag (Mietvertrag_ID, Ferienhaus_ID, Kunde_ID, Beginn, Ende) VALUES (1, 2, 5, CONVERT('2007-08-29' AS Date), CONVERT('2007-09-19' AS Date));
 ```
 
 ### Update
-Mit dem `UPDATE` Befehl kann man sich im Allgemeinen Daten updaten (vorhandene Daten bearbeiten).
+Mit dem `UPDATE` Statement ist es möglich Datensätze zu bearbeiten und aktualisieren.
 
 **Syntax**
 ```sql
-UPDATE  <tabelle>  
-SET  <column1> = <value1>, ...  
-WHERE  <condition>; 
+UPDATE <name> SET <columnname> = <value>[,...] WHERE <condition>; 
 ```
 
-**Userstory(s)**
+**User-Storys**
 Ein Mitarbeiter hat einen Fehler gemacht, als er dem Ehepaar Zander den Mietvertrag aufgesetzte. Er hat vor Unterschrift des Vertrages jenen Vertrag schon in die Datenbank eingepflegt, somit muss er den Mietvertrag erneuert aufsetzten und den neuen Vertrag dem Ehepaar Zander zusenden. Der Mitarbeiter hat das falsche Haus für die Buchung ausgewählt.
 
 ```sql
-UPDATE Mietvertrag
-SET Ferienhaus_ID = 1
-WHERE Kunde_ID = 5 AND Beginn = CONVERT('2007-08-29'  AS  Date) AND Ferienhaus_ID = 2
+UPDATE Mietvertrag SET Ferienhaus_ID = 1 WHERE Kunde_ID = 5 AND Beginn = CONVERT('2007-08-29' AS Date) AND Ferienhaus_ID = 2;
 ```
 Das System muss die Änderung spezifisch auf das Ferienhaus auslegen, wo der Fehler unterlaufen ist, deswegen muss man mehrere Faktoren in die Conditions einfließen lassen. Da das Ehepaar Zander auch mehrere Ferienhäuser gebucht haben kann, muss man auch den Beginn mit hinzuzählen.
 
@@ -201,54 +195,67 @@ In einer Datenbank werden verschiedene Abfragen und Operationen über mehre Tabe
 
 **D**ata **Q**uery **L**anguage, bedueted übersetzt so viel wie Datenbankabfragesprache. Diese ist ein Bestandteil von SQL und dient zum konkreten Abfragen von Datensätzen aus Tabellen.
 
+**Befehlsübersicht**
+- [Projektion](#Projektion)
+- [Selektion ](#Selektion )
+- [Join](#Join)
+- [Group By](#Group-By)
+
 ### Selektion & Projektion
-#### Projektion (=Auswahl von speziellen Spalten)
-Die Projektion wird in SQL der `SELECT`-Klauses ausgeführt. Diese Klausel kann verschiedene Eigenschaften enthalten. Diese repräsentieren die Spaltennamen der entsprechenden Tabelle. Werden keine Eigenschaften in der Klausel angegeben, wird dies automatisch durch einen `*` in SQL ersetzt.
+#### Projektion
 
-**Syntax**
+> Projektion = Auswahl von speziellen Spalten
+
+Die Projektion wird in SQL mit dem `SELECT`-Statement realisiert. Das Statement kann verschiedene Eigenschaften enthalten. Diese repräsentieren die Spaltennamen der entsprechenden Tabelle. Werden keine Eigenschaften im Statement angegeben, wird dies automatisch durch einen `*` in SQL ersetzt. 
+
+**Syntax des Statements**
 ```sql
-SELECT ... FROM ... [WHERE ...][GROUP BY ... HAVING ...][ORDER BY ...];
-```
-
-```sql
-SELECT [{ ALL | * } | DISTINCT] element [AS spaltenname]
-```
-
-
-
-## Selektion & Projektion
-### Projektion (=Auswahl von speziellen Spalten)
-Die Projektion wird in SQL der `SELECT`-Klauses ausgeführt. Diese Klausel kann verschiedene Eigenschaften enthalten. Diese repräsentieren die Spaltennamen der entsprechenden Tabelle. Werden keine Eigenschaften in der Klausel angegeben, wird dies automatisch durch einen `*` in SQL ersetzt. 
-
-**Syntax**
-```sql
-SELECT ... FROM ... [WHERE ...][GROUP BY ... HAVING ...][ORDER BY ...];
-```
-
-```sql
-SELECT [{ ALL | * } | DISTINCT] element [AS spaltenname]
-```
-
-```sql
-SELECT * FROM Person;
+SELECT ... FROM ...;
 ```
 ```sql
-SELECT Vorname, Nachname FROM Person;
+SELECT [{ ALL | * } | DISTINCT] FROM <name> [AS columnname];
 ```
 
-### Selektion (=Auswahl von Zeilen nach Bedingungen)
+**User-Storys**
+```sql
+-- Anzeigen aller Mietverträge
+SELECT * FROM Mietvertrag;
+```
+```sql
+-- Anzeigen von Spalten aus Tabellen über einen Alias
+SELECT adr.Address_ID, adr.Stadt, k.Name FROM Kunde k, Adresse adr;
+```
+
+#### Selektion
+
+> Auswahl von Zeilen nach Bedingungen
+
 Die Selektion wird in SQL mit der sogenannten `WHERE`-Bedingungen hinter dem eigentlichem `SELECT` Statement realisiert. Die `WHERE` -Bedingung kann mehrere Prädikate enthalten. Zurückgegeben wird  eine Tabelle mit einer bestimmten Ergebnismenge, die diese(s) Prädikate erfüllen.
 
+**Syntax des Statements**
 ```sql
-SELECT Vorname, Nachname FROM Person WHERE Vorname LIKE "T%s" AND WHERE Nachname LIKE "_r%";
+SELECT ... FROM ... [WHERE ...][GROUP BY ... HAVING...][ORDER BY ...];
+```
+
+**User-Storys**
+```sql
+-- Anzeigen aller Herkunftsländer deren Name mit D beginnt und endet, sowie deren Kürzel ein e an zweiter Position nachweisen kann
+SELECT Name, Abkuerzung FROM Herkunftsland WHERE Name LIKE "D%d" AND WHERE Nachname LIKE "_e%";
 ```
 
 ```sql
-SELECT Nachname, AVG(Alter) AS Durchschnittsalter WHERE Vorname = "Ben";  
+-- Anzeigen der Durchschnittlichen Anzahl an Schlafzimmer von Ferienhäusern, die später als dem 01.04.2008 eingestellt wurden
+SELECT Name, AVG(Anzahl_Schlafzimmer) AS DurchschnitsSchlafzimmer FROM Ferienhaus WHERE Einstell_dat >= CAST('2008-04-01' AS Date);  
 ```
 
 ```sql
-SELECT Vorname, Nachname INTO PersonenNamen FROM Person WHERE PersonID > 10;
+-- Fügt alle Ferienhäuser in die Tabelle GuteFerienhaeuser ein, die mehr als 3 Schlafzimmer haben. Die Tabelle GuteFerienhaeuser muss manuell erstellt werden.
+SELECT Name INTO GuteFerienhaeuser FROM Ferienhaus WHERE Anzahl_Schlafzimmer > 3;
+```
+
+```sql
+-- Anzeigen aller Kunden die in Dresden wohen und den Buchstaben k in ihrem Namen haben
+SELECT Adresse.Address_ID, Name FROM Kunde INNER JOIN Adresse ON Adresse.Address_ID = Kunde.Address_ID WHERE Adresse.Stadt LIKE 'Dresden' AND WHERE Kunde.Name LIKE '%k%';
 ```
 
 ### Join
