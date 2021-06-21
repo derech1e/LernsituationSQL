@@ -10,7 +10,7 @@ Mit der **D**ata **M**odifying **L**anguage *(dt. Datenmanipulationssprache)* ka
 #### BEFEHL_NAME
 Mit dem `<BEFEHL>` kann man ... .
 
-**Syntax**
+**Syntax des Statements**
 ```sql
 TEMPLATE SQL SATEMENT FOR SYNTAX
 ```
