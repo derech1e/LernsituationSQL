@@ -187,6 +187,7 @@ WHERE <condition>;
 ```
 
 **User-Storys**
+
 Ein Mitarbeiter hat einen Fehler gemacht, als er dem Ehepaar Zander den Mietvertrag aufsetzte. Der Mitarbeiter hat das falsche Haus für die Buchung ausgewählt. Zwecks fehlender Rechte muss ein IT-Mitarbeiter eine Änderung im System vornehmen und das richtige Haus eintragen. 
 
 ```sql
@@ -207,6 +208,7 @@ DELETE FROM <tabelle> WHERE <condition>;
 ```
 
 **User-Storys**
+
 Eine Mängelanzeige, explizit eine *"Defekte Heizung"*, muss aus der Datenbank gelöscht werden, da diese sich als Fehler herausstellte. Ein IT-Mitarbeiter nimmt die Löschung im System vor. Vorher holt er sich die Mängel-ID aus dem System. 
 
 ```sql
@@ -415,7 +417,9 @@ GRANT ALL ON Ferienhaus TO <username_it_mitarbeiter>;
 REVOKE <privilegename> ON <objectname> FROM <username>
 ```
 **Users-Storys**
+
 *User-Story 1*
+
 Ein Mitarbeiter verlässt die Firma. Somit müssen auch seine Zugriffsrechte, aus Datensicherheitsgründen, weggenommen werden.
 
 ```sql
@@ -424,6 +428,7 @@ REVOKE CREATE SESSION FROM <username_mitarbeiter>;
 ```
 
 *User-Story 2*
+
 Ein IT Mitarbeiter verlässt die IT-Firma. Somit müssen auch seine Rechte weggenommen werden.
 
 ```sql
@@ -433,6 +438,7 @@ REVOKE DROP ANY TABLE FROM <username_it_mitarbeiter>;
 ```
 
 *User-Story 3*
+
 Die Befehle `SELECT`, `UPDATE`, `INSERT`, `DELETE` und `REFERENCES` ([DML](#DML) / [DQL](#DQL)) des Mitarbeiter Chefs werden alle auf einmal entfernt, sowie die Zugriffsrechte auf die Datenbank
 ```sql
 -- Entziehen von Rechten 3
