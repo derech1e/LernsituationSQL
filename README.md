@@ -145,14 +145,14 @@ DROP TABLE Adresse;
 DROP DATABASE Ferienhaus;
 ```
 ### DML
-Mit den DMLs (**D**ata **M**odifying **L**anguage(s)) *(dt. Datenmanipulationssprache(n))* kann man Daten bearbeiten, löschen, erstellen und, oder auslesen.
+Mit den DMLs (**D**ata **M**odifying **L**anguage(s)) *(dt. Datenmanipulationssprache(n))* kann man Datensätze bearbeiten, erstellen und, oder löschen.
 
  - [INSERT](#INSERT)
  - [UPDATE](#UPDATE)
  - [DELETE](#DELETE)
 
 #### INSERT
->Mit dem `INSERT` *(dt. einfügen)* Befehl kann man im Allgemeinen Daten hinzufügen.
+>`INSERT` *(dt. einfügen)* fügt neue Datensätze hinzu.
 
 Das Beiwort `INTO` bei dem Befehl `INSERT INTO` ist rein optional und unternimmt keinerlei Änderungen an der Verarbeitung des Befehls. Beide Varianten sind sozusagen identisch. [Siehe mehr](https://stackoverflow.com/questions/233919/insert-vs-insert-into)
 
@@ -176,7 +176,7 @@ VALUES (1, 2, 5, CONVERT('2007-08-29'  AS  Date), CONVERT('2007-09-19'  AS  Date
 ```
 
 #### UPDATE
->Mit dem `UPDATE` Befehl kann man im Allgemeinen Daten ändern  (vorhandene Daten bearbeiten).
+>`UPDATE` *(dt. update)* ändert vorhandene Datensätze.
 
 **Syntax des Statements**
 ```sql
@@ -198,7 +198,7 @@ WHERE Kunde_ID = 5 AND Beginn = CONVERT('2007-08-29'  AS  Date) AND Ferienhaus_I
 Der IT-Mitarbeiter muss die Änderung spezifisch auf das Ferienhaus mit dem Fehler auslegen, wo jener Fehler unterlaufen ist. Aus diesem Grund muss man mehrere Faktoren in die Bedingungen (Conditions) einfließen lassen. Das Ehepaar Zander kann auch mehrere Ferienhäuser gebucht haben, deswegen muss man auch den Beginn einfließen lassen. 
 
 #### DELETE
->Mit dem `DELETE` *(dt. löschen)* Befehl kann man einzelne Datensätze löschen.
+>`DELETE` *(dt. löschen)* löscht einzelne oder mehrere Datensätze.
 
 **Syntax des Statements**
 ```sql
@@ -407,7 +407,7 @@ GRANT ALL ON Ferienhaus TO <username_it_mitarbeiter>;
 ```
 
 #### REVOKE
->Der Befehl `Revoke` *(dt. widerrufen)* widerruft eine Berechtigung von einem Benutzer / Rolle. 
+>`Revoke` *(dt. widerrufen)* widerruft eine Berechtigung von einem Benutzer / Rolle. 
 
 **Syntax des Statements**
 ```sql
