@@ -143,15 +143,15 @@ DROP TABLE Adresse;
 -- Löschen der Datenbank `Ferienhaus`
 DROP DATABASE Ferienhaus;
 ```
-### DML
-Mit der **D**ata **M**odifying **L**anguage *(dt. Datenmanipulationssprache(n))* kann man Daten bearbeiten, löschen, erstellen und auslesen.
+## DML
+Mit der **D**ata **M**odifying **L**anguage *(dt. Datenmanipulationssprache)* kann man Daten bearbeiten, löschen, erstellen und auslesen.
 
 **Befehlsübersicht**
  - [Insert](#Insert)
  - [Update](#Update)
  - [Delete](#Delete)
 
-#### Insert
+### Insert
 >`INSERT` *(dt. einfügen)* fügt neue Datensätze hinzu.
 
 Das Beiwort `INTO` bei dem Statement `INSERT INTO` ist rein optional und unternimmt keinerlei Änderungen an der Verarbeitung des Befehls. Beide Varianten sind sozusagen identisch. [Siehe mehr](https://stackoverflow.com/questions/233919/insert-vs-insert-into)
@@ -175,7 +175,7 @@ INSERT INTO Mietvertrag (Mietvertrag_ID, Ferienhaus_ID, Kunde_ID, Beginn, Ende)
 VALUES (1, 2, 5, CONVERT('2007-08-29'  AS  Date), CONVERT('2007-09-19'  AS  Date));
 ```
 
-#### Update
+### Update
 >`UPDATE` *(dt. update)* ändert vorhandene Datensätze.
 
 **Syntax des Statements**
@@ -195,7 +195,7 @@ WHERE Kunde_ID = 5 AND Beginn = CONVERT('2007-08-29'  AS  Date) AND Ferienhaus_I
 ```
 Der IT-Mitarbeiter muss die Änderung spezifisch auf das Ferienhaus mit dem Fehler auslegen, wo jener Fehler unterlaufen ist. Aus diesem Grund muss man mehrere Faktoren in die Bedingungen (Conditions) einfließen lassen. Das Ehepaar Zander kann auch mehrere Ferienhäuser gebucht haben, deswegen muss man auch den Beginn einfließen lassen. 
 
-#### Delete
+### Delete
 >`DELETE` *(dt. löschen)* löscht einzelne oder mehrere Datensätze.
 
 **Syntax des Statements**
@@ -347,14 +347,14 @@ SELECT COUNT(Anzahl_Schlafzimmer), Name FROM Ferienhaus WHERE Einstell_dat != CA
 SELECT COUNT(fer.Anzahl_Schlafzimmer), fer.Name, eig.Name FROM Ferienhaus fer RIGHT JOIN Eigentuemer eig ON eig.Eigentuemer_ID = 2 WHERE Einstell_dat != CAST('2008-04-01' AS Date) GROUP BY Name ORDER BY Anzahl_Schlafzimmer ASC;
 ```
 
-### DCL
+## DCL
 Mit der **D**ata **C**ontrol **L**anguage *(dt. Datenkontrollsprache)* werden Berechtigungen erteilt und entzogen. Die Sprache ist mit einem Berichtigungssystem vergleichbar.
 
 **Befehlsübersicht**
 - [Grant](#Grant)
 - [Revoke](#Revoke)
 
-#### Grant
+### Grant
 >`GRANT` *(dt. gewähren)* gewährt Datenbankbenutzern bestimmte Rechte auf eine Tabelle. 
 
 **Syntax des Statements**
@@ -404,7 +404,7 @@ GRANT DROP ANY TABLE TO <username_it_mitarbeiter>;
 GRANT ALL ON Ferienhaus TO <username_it_mitarbeiter>;
 ```
 
-#### Revoke
+### Revoke
 >`Revoke` *(dt. widerrufen)* widerruft eine Berechtigung von einem Benutzer / Rolle. 
 
 **Syntax des Statements**
