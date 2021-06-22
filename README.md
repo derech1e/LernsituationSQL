@@ -325,29 +325,32 @@ SELECT COUNT(Anzahl_Schlafzimmer), Name FROM Ferienhaus WHERE Einstell_dat != CA
 SELECT COUNT(fer.Anzahl_Schlafzimmer), fer.Name, eig.Name FROM Ferienhaus fer RIGHT JOIN Eigentuemer eig ON eig.Eigentuemer_ID = 2 WHERE Einstell_dat != CAST('2008-04-01' AS Date) GROUP BY Name ORDER BY Anzahl_Schlafzimmer ASC;
 ```
 
-## DCL
-Mit der **D**ata **C**ontrol **L**anguage *(dt. Datenkontrollsprache)* werden  Berechtigungen verteilt und entzogen. Die Sprache ist mit einem Berichtigungssystem vergleichbar.
+### DCL
+Mit den DCLs (**D**ata **C**ontrol **L**anguage(s)) *(dt. Datenkontrollsprache)* kann man Berechtigungen verteilen und entziehen.
 
-**Befehlsübersicht**
-- [Grant](#Grant)
-- [Revoke](#Revoke)
+- [GRANT](#GRANT)
+- [REVOKE](#REVOKE)
 
-### Grant
-Über das `GRANT` Statement ist es möglich, Datenbankbenutzern bestimmte Rechte auf verschiedene Tabelle zu gewähren.
+#### GRANT
+`GRANT` *(dt. gewähren )* gewährt Datenbankbenutzern bestimmte Rechte auf eine Tabelle. 
 
-**Syntax des Statements**
+**Syntax**
 ```sql
-GRANT <privilegename> ON <objectname> TO <username> [WITH GRANT OPTION];
+GRANT <privilegename> 
+ON <objectname>
+TO <username>
+[WITH GRANT OPTION];
 ```
 
-**User-Storys**
-In dieser Userstory bekommt ein neuer Mitarbeiter definierte Rechte auf die Tabellen *"Ferienhaus"* und *"Mietvertrag"*, damit dieser das System benutzen kann.
-Er kann sich somit mit einer SQL Session verbinden und in dieser über ein UI arbeiten.
+**Userstory(s)**
+*Userstory 1*
+In dieser Userstory bekommt ein neuer Mitarbeiter definierte Rechte auf die Tabellen *"Ferienhaus"* und *"Mietvertrag"*, damit dieser das System benutzen kann. 
+Er kann sich somit mit einer SQL Session verbinden und in dieser über ein UI arbeiten. 
 
-Das `ALTER` Statement ermöglicht es dem Benutzer das Recht,  auf der Datenbank in eine Tabelle Strukturell zu modifizieren. Mehr Informationen zum Statement, sind [hier](#Alter) zu finden.
+Der Befehl `ALTER` gibt in diesem Beispiel de  Benutzer die Rechte, dass er auf der Datenbank unendlich viele Daten speichern kann.  [Siehe mehr](#Alter)
 
-Er erhält aus Sicherheitsgründen keine [Delete](#Delete) und [Update](#Update) Rechte.
-Diese werden dann von IT-Mitarbeitern übernommen.
+Er erhält aus Sicherheitsgründen keine [DELETE](#DELETE) und [UPDATE](#UPDATE) Rechte. 
+Diese werden dann von IT-Mitarbeitern übernommen. 
 ```sql
 GRANT CREATE SESSION TO <username_mitarbeiter>;
 GRANT SELECT ON Ferienhaus TO <username_mitarbeiter>;
@@ -358,7 +361,8 @@ GRANT SELECT ON Maengelanzeige TO <username_mitarbeiter>;
 GRANT INSERT ON Maengelanzeige TO <username_mitarbeiter>;
 ALTER USER <username_mitarbeiter> QUOTA UNLIMITED ON SYSTEM;
 ```
-Mit dem folgendem SQL Statement ist es einem möglich die Rechte: `SELECT`, `UPDATE`, `INSERT`, `DELETE` und `REFERENCES`(siehe [DML](#DML) / [DQL](#DQL)) gleichzeitig für einen Benutzer in einer Tabelle, in dem Fall *"Ferienhaus"*, "*Mietvertrag"* und *"Maengelanzeige",* anzuwenden. Somit spart man sich Zeit und Arbeit.
+*Userstory 2*
+Mit dem folgendem SQL Statement kann man die Rechte auf die Befehle `SELECT`, `UPDATE`, `INSERT`, `DELETE` und `REFERENCES` alle auf einmal für einen Benutzer auf eine Tabelle, in dem Fall *"Ferienhaus"*, "*Mietvertrag"* und *"Maengelanzeige",* übergeben. Somit spart man sich Zeit und Arbeit. 
 
 ```sql
 GRANT CREATE SESSION TO <username_mitarbeiter_chef>;
@@ -366,8 +370,7 @@ GRANT ALL ON Ferienhaus TO <username_mitarbeiter_chef>;
 GRANT ALL ON Mietvertrag TO <username_mitarbeiter_chef>;
 GRANT ALL ON Maengelanzeige TO <username_mitarbeiter_chef>;
 ```
-
-*Ein weiteres Beispiel:*
+*Userstory 3*
 Ein neuer IT-Mitarbeiter wird eingestellt, welcher einzelne Tabellen erstellen und löschen muss. Dazu erhält dieser auch alle Rechte auf die *"Ferienhaus"* Tabelle, damit dieser bestimmte Datensätze auch ändern kann.
 
 ```sql
@@ -376,14 +379,14 @@ GRANT DROP ANY TABLE TO <username_it_mitarbeiter>;
 GRANT ALL ON Ferienhaus TO <username_it_mitarbeiter>;
 ```
 
-### Revoke
-Im `Revoke`-Statement ist es möglich Berechtigungen von Benutzern und Rollen zu wiederrufen.
+#### REVOKE
+Der Befehl `Revoke` *(dt. widerrufen)* widerruft eine Berechtigung von einem Benutzer / Rolle. 
 
 **Syntax des Statements**
 ```sql
 REVOKE <privilegename> ON <objectname> FROM <username>
 ```
-**User-Storys**
+**Users-Storys**
 Ein Mitarbeiter verlässt die Firma. Somit müssen auch seine Zugriffsrechte, aus Datensicherheitsgründen, weggenommen werden.
 
 ```sql
@@ -397,7 +400,7 @@ REVOKE CREATE ANY TABLE FROM <username_it_mitarbeiter>;
 REVOKE DROP ANY TABLE FROM <username_it_mitarbeiter>;
 ```
 
-Die Befehle `SELECT`, `UPDATE`, `INSERT`, `DELETE` und `REFERENCES` (siehe [DML](#DML) / [DQL](#DQL)) des Mitarbeiter Chefs werden alle auf einmal entfernt, sowie die Zugriffsrechte auf die Datenbank.
+Die Befehle `SELECT`, `UPDATE`, `INSERT`, `DELETE` und `REFERENCES` ([DML](#DML) / [DQL](#DQL)) des Mitarbeiter Chefs werden alle auf einmal entfernt, sowie die Zugriffsrechte auf die Datenbank
 ```sql
 REVOKE CREATE SESSION FROM <username_mitarbeiter_chef>;
 REVOKE ALL ON Ferienhaus FROM <username_mitarbeiter_chef>;
