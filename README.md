@@ -145,6 +145,8 @@ DROP DATABASE Ferienhaus;
 ```
 ### DML
 Mit der **D**ata **M**odifying **L**anguage *(dt. Datenmanipulationssprache(n))* kann man Daten bearbeiten, löschen, erstellen und auslesen.
+
+**Befehlsübersicht**
  - [Insert](#Insert)
  - [Update](#Update)
  - [Delete](#Delete)
@@ -346,20 +348,18 @@ SELECT COUNT(fer.Anzahl_Schlafzimmer), fer.Name, eig.Name FROM Ferienhaus fer RI
 ```
 
 ### DCL
-Mit den DCLs (**D**ata **C**ontrol **L**anguage(s)) *(dt. Datenkontrollsprache)* kann man Berechtigungen verteilen und entziehen.
+Mit der **D**ata **C**ontrol **L**anguage *(dt. Datenkontrollsprache)* werden Berechtigungen erteilt und entzogen. Die Sprache ist mit einem Berichtigungssystem vergleichbar.
 
-- [GRANT](#GRANT)
-- [REVOKE](#REVOKE)
+**Befehlsübersicht**
+- [Grant](#Grant)
+- [Revoke](#Revoke)
 
-#### GRANT
->`GRANT` *(dt. gewähren )* gewährt Datenbankbenutzern bestimmte Rechte auf eine Tabelle. 
+#### Grant
+>`GRANT` *(dt. gewähren)* gewährt Datenbankbenutzern bestimmte Rechte auf eine Tabelle. 
 
 **Syntax des Statements**
 ```sql
-GRANT <privilegename> 
-ON <objectname>
-TO <username>
-[WITH GRANT OPTION];
+GRANT <privilegename> ON <objectname> TO <username> [WITH GRANT OPTION];
 ```
 
 **User-Storys**
@@ -404,7 +404,7 @@ GRANT DROP ANY TABLE TO <username_it_mitarbeiter>;
 GRANT ALL ON Ferienhaus TO <username_it_mitarbeiter>;
 ```
 
-#### REVOKE
+#### Revoke
 >`Revoke` *(dt. widerrufen)* widerruft eine Berechtigung von einem Benutzer / Rolle. 
 
 **Syntax des Statements**
