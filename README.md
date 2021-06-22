@@ -1,4 +1,3 @@
-
 # Dokumentation Lernsituation SQL 
 Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
 
@@ -53,7 +52,7 @@ Für die Erzeugung einer Tabelle gilt ein standardisierter Syntax. Datenbank abh
 
 **Syntax des Statements**
 ```sql
-CREATE TABLE <name> [<column>(,...) <constraint>(,...)];
+CREATE TABLE <name> [<column>[,...] <constraint>[,...]];
 ```
 
 **User-Storys**
@@ -87,7 +86,7 @@ ALTER TABLE <table> DROP [COLUMN] <columnname> {RESTRICT | CASCADE}
 ```
 *Hinzufügen einer Spalte*
 ```sql
-ALTER TABLE <table> ADD [COLUMN] <columnname> <datatype> [(NOT)NULL] [DEFAULT <value>] [PRIMARY KEY] [REFERENCES <table> (<column>)]
+ALTER TABLE <table> ADD [COLUMN] <columnname> <datatype> [[NOT]NULL] [DEFAULT <value>] [PRIMARY KEY] [REFERENCES <table> (<column>)]
 ```
 
 *Ändern einer Spalte*
@@ -145,21 +144,19 @@ DROP TABLE Adresse;
 DROP DATABASE Ferienhaus;
 ```
 ### DML
-Mit den DMLs (**D**ata **M**odifying **L**anguage(s)) *(dt. Datenmanipulationssprache(n))* kann man Datensätze bearbeiten, erstellen und, oder löschen.
+Mit der **D**ata **M**odifying **L**anguage *(dt. Datenmanipulationssprache(n))* kann man Daten bearbeiten, löschen, erstellen und auslesen.
+ - [Insert](#Insert)
+ - [Update](#Update)
+ - [Delete](#Delete)
 
- - [INSERT](#INSERT)
- - [UPDATE](#UPDATE)
- - [DELETE](#DELETE)
-
-#### INSERT
+#### Insert
 >`INSERT` *(dt. einfügen)* fügt neue Datensätze hinzu.
 
-Das Beiwort `INTO` bei dem Befehl `INSERT INTO` ist rein optional und unternimmt keinerlei Änderungen an der Verarbeitung des Befehls. Beide Varianten sind sozusagen identisch. [Siehe mehr](https://stackoverflow.com/questions/233919/insert-vs-insert-into)
+Das Beiwort `INTO` bei dem Statement `INSERT INTO` ist rein optional und unternimmt keinerlei Änderungen an der Verarbeitung des Befehls. Beide Varianten sind sozusagen identisch. [Siehe mehr](https://stackoverflow.com/questions/233919/insert-vs-insert-into)
 
 **Syntax des Statements**
 ```sql
-INSERT INTO <tabelle> (<column1>, ...)
-VALUES (<value1>, ...);
+INSERT INTO <name> (<columnname>[,...]) VALUES (<value>[,...]);
 ```
 
 **User-Storys**
@@ -176,14 +173,12 @@ INSERT INTO Mietvertrag (Mietvertrag_ID, Ferienhaus_ID, Kunde_ID, Beginn, Ende)
 VALUES (1, 2, 5, CONVERT('2007-08-29'  AS  Date), CONVERT('2007-09-19'  AS  Date));
 ```
 
-#### UPDATE
+#### Update
 >`UPDATE` *(dt. update)* ändert vorhandene Datensätze.
 
 **Syntax des Statements**
 ```sql
-UPDATE <tabelle>  
-SET <column1> = <value1>, ...  
-WHERE <condition>; 
+UPDATE <tabelle> SET <columnname> = <value> [,...] WHERE <condition>[,...]; 
 ```
 
 **User-Storys**
@@ -192,19 +187,18 @@ Ein Mitarbeiter hat einen Fehler gemacht, als er dem Ehepaar Zander den Mietvert
 
 ```sql
 -- Mietvertrag bearbeiten
-UPDATE Mietvertrag
-SET Ferienhaus_ID = 1
+UPDATE Mietvertrag SET Ferienhaus_ID = 1
 -- Bedinunungen: Kunde = Ehepaar Zander, Beginn = 29.08.2007, FerienhausID = 2
 WHERE Kunde_ID = 5 AND Beginn = CONVERT('2007-08-29'  AS  Date) AND Ferienhaus_ID = 2
 ```
 Der IT-Mitarbeiter muss die Änderung spezifisch auf das Ferienhaus mit dem Fehler auslegen, wo jener Fehler unterlaufen ist. Aus diesem Grund muss man mehrere Faktoren in die Bedingungen (Conditions) einfließen lassen. Das Ehepaar Zander kann auch mehrere Ferienhäuser gebucht haben, deswegen muss man auch den Beginn einfließen lassen. 
 
-#### DELETE
+#### Delete
 >`DELETE` *(dt. löschen)* löscht einzelne oder mehrere Datensätze.
 
 **Syntax des Statements**
 ```sql
-DELETE FROM <tabelle> WHERE <condition>;
+DELETE FROM <tabelle> WHERE <condition>[,...];
 ```
 
 **User-Storys**
@@ -373,7 +367,7 @@ TO <username>
 *User-Story 1*
 In dieser Userstory bekommt ein neuer Mitarbeiter definierte Rechte auf die Tabellen *"Ferienhaus"* und *"Mietvertrag"*, damit dieser das System benutzen kann. Er kann sich somit mit einer SQL Session verbinden und in dieser über ein UI arbeiten. 
 
-Der Befehl `ALTER` gibt in diesem Beispiel de  Benutzer die Rechte, dass er auf der Datenbank unendlich viele Daten speichern kann.  [Siehe mehr](#Alter)
+Das Statement `ALTER` gibt in diesem Beispiel der Benutzer die Rechte, dass er auf der Datenbank unendlich viele Daten speichern kann.  [Siehe mehr](#Alter)
 
 Er erhält aus Sicherheitsgründen keine [Delete](#Delete) und [Update](#Update) Rechte. 
 Diese werden dann von IT-Mitarbeitern übernommen. 
