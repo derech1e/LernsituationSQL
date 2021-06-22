@@ -144,51 +144,72 @@ DROP TABLE Adresse;
 -- Löschen der Datenbank `Ferienhaus`
 DROP DATABASE Ferienhaus;
 ```
-## DML
-Die **D**ata **M**odifying **L**anguage *(dt. Datenmanipulationssprache)* dient zum erstellen, bearbeiten, löschen und auslesen von Daten.
+### DML
+Mit den DMLs (**D**ata **M**odifying **L**anguage(s)) *(dt. Datenmanipulationssprache(n))* kann man Daten bearbeiten, löschen, erstellen und, oder auslesen.
 
-**Befehlsübersicht**
-- [Insert](#Insert)
-- [Update](#Update)
-- [Delete](#Delete)
+ - [INSERT](#INSERT)
+ - [UPDATE](#UPDATE)
+ - [DELETE](#DELETE)
 
-### Insert
-Durch das  `INSERT` Statement werden im Allgemeinen neue Daten hinzufügen.
+#### INSERT
+Mit dem `INSERT` *(dt. einfügen)* Befehl kann man im Allgemeinen Daten hinzufügen.
 
-Das Beiwort `INTO` bei dem Befehl `INSERT INTO` ist rein optional und unternimmt keinerlei Änderungen an der Verarbeitung des Befehls. Beide Varianten sind sozusagen identisch.
+Das Beiwort `INTO` bei dem Befehl `INSERT INTO` ist rein optional und unternimmt keinerlei Änderungen an der Verarbeitung des Befehls. Beide Varianten sind sozusagen identisch. 
 
 **Syntax**
 ```sql
-INSERT INTO <name> (<columnname>[,...]) VALUES (<value>[,...]);
+INSERT INTO <tabelle> (<column1>, ...)
+VALUES (<value1>, ...);
 ```
 
-**User-Storys**
-Ein Mitarbeiter möchte einen neuen Mietvertrag in die Tabelle "Mietvertrag" über ein UI hinzufügen. Dieser Mietvertrag wird von einem Kunden (Ehepaar Zander) angefordert. Der Kunde hatte vorher noch keinen Mietvertrag aufgesetzt und ist somit ein neuer Kunde und muss somit in das System eingepflegt werden.
+**Userstory(s)**
+Ein Mitarbeiter möchte einen neuen Mietvertrag in die Tabelle "Mietvertrag" über ein UI hinzufügen. Dieser Mietvertrag wird von einem Kunden (Ehepaar Zander) angefordert. Der Kunde hatte vorher noch keinen Mietvertrag aufgesetzt und ist somit ein neuer Kunde und muss somit in das System eingepflegt werden. 
 
 ```sql
--- Kunde anlegen: Ehepaar Zander
+/** Kunde anlegen: Ehepaar Zander **/
 INSERT INTO Kunde (Kunde_ID, Address_ID, Name)
 VALUES (5, 12, 'Ehepaar Zander');
 
---Mietvertrag anlegen
-INSERT INTO Mietvertrag (Mietvertrag_ID, Ferienhaus_ID, Kunde_ID, Beginn, Ende) VALUES (1, 2, 5, CONVERT('2007-08-29' AS Date), CONVERT('2007-09-19' AS Date));
+/** Mietvertrag anlegen **/
+INSERT INTO Mietvertrag (Mietvertrag_ID, Ferienhaus_ID, Kunde_ID, Beginn, Ende) 
+VALUES (1, 2, 5, CONVERT('2007-08-29'  AS  Date), CONVERT('2007-09-19'  AS  Date));
 ```
 
-### Update
-Mit dem `UPDATE` Statement ist es möglich Datensätze zu bearbeiten und aktualisieren.
+#### UPDATE
+Mit dem `UPDATE` Befehl kann man sich im Allgemeinen Daten ändern  (vorhandene Daten bearbeiten).
 
 **Syntax**
 ```sql
-UPDATE <name> SET <columnname> = <value>[,...] WHERE <condition>; 
+UPDATE <tabelle>  
+SET <column1> = <value1>, ...  
+WHERE <condition>; 
 ```
 
-**User-Storys**
-Ein Mitarbeiter hat einen Fehler gemacht, als er dem Ehepaar Zander den Mietvertrag aufgesetzte. Er hat vor Unterschrift des Vertrages jenen Vertrag schon in die Datenbank eingepflegt, somit muss er den Mietvertrag erneuert aufsetzten und den neuen Vertrag dem Ehepaar Zander zusenden. Der Mitarbeiter hat das falsche Haus für die Buchung ausgewählt.
+**Userstory(s)**
+Ein Mitarbeiter hat einen Fehler gemacht, als er dem Ehepaar Zander den Mietvertrag aufsetzte. Der Mitarbeiter hat das falsche Haus für die Buchung ausgewählt. Zwecks fehlender Rechte muss ein IT-Mitarbeiter eine Änderung im System vornehmen und das richtige Haus eintragen. 
 
 ```sql
-UPDATE Mietvertrag SET Ferienhaus_ID = 1 WHERE Kunde_ID = 5 AND Beginn = CONVERT('2007-08-29' AS Date) AND Ferienhaus_ID = 2;
+UPDATE Mietvertrag
+SET Ferienhaus_ID = 1
+WHERE Kunde_ID = 5 AND Beginn = CONVERT('2007-08-29'  AS  Date) AND Ferienhaus_ID = 2
 ```
-Das System muss die Änderung spezifisch auf das Ferienhaus auslegen, wo der Fehler unterlaufen ist, deswegen muss man mehrere Faktoren in die Conditions einfließen lassen. Da das Ehepaar Zander auch mehrere Ferienhäuser gebucht haben kann, muss man auch den Beginn mit hinzuzählen.
+Der IT-Mitarbeiter muss die Änderung spezifisch auf das Ferienhaus mit dem Fehler auslegen, wo jener Fehler unterlaufen ist. Aus diesem Grund muss man mehrere Faktoren in die Bedingungen (Conditions) einfließen lassen. Das Ehepaar Zander kann auch mehrere Ferienhäuser gebucht haben, deswegen muss man auch den Beginn einfließen lassen. 
+
+#### DELETE
+Mit dem `DELETE` *(dt. löschen)* Befehl kann man einzelne Datensätze löschen.
+
+**Syntax**
+```sql
+DELETE FROM <tabelle> WHERE <condition>;
+```
+
+**Userstory(s)**
+Eine Mängelanzeige, explizit eine *"Defekte Heizung"*, muss aus der Datenbank gelöscht werden, da diese sich als Fehler herausstellte. Ein IT-Mitarbeiter nimmt die Löschung im System vor. Vorher holt er sich die Mängel-ID aus dem System. 
+
+```sql
+DELETE FROM Maengelanzeige WHERE ID = 89;
+```
+
 
 ## DQL
 In einer Datenbank werden verschiedene Abfragen und Operationen über mehre Tabellen hinweg ausgeführt. Als Ergebnis wird immer eine Tabelle zurückgegeben.
