@@ -37,10 +37,10 @@ In den folgenden Punkten, werden zunächst die verschiedene Sprachbestandteile v
 # SOLL-IST Auswertung
 
 # SQL Bestandteile
-Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standart-Query-Language im Bezug auf den Auftrag "Ferienhaus".
+Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standard-Query-Language im Bezug auf den Auftrag "Ferienhaus".
 
 ## DDL
-Die **D**ata **D**efinition **L**anguage (dt. Datendefinitionssprache) dient zum beschreiben von Datenstrukturen und Elementen. Die Sprache beschreibt die Struktur und den Aufbau einer Datenbank.
+Die **D**ata **D**efinition **L**anguage (dt. Datendefinitionssprache) dient zum Beschreiben von Datenstrukturen und Elementen. Die Sprache beschreibt die Struktur und den Aufbau einer Datenbank.
 
 **Befehlsübersicht**
 - [Create](#Create)
@@ -106,29 +106,28 @@ ALTER TABLE <table> ALTER [COLUMN] <columnname> DROP SCOPE {RESTRICT | CASCADE}
 ```
 
 **User-Storys**
+Als Beispiel möchte der Auftraggeber im Nachhinein die E-Mail-Adresse der Kunden speichern. 
+Es wird das ``ALTER`` Statement benutzt, um einen neue Spalte vom Typ `nvarchar` mit einer maximalen Zeichenlänge von 255 hinzuzufügen.
+
 ```sql
 -- Fügt die Spalte `Email` zur Tabelle Kunde hinzu.
 ALTER TABLE Kunde ADD Email nvarchar(255);
 ```
+
+Nach längerer nutzung, fällt durch Analysen auf das auch eine maximale Zeichenlänge von 100 ausreicht. Die E-Mail Spalte wird dahingehen angepasst.
 ```sql
 -- Änderung der maximalen Zeichenanzahl auf 100
 ALTER TABLE Kunde MODIFY COLUMN Email nvarchar(100);
 ```
+
+Alle E-Mail Adressen sollen nach einer IT-Sicherheit-Analyse aufgrund von Datenschutzrechtlichen bedenken gelöscht werden. 
 ```sql
 -- Löschen der Spalte `Email`
 ALTER TABLE Kunde DROP COLUMN Email;
 ```
-```sql
--- Aktivierung der Einschränkung `FK_Adresse_Herkunftsland`
-ALTER TABLE Adresse CHECK CONSTRAINT FK_Adresse_Herkunftsland;
-```
-```sql
--- Löschen der Einschränkung `FK_Adresse_Herkunftsland`
-ALTER TABLE Person DROP CONSTRAINT FK_Adresse_Herkunftsland;
-```
 
 ### Drop
-Das `DROP` Statement wird in SQL benutzt um Datenbanken und Tabellen zu Löschen. 
+Das `DROP` Statement wird in SQL benutzt um Datenbanken und Tabellen zu löschen. 
 
 **Syntax des Statements**
 ```sql
@@ -153,7 +152,7 @@ Die **D**ata **M**odifying **L**anguage *(dt. Datenmanipulationssprache)* dient 
 - [Delete](#Delete)
 
 ### Insert
-Durch das  `INSERT` Statement werden im Allgemeinen neue Daten hinzufügen.
+Durch das `INSERT` Statement werden im Allgemeinen neue Daten hinzufügen.
 
 Das Beiwort `INTO` bei dem Befehl `INSERT INTO` ist rein optional und unternimmt keinerlei Änderungen an der Verarbeitung des Befehls. Beide Varianten sind sozusagen identisch.
 
@@ -193,7 +192,7 @@ Das System muss die Änderung spezifisch auf das Ferienhaus auslegen, wo der Feh
 ## DQL
 In einer Datenbank werden verschiedene Abfragen und Operationen über mehre Tabellen hinweg ausgeführt. Als Ergebnis wird immer eine Tabelle zurückgegeben.
 
-**D**ata **Q**uery **L**anguage, bedueted übersetzt so viel wie Datenbankabfragesprache. Diese ist ein Bestandteil von SQL und dient zum konkreten Abfragen von Datensätzen aus Tabellen.
+**D**ata **Q**uery **L**anguage, bedeutet übersetzt so viel wie Datenbankabfragesprache. Diese ist ein Bestandteil von SQL und dient zum konkreten Abfragen von Datensätzen aus Tabellen.
 
 **Befehlsübersicht**
 - [Projektion](#Projektion)
@@ -217,13 +216,17 @@ SELECT [{ ALL | * } | DISTINCT] FROM <name> [AS columnname];
 ```
 
 **User-Storys**
+Um zu überprüfen, ob die Mietverträge richtig gespeichert werden, möchte ich mir alle Spalten vom der Tabelle ``Mietvertrag`` anzeigen lassen.
 ```sql
 -- Anzeigen aller Mietverträge
 SELECT * FROM Mietvertrag;
 ```
+
+Man möchte ebenfalls die funktionalität der Tabellen `Kunde` in relation der Tabelle `Adresse` überprüfen. 
+Um manuell zu überprüfen, ob die Tabelle Kunden die `Address_ID` richtig speichert, werden beide Tabellen über das Statement Projiziert.
 ```sql
 -- Anzeigen von Spalten aus Tabellen über einen Alias
-SELECT adr.Address_ID, adr.Stadt, k.Name FROM Kunde k, Adresse adr;
+SELECT adr.Address_ID, k.Address_ID, k.Kunde_ID, adr.Stadt, k.Name FROM Kunde k, Adresse adr;
 ```
 
 #### Selektion
@@ -238,13 +241,16 @@ SELECT ... FROM ... [WHERE ...][GROUP BY ... HAVING...][ORDER BY ...];
 ```
 
 **User-Storys**
+Der Auftraggeber wünscht sich eine Filtermöglichkeit für die Tabelle `Herkunftsländer`.
+Anzeigt sollen alle Herkunftsländer deren Name mit D beginnt und endet, sowie deren Kürzel ein e an zweiter Position nachweisen kann.
+Da der Filter 1 : 1 in SQL übersetzt wird, werden die [Wildcards](#Wildcards) aus dem GUI ebenfalls in das Statement übernommen.
 ```sql
--- Anzeigen aller Herkunftsländer deren Name mit D beginnt und endet, sowie deren Kürzel ein e an zweiter Position nachweisen kann
 SELECT Name, Abkuerzung FROM Herkunftsland WHERE Name LIKE "D%d" AND WHERE Nachname LIKE "_e%";
 ```
 
+Der Auftraggeber probiert den Filter weiter aus.
+Es soll nun die durchschnittliche Anzahl an Schlafzimmer von Ferienhäusern, die später als dem 01.04.2008 eingestellt wurden gefiltert werden.
 ```sql
--- Anzeigen der Durchschnittlichen Anzahl an Schlafzimmer von Ferienhäusern, die später als dem 01.04.2008 eingestellt wurden
 SELECT Name, AVG(Anzahl_Schlafzimmer) AS DurchschnitsSchlafzimmer FROM Ferienhaus WHERE Einstell_dat >= CAST('2008-04-01' AS Date);  
 ```
 
