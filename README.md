@@ -369,6 +369,7 @@ TO <username>
 ```
 
 **User-Storys**
+
 *User-Story 1*
 In dieser Userstory bekommt ein neuer Mitarbeiter definierte Rechte auf die Tabellen *"Ferienhaus"* und *"Mietvertrag"*, damit dieser das System benutzen kann. Er kann sich somit mit einer SQL Session verbinden und in dieser über ein UI arbeiten. 
 
