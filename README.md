@@ -1,6 +1,6 @@
 
 # Dokumentation Lernsituation SQL 
-Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
+Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
 
 # Inhaltsverzeichnis
 - [Auftragsanalyse](#Auftragsanalyse)
@@ -19,7 +19,7 @@ Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zus
 - [TODO](#TODO)
 
 # Hinweise zum Verständnis
-In den folgenden Punkten, werden zunächst die verschiedene Sprachbestandteile von SQL erklärt. Die Allgemeine Syntax des Befehls orientiert sich immer am Standard von SQL. Darüber hinaus sind die [Anwendungsbeispiele](#User-Storys)  für die im [MS-Server Mangament Studio](https://docs.microsoft.com/de-de/sql/ssms/sql-server-management-studio-ssms?view=sql-server-ver15) enthaltene [T-SQL](https://de.wikipedia.org/wiki/Transact-SQL) Sprache angepasst.
+In den folgenden Punkten werden zunächst die verschiedene Sprachbestandteile von SQL erklärt. Die allgemeine Syntax des Befehls orientiert sich immer am Standard von SQL. Darüber hinaus sind die [Anwendungsbeispiele](#User-Storys) für die im [MS-Server Management Studio](https://docs.microsoft.com/de-de/sql/ssms/sql-server-management-studio-ssms?view=sql-server-ver15) enthaltene [T-SQL](https://de.wikipedia.org/wiki/Transact-SQL) Sprache angepasst.
 
 # Auftragsanalyse
 
@@ -223,7 +223,7 @@ SELECT * FROM Mietvertrag;
 ```
 
 Man möchte ebenfalls die funktionalität der Tabellen `Kunde` in relation der Tabelle `Adresse` überprüfen. 
-Um manuell zu überprüfen, ob die Tabelle Kunden die `Address_ID` richtig speichert, werden beide Tabellen über das Statement Projiziert.
+Um manuell zu überprüfen, ob die Tabelle Kunden die `Address_ID` richtig speichert, werden beide Tabellen über das Statement projiziert.
 ```sql
 -- Anzeigen von Spalten aus Tabellen über einen Alias
 SELECT adr.Address_ID, k.Address_ID, k.Kunde_ID, adr.Stadt, k.Name FROM Kunde k, Adresse adr;
@@ -287,7 +287,7 @@ SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person LEFT JOIN 
 ON Mitarbeiter.Name = Person.Nachname ORDER BY Mitarbeiter.Name;
 ```
 ### Right [Outer] Join
-Gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken " Tabelle.
+Gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken" Tabelle.
 
 **Wichtig: Die Datensätze werden aus der rechten Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit Datensätzen aus der linken Tabelle gibt.**
 
