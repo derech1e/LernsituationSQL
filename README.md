@@ -37,10 +37,10 @@ In den folgenden Punkten, werden zunächst die verschiedene Sprachbestandteile v
 # SOLL-IST Auswertung
 
 # SQL Bestandteile
-Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standart-Query-Language im Bezug auf den Auftrag "Ferienhaus".
+Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standart-Query-Language im Bezug auf den Auftrag *"Ferienhaus"*.
 
 ## DDL
-Die **D**ata **D**efinition **L**anguage (dt. Datendefinitionssprache) dient zum beschreiben von Datenstrukturen und Elementen. Die Sprache beschreibt die Struktur und den Aufbau einer Datenbank.
+Die **D**ata **D**efinition **L**anguage *(dt. Datendefinitionssprache)* dient zum beschreiben von Datenstrukturen und Elementen. Die Sprache beschreibt die Struktur und den Aufbau einer Datenbank.
 
 **Befehlsübersicht**
 - [Create](#Create)
@@ -152,61 +152,64 @@ Mit den DMLs (**D**ata **M**odifying **L**anguage(s)) *(dt. Datenmanipulationssp
  - [DELETE](#DELETE)
 
 #### INSERT
-Mit dem `INSERT` *(dt. einfügen)* Befehl kann man im Allgemeinen Daten hinzufügen.
+>Mit dem `INSERT` *(dt. einfügen)* Befehl kann man im Allgemeinen Daten hinzufügen.
 
-Das Beiwort `INTO` bei dem Befehl `INSERT INTO` ist rein optional und unternimmt keinerlei Änderungen an der Verarbeitung des Befehls. Beide Varianten sind sozusagen identisch. 
+Das Beiwort `INTO` bei dem Befehl `INSERT INTO` ist rein optional und unternimmt keinerlei Änderungen an der Verarbeitung des Befehls. Beide Varianten sind sozusagen identisch. [Siehe mehr](https://stackoverflow.com/questions/233919/insert-vs-insert-into)
 
-**Syntax**
+**Syntax des Statements**
 ```sql
 INSERT INTO <tabelle> (<column1>, ...)
 VALUES (<value1>, ...);
 ```
 
-**Userstory(s)**
+**User-Storys**
 Ein Mitarbeiter möchte einen neuen Mietvertrag in die Tabelle "Mietvertrag" über ein UI hinzufügen. Dieser Mietvertrag wird von einem Kunden (Ehepaar Zander) angefordert. Der Kunde hatte vorher noch keinen Mietvertrag aufgesetzt und ist somit ein neuer Kunde und muss somit in das System eingepflegt werden. 
 
 ```sql
-/** Kunde anlegen: Ehepaar Zander **/
+--Kunde anlegen: Ehepaar Zander
 INSERT INTO Kunde (Kunde_ID, Address_ID, Name)
 VALUES (5, 12, 'Ehepaar Zander');
 
-/** Mietvertrag anlegen **/
+--Mietvertrag anlegen
 INSERT INTO Mietvertrag (Mietvertrag_ID, Ferienhaus_ID, Kunde_ID, Beginn, Ende) 
 VALUES (1, 2, 5, CONVERT('2007-08-29'  AS  Date), CONVERT('2007-09-19'  AS  Date));
 ```
 
 #### UPDATE
-Mit dem `UPDATE` Befehl kann man sich im Allgemeinen Daten ändern  (vorhandene Daten bearbeiten).
+>Mit dem `UPDATE` Befehl kann man im Allgemeinen Daten ändern  (vorhandene Daten bearbeiten).
 
-**Syntax**
+**Syntax des Statements**
 ```sql
 UPDATE <tabelle>  
 SET <column1> = <value1>, ...  
 WHERE <condition>; 
 ```
 
-**Userstory(s)**
+**User-Storys**
 Ein Mitarbeiter hat einen Fehler gemacht, als er dem Ehepaar Zander den Mietvertrag aufsetzte. Der Mitarbeiter hat das falsche Haus für die Buchung ausgewählt. Zwecks fehlender Rechte muss ein IT-Mitarbeiter eine Änderung im System vornehmen und das richtige Haus eintragen. 
 
 ```sql
+-- Mietvertrag bearbeiten
 UPDATE Mietvertrag
 SET Ferienhaus_ID = 1
+-- Bedinunungen: Kunde = Ehepaar Zander, Beginn = 29.08.2007, FerienhausID = 2
 WHERE Kunde_ID = 5 AND Beginn = CONVERT('2007-08-29'  AS  Date) AND Ferienhaus_ID = 2
 ```
 Der IT-Mitarbeiter muss die Änderung spezifisch auf das Ferienhaus mit dem Fehler auslegen, wo jener Fehler unterlaufen ist. Aus diesem Grund muss man mehrere Faktoren in die Bedingungen (Conditions) einfließen lassen. Das Ehepaar Zander kann auch mehrere Ferienhäuser gebucht haben, deswegen muss man auch den Beginn einfließen lassen. 
 
 #### DELETE
-Mit dem `DELETE` *(dt. löschen)* Befehl kann man einzelne Datensätze löschen.
+>Mit dem `DELETE` *(dt. löschen)* Befehl kann man einzelne Datensätze löschen.
 
-**Syntax**
+**Syntax des Statements**
 ```sql
 DELETE FROM <tabelle> WHERE <condition>;
 ```
 
-**Userstory(s)**
+**User-Storys**
 Eine Mängelanzeige, explizit eine *"Defekte Heizung"*, muss aus der Datenbank gelöscht werden, da diese sich als Fehler herausstellte. Ein IT-Mitarbeiter nimmt die Löschung im System vor. Vorher holt er sich die Mängel-ID aus dem System. 
 
 ```sql
+-- Löschen einer Mängelanzeige
 DELETE FROM Maengelanzeige WHERE ID = 89;
 ```
 
@@ -352,9 +355,9 @@ Mit den DCLs (**D**ata **C**ontrol **L**anguage(s)) *(dt. Datenkontrollsprache)*
 - [REVOKE](#REVOKE)
 
 #### GRANT
-`GRANT` *(dt. gewähren )* gewährt Datenbankbenutzern bestimmte Rechte auf eine Tabelle. 
+>`GRANT` *(dt. gewähren )* gewährt Datenbankbenutzern bestimmte Rechte auf eine Tabelle. 
 
-**Syntax**
+**Syntax des Statements**
 ```sql
 GRANT <privilegename> 
 ON <objectname>
@@ -362,17 +365,19 @@ TO <username>
 [WITH GRANT OPTION];
 ```
 
-**Userstory(s)**
-*Userstory 1*
-In dieser Userstory bekommt ein neuer Mitarbeiter definierte Rechte auf die Tabellen *"Ferienhaus"* und *"Mietvertrag"*, damit dieser das System benutzen kann. 
-Er kann sich somit mit einer SQL Session verbinden und in dieser über ein UI arbeiten. 
+**User-Storys**
+*User-Story 1*
+In dieser Userstory bekommt ein neuer Mitarbeiter definierte Rechte auf die Tabellen *"Ferienhaus"* und *"Mietvertrag"*, damit dieser das System benutzen kann. Er kann sich somit mit einer SQL Session verbinden und in dieser über ein UI arbeiten. 
 
 Der Befehl `ALTER` gibt in diesem Beispiel de  Benutzer die Rechte, dass er auf der Datenbank unendlich viele Daten speichern kann.  [Siehe mehr](#Alter)
 
-Er erhält aus Sicherheitsgründen keine [DELETE](#DELETE) und [UPDATE](#UPDATE) Rechte. 
+Er erhält aus Sicherheitsgründen keine [Delete](#Delete) und [Update](#Update) Rechte. 
 Diese werden dann von IT-Mitarbeitern übernommen. 
 ```sql
+-- Gewähren von Rechten 1
+-- Session Berechtigung
 GRANT CREATE SESSION TO <username_mitarbeiter>;
+-- Schreib / Leseberechtigungen
 GRANT SELECT ON Ferienhaus TO <username_mitarbeiter>;
 GRANT INSERT ON Ferienhaus TO <username_mitarbeiter>;
 GRANT SELECT ON Mietvertrag TO <username_mitarbeiter>;
@@ -381,47 +386,55 @@ GRANT SELECT ON Maengelanzeige TO <username_mitarbeiter>;
 GRANT INSERT ON Maengelanzeige TO <username_mitarbeiter>;
 ALTER USER <username_mitarbeiter> QUOTA UNLIMITED ON SYSTEM;
 ```
-*Userstory 2*
-Mit dem folgendem SQL Statement kann man die Rechte auf die Befehle `SELECT`, `UPDATE`, `INSERT`, `DELETE` und `REFERENCES` alle auf einmal für einen Benutzer auf eine Tabelle, in dem Fall *"Ferienhaus"*, "*Mietvertrag"* und *"Maengelanzeige",* übergeben. Somit spart man sich Zeit und Arbeit. 
+*User-Story 2*
+Mit dem folgendem SQL Statement kann man die Rechte auf die Befehle `SELECT`, `UPDATE`, `INSERT`, `DELETE` und `REFERENCES` auf einmal für einen Benutzer auf eine Tabelle, in dem Fall *"Ferienhaus"*, "*Mietvertrag"* und *"Maengelanzeige",* gewähren. Somit spart man sich Zeit und Arbeit. 
 
 ```sql
+-- Gewähren von Rechten 2
 GRANT CREATE SESSION TO <username_mitarbeiter_chef>;
 GRANT ALL ON Ferienhaus TO <username_mitarbeiter_chef>;
 GRANT ALL ON Mietvertrag TO <username_mitarbeiter_chef>;
 GRANT ALL ON Maengelanzeige TO <username_mitarbeiter_chef>;
 ```
-*Userstory 3*
-Ein neuer IT-Mitarbeiter wird eingestellt, welcher einzelne Tabellen erstellen und löschen muss. Dazu erhält dieser auch alle Rechte auf die *"Ferienhaus"* Tabelle, damit dieser bestimmte Datensätze auch ändern kann.
+*User-Story 3*
+Ein neuer IT-Mitarbeiter wird eingestellt, welcher einzelne Tabellen erstellen und löschen muss. Dazu erhält dieser auch alle Rechte auf die *"Ferienhaus"* Tabelle, damit dieser bestimmte Datensätze ändern kann.
 
 ```sql
+-- Gewähren von Rechten 3
 GRANT CREATE ANY TABLE TO <username_it_mitarbeiter>; 
 GRANT DROP ANY TABLE TO <username_it_mitarbeiter>;
 GRANT ALL ON Ferienhaus TO <username_it_mitarbeiter>;
 ```
 
 #### REVOKE
-Der Befehl `Revoke` *(dt. widerrufen)* widerruft eine Berechtigung von einem Benutzer / Rolle. 
+>Der Befehl `Revoke` *(dt. widerrufen)* widerruft eine Berechtigung von einem Benutzer / Rolle. 
 
 **Syntax des Statements**
 ```sql
 REVOKE <privilegename> ON <objectname> FROM <username>
 ```
 **Users-Storys**
+*User-Story 1*
 Ein Mitarbeiter verlässt die Firma. Somit müssen auch seine Zugriffsrechte, aus Datensicherheitsgründen, weggenommen werden.
 
 ```sql
+-- Entziehen von Rechten 1
 REVOKE CREATE SESSION FROM <username_mitarbeiter>;
 ```
-*Ein weiteres Beispiel:*
+
+*User-Story 2*
 Ein IT Mitarbeiter verlässt die IT-Firma. Somit müssen auch seine Rechte weggenommen werden.
 
 ```sql
+-- Entziehen von Rechten 2
 REVOKE CREATE ANY TABLE FROM <username_it_mitarbeiter>; 
 REVOKE DROP ANY TABLE FROM <username_it_mitarbeiter>;
 ```
 
+*User-Story 3*
 Die Befehle `SELECT`, `UPDATE`, `INSERT`, `DELETE` und `REFERENCES` ([DML](#DML) / [DQL](#DQL)) des Mitarbeiter Chefs werden alle auf einmal entfernt, sowie die Zugriffsrechte auf die Datenbank
 ```sql
+-- Entziehen von Rechten 3
 REVOKE CREATE SESSION FROM <username_mitarbeiter_chef>;
 REVOKE ALL ON Ferienhaus FROM <username_mitarbeiter_chef>;
 REVOKE ALL ON Mietvertrag FROM <username_mitarbeiter_chef>;
