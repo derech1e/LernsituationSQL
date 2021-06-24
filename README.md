@@ -172,7 +172,7 @@ VALUES (5, 12, 'Ehepaar Zander');
 
 --Mietvertrag anlegen
 INSERT INTO Mietvertrag (Mietvertrag_ID, Ferienhaus_ID, Kunde_ID, Beginn, Ende) 
-VALUES (1, 2, 5, CONVERT('2007-08-29'  AS  Date), CONVERT('2007-09-19'  AS  Date));
+VALUES (1, 2, 5, CAST('2007-08-29' AS Date), CAST('2007-09-19'  AS  Date));
 ```
 
 ### Update
@@ -191,7 +191,7 @@ Ein Mitarbeiter hat einen Fehler gemacht, als er dem Ehepaar Zander den Mietvert
 -- Mietvertrag bearbeiten
 UPDATE Mietvertrag SET Ferienhaus_ID = 1
 -- Bedinunungen: Kunde = Ehepaar Zander, Beginn = 29.08.2007, FerienhausID = 2
-WHERE Kunde_ID = 5 AND Beginn = CONVERT('2007-08-29'  AS  Date) AND Ferienhaus_ID = 2
+WHERE Kunde_ID = 5 AND Beginn = CAST('2007-08-29'  AS  Date) AND Ferienhaus_ID = 2
 ```
 Der IT-Mitarbeiter muss die Änderung spezifisch auf das Ferienhaus mit dem Fehler auslegen, wo jener Fehler unterlaufen ist. Aus diesem Grund muss man mehrere Faktoren in die Bedingungen (Conditions) einfließen lassen. Das Ehepaar Zander kann auch mehrere Ferienhäuser gebucht haben, deswegen muss man auch den Beginn einfließen lassen. 
 
