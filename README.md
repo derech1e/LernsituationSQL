@@ -209,7 +209,7 @@ Eine Mängelanzeige, explizit eine *"Defekte Heizung"*, muss aus der Datenbank g
 
 ```sql
 -- Löschen einer Mängelanzeige
-DELETE FROM Maengelanzeige WHERE ID = 89;
+DELETE FROM Maengelanzeige WHERE Maengelanzeige_ID = 89;
 ```
 
 ## DQL
