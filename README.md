@@ -114,9 +114,10 @@ ALTER TABLE Kunde ADD Email nvarchar(255);
 ```
 
 Nach längerer nutzung, fällt durch Analysen auf das auch eine maximale Zeichenlänge von 100 ausreicht. Die E-Mail Spalte wird dahingehen angepasst.
+Todo: T-SQL Modify ist anders
 ```sql
 -- Änderung der maximalen Zeichenanzahl auf 100
-ALTER TABLE Kunde MODIFY COLUMN Email nvarchar(100);
+ALTER TABLE Kunde ALTER COLUMN Email nvarchar(100);
 ```
 
 Alle E-Mail Adressen sollen nach einer IT-Sicherheit-Analyse aufgrund von Datenschutzrechtlichen bedenken gelöscht werden. 
