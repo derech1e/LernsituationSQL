@@ -267,10 +267,10 @@ SELECT ... FROM ... [WHERE ...][GROUP BY ... HAVING...][ORDER BY ...];
 **User-Storys**
 
 Der Auftraggeber wünscht sich eine Filtermöglichkeit für die Tabelle `Herkunftsländer`.
-Anzeigt sollen alle Herkunftsländer deren Name mit D beginnt und endet, sowie deren Kürzel ein e an zweiter Position nachweisen kann.
+Anzeigt sollen alle Herkunftsländer deren Name mit D beginnt, sowie deren Kürzel ein D ist.
 Da der Filter 1 : 1 in SQL übersetzt wird, werden die [Wildcards](#Wildcards) aus dem GUI ebenfalls in das Statement übernommen.
 ```sql
-SELECT Name, Abkuerzung FROM Herkunftsland WHERE Name LIKE "D%d" AND WHERE Nachname LIKE "_e%";
+SELECT Name, Abkuerzung FROM Herkunftsland WHERE Name LIKE 'D%' AND Abkuerzung = 'D';;
 ```
 
 Der Auftraggeber probiert den Filter weiter aus.
