@@ -48,6 +48,14 @@ Wildcards sind Platzhalterzeichen, die in Zeichenfolgen eingesetzt werden könne
 **Constraints**
 Constraints bedeutet zu Deutsch soviel wie Einschränkungen. Sie werden in Datenbanken benutzt um Regeln für Daten in Tabellen festzulegen. Die Einschränkungen können beispielsweise Datentypen einschränken, die in der Tabelle aufgenommen werden dürfen. Dies gewährleistet die Genauigkeit und Zuverlässigkeit von Daten in der Tabelle. Eine Liste zu allen Constraints mit entsprechender Erklärung, ist [hier](https://www.w3schools.com/sql/sql_constraints.asp) zu finden.
 
+**Order By**
+Die `ORDER BY` Klausel, wird benutzt um Datensätze zu sortieren. Es gibt zwei Möglichkeiten der Sortierung. 
+`ASC` (Ascending) und `DESC` (Descending).
+
+*Syntax des Statements*
+```sql
+SELECT <name> FROM <name> ORDER BY <columnname>[,...] {ASC | DESC}
+```
 
 ## Arbeitsplanung
 
@@ -521,5 +529,8 @@ Um einem Integritätsverlust gespeicherter Daten, gerade durch fehlerhaft konfig
 ## Beschreibung der Sicherheitsrichtlinie für Datenbanksysteme
 
 # Quellen
+- https://www.w3schools.com/sql
 - https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
+- https://www.quora.com/What-is-a-predicate-in-SQL
+- https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_PREDICATES
 - https://stackedit.io
