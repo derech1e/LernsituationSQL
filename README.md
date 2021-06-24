@@ -1,45 +1,47 @@
+
 # Dokumentation Lernsituation SQL 
 Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
 
 # Inhaltsverzeichnis
-- [Auftragsanalyse](#Auftragsanalyse)
+- [Erläuterung der Struktur](#Erläuterung-der-Struktur)
 - [Arbeitsplanung](#Arbeitsplanung)
-	- [Thomas](#Thomas)
-	- [Anton](#Anton)
-	- [Louis](#Louis)
-- [SOLL-IST Auswertung](#SOLL-IST-Auswertung)
 - [Hinweise zum Verständnis](#Hinweise-zum-Verständnis)
 - [SQL Bestandteile](#SQL-Bestandteile)
 	- [DDL](#DDL)
 	- [DML](#DML)
 	- [DQL](#DQL)
 	- [DCL](#DCL)
+- [Auftragsanalyse](#Auftragsanalyse)
+- [SOLL-IST Analyse](#SOLL-IST-Analyse)
+- [Schutzbedarfsanalyse](#Schutzbedarfsanalyse)
 - [Quellen](#Quellen)
-- [TODO](#TODO)
 
-# Hinweise zum Verständnis
-In den folgenden Punkten werden zunächst die verschiedene Sprachbestandteile von SQL erklärt. Die allgemeine Syntax des Befehls orientiert sich immer am Standard von SQL. Darüber hinaus sind die [Anwendungsbeispiele](#User-Storys) für die im [MS-Server Management Studio](https://docs.microsoft.com/de-de/sql/ssms/sql-server-management-studio-ssms?view=sql-server-ver15) enthaltene [T-SQL](https://de.wikipedia.org/wiki/Transact-SQL) Sprache angepasst.
+# Erläuterung der Struktur
+Dieses Dokument wird zunächst die verschiedene Sprachbestandteile von SQL behandelt. 
+Nach diesem erläuternden Teil, leitet das Dokument in den analytischen Teil, hier in Form von der Auftragsanalyse, SOLL-IST Analyse und Schutzbedarfsanalyse, ein und schließt mit der Quellenangabe ab.
 
-# Auftragsanalyse
+**Hinweise zum Verständnis des Syntax:**
+Die allgemeine Syntax der Befehle orientiert sich immer an dem vom SQL vorgegebenen Standard. Darüber hinaus werden die [Anwendungsbeispiele](#User-Storys) nach dem im [MS-Server Management Studio](https://docs.microsoft.com/de-de/sql/ssms/sql-server-management-studio-ssms?view=sql-server-ver15) enthaltenen [T-SQL](https://de.wikipedia.org/wiki/Transact-SQL) Standard erläutert. 
 
-# Arbeitsplanung
-## Louis
+## Arbeitsplanung
+
+**Louis:**
 - Schutzbedarfsanalyse
-## Anton
+
+**Anton:**
 - DML
 - DCL
-## Thomas
+
+**Thomas:**
 - DDL
 - DQL
 - Auftragsanalyse
-
-# SOLL-IST Auswertung
 
 # SQL Bestandteile
 Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standard-Query-Language im Bezug auf den Auftrag "Ferienhaus".
 
 ## DDL
-Die **D**ata **D**efinition **L**anguage (dt. Datendefinitionssprache) dient zum Beschreiben von Datenstrukturen und Elementen. Die Sprache beschreibt die Struktur und den Aufbau einer Datenbank.
+Die **D**ata **D**efinition **L**anguage (dt. Datendefinitionssprache) dient der Beschreibung von Datenstrukturen und Elementen. Die Sprache wird verwendet um die Struktur und den Aufbau einer Datenbank zu beschreiben.
 
 **Befehlsübersicht**
 - [Create](#Create)
@@ -48,7 +50,7 @@ Die **D**ata **D**efinition **L**anguage (dt. Datendefinitionssprache) dient zum
 
 ### Create
 Das `CREATE` Statement wird in SQL benutzt um eine neue Datenbank oder Tabelle zu erstellen.
-Für die Erzeugung einer Tabelle gilt ein standardisierter Syntax. Datenbank abhängig kann es eigene Erweiterungen geben.
+Für die Erzeugung einer Tabelle gilt ein standardisierter Syntax. Datenbankabhängig kann es eigene Erweiterungen geben.
 
 **Syntax des Statements**
 ```sql
@@ -70,9 +72,10 @@ CREATE TABLE Adresse (
 	Herkunftsland_ID int NULL DEFAULT (NULL));
 ```
 
-Im Beispiel sollen alle Kunden aus Dresden in der Tabelle `Dresdener` erfasst werden. Dies gelingt mithilfe eines [Join's](#Join).
+Im Beispiel sollen alle Kunden aus Dresden in der Tabelle `Dresdner` erfasst werden. 
+Dies gelingt mithilfe eines [Join's](#Join).
 ```sql
-CREATE TABLE Dresdener AS [EDGE] SELECT Adresse.Address_ID, Name FROM Kunde INNER JOIN Adresse ON Adresse.Address_ID = Kunde.Address_ID WHERE Adresse.Stadt LIKE 'Dresden';
+CREATE TABLE Dresdner AS [EDGE] SELECT Adresse.Address_ID, Name FROM Kunde INNER JOIN Adresse ON Adresse.Address_ID = Kunde.Address_ID WHERE Adresse.Stadt LIKE 'Dresden';
 -- [EDGE] wird nur in T-SQL benötigt.
 ```
 #### Alter
@@ -106,21 +109,21 @@ ALTER TABLE <table> ALTER [COLUMN] <columnname> DROP SCOPE {RESTRICT | CASCADE}
 
 **User-Storys**
 Als Beispiel möchte der Auftraggeber im Nachhinein die E-Mail-Adresse der Kunden speichern. 
-Es wird das ``ALTER`` Statement benutzt, um einen neue Spalte vom Typ `nvarchar` mit einer maximalen Zeichenlänge von 255 hinzuzufügen.
+Es wird das ``ALTER`` Statement benutzt, um eine neue Spalte `Email` vom Typ `nvarchar` mit einer maximalen Zeichenlänge von 255 hinzuzufügen.
 
 ```sql
 -- Fügt die Spalte `Email` zur Tabelle Kunde hinzu.
 ALTER TABLE Kunde ADD Email nvarchar(255);
 ```
 
-Nach längerer nutzung, fällt durch Analysen auf das auch eine maximale Zeichenlänge von 100 ausreicht. Die E-Mail Spalte wird dahingehen angepasst.
+Nach längerer Nutzung, fällt durch Analysen auf das auch eine maximale Zeichenlänge von 100 ausreicht. Die E-Mail Spalte wird dahingehend angepasst.
 Todo: T-SQL Modify ist anders
 ```sql
 -- Änderung der maximalen Zeichenanzahl auf 100
 ALTER TABLE Kunde ALTER COLUMN Email nvarchar(100);
 ```
 
-Alle E-Mail Adressen sollen nach einer IT-Sicherheit-Analyse aufgrund von Datenschutzrechtlichen bedenken gelöscht werden. 
+Alle E-Mail Adressen sollen nach einer IT-Sicherheit-Analyse aufgrund von datenschutzrechtlichen Bedenken gelöscht werden. 
 ```sql
 -- Löschen der Spalte `Email`
 ALTER TABLE Kunde DROP COLUMN Email;
@@ -450,6 +453,46 @@ REVOKE CREATE SESSION FROM <username_mitarbeiter_chef>;
 REVOKE ALL ON Ferienhaus FROM <username_mitarbeiter_chef>;
 REVOKE ALL ON Mietvertrag FROM <username_mitarbeiter_chef>;
 ```
+# SOLL-IST Analyse
+
+# Auftragsanalyse
+
+# Schutzbedarfsanalyse
+
+Die Schutzbedarfsanalyse baut auf das vom Bundesamt für Sicherheit in der Informationstechnik veröffentlichte Dokument „APP.4.3: Relationale Datenbanken“ auf und versucht ein Konzept zum sicheren Betrieb von relationalen Datenbanksysteme aufzustellen. Die Schutzbedarfsanalyse ist somit ein wichtiger Teil des analytischen Anteils von jedem Projekt um Datenbanksystemen.
+## Unzureichende Dimensionierung der Systemressourcen
+
+Die Analyse und Abschätzung der zureichenden Dimensionierung der Systemressourcen, ist, damit es nicht zu unzureichenden Systemressourcen kommt, in zwei Teile einzuteilen.
+
+Einmal in eine speicherorientierte und zweitens in die leistungsorientierte Abschätzung.
+Die speicherorientierte Abschätzung beschäftigt sich mit der benötigten Menge an Speicherplatz, welche auch noch nach z.B. 5 Jahren mit den vorangelegten Datenbankkonfigurationen, gemeint sind Tabellenstrukturen, Tabellenrelationen usw. nicht voll läuft.
+
+Dazu sollte man folglich zuerst die Auslastung des projektspezifische Datenbanksystem (in diesem Falle ein Microsoft SQL Server) protokollieren und dann diese Daten auf den gewünschten Zeitraum spekulativ aber auch realitätsnah hochrechnen, Die Berichtserstellung für die Speicherauslastung, kann man mit dem Microsoft SQL Server Management Studio überbrücken, da dieses ein internes Feature bietet, welches diesen Bericht generiert.
+Hier wird nun der Allgemeine Bericht aufgelistet:
+**IMAGE Datenbankverwendung**
+Aus den beiden Berichten kann man entnehmen, dass gerade die Gesamtspeichermenge der Datenbank 3,63 MB beträgt. Dazu muss angemerkt werden, dass die Datenbank natürlich für jeden einzelnen Teil ihrer Struktur (pro Tabellenspalte bspw.) im Speichermedium Speicherplatz reserviert. Dieses Verhalten und dessen Ergebnis (reservierter Speicherplatz) sollte mit beachtet werden. Somit kann man nun vom reservierten und aktuell belegten Speicherplatz ausgehend, die Speichermenge auf die 5 Jahre hochrechnen.
+
+## Aktivierte Standard-Benutzerkonten
+
+Um diesen Gefahrenbereich auszuweichen sollte man, nachdem man die Datenbank aufgesetzt hat, darauf achten, dass man die in der Überschrift erwähnten Standard-Benutzerkonten deaktiviert, löscht bzw. dessen Passwort vom Standard abändert. Dieser Hinweis ist recht allgemein, und nicht projektspezifisch. Jedes Projekt welches Teilweise mit Datenbanken zu tun hat sollte sich diesem Hinweis fügen. Wie in dem maßgebendem Dokument erwähnt, können sich Angreifer durch diese vom Hersteller vorgegebenen Passwörter, welche öffentlich zugängig sind, Zugang verschaffen und Konfigurationen durch die Rechte der offengelegten Accounts bspw. ändern.
+
+## Unverschlüsselte Datenbankverbindung
+
+
+
+## Datenverlust in der Datenbank
+
+## Integritätsverlust der gespeicherten Daten
+
+Um einem Integritätsverlust gespeicherter Daten, gerade durch fehlerhaft konfigurierte Datenbanken und manipulierten Daten vorzubeugen, wäre allgemein und somit auch projektspezifisch zu empfehlen, ein Testsystem zu kreieren und zu nutzen. Dieses hätte effektiv eine deckungsgleiche Tabellen- bzw. Datenbankstruktur mit dem Produktivsystem. Zusammen mit einigen Testdaten, welche möglichst viele Sonderfälle abdecken sollten, kann man sicherstellen, dass kritische Änderungen zum Beispiel an Job-Abläufen im Testsystem zuerst durch allgemeine Beobachtung und Prüfung der Ergebnisse getestet werden. Die Änderungen sollten in diesem Zeitraum auch durch manipulierten Daten bezüglich der Sicherheit geprüft werden. Somit werden die angesprochenen Test-Objekte  und Strukturen für die Testung der Patches bzw. Änderungen verwendet und nachdem sich diese als Funktional erwiesen haben, können sie im Produktivsystem sicher angewendet werden.
+
+## SQL-Injections
+
+## Unsichere Konfiguration des DBS
+
+## Malware und unsichere Datenbank-Skripte
+
+## Beschreibung der Sicherheitsrichtlinie für Datenbanksysteme
 
 # Quellen
 - https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
