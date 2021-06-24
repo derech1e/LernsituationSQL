@@ -3,25 +3,27 @@
 Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
 
 # Inhaltsverzeichnis
-- [Auftragsanalyse](#Auftragsanalyse)
+- [Erläuterung der Struktur](#Erläuterung der Struktur)
 - [Arbeitsplanung](#Arbeitsplanung)
-- [SOLL-IST Auswertung](#SOLL-IST-Auswertung)
 - [Hinweise zum Verständnis](#Hinweise-zum-Verständnis)
 - [SQL Bestandteile](#SQL-Bestandteile)
 	- [DDL](#DDL)
 	- [DML](#DML)
 	- [DQL](#DQL)
 	- [DCL](#DCL)
+- [Auftragsanalyse](#Auftragsanalyse)
+- [SOLL-IST Analyse](#SOLL-IST Analyse)
 - [Schutzbedarfsanalyse](#Schutzbedarfsanalyse)
 - [Quellen](#Quellen)
-- [TODO](#TODO)
 
-# Hinweise zum Verständnis
-In den folgenden Punkten werden zunächst die verschiedene Sprachbestandteile von SQL erklärt. Die allgemeine Syntax des Befehls orientiert sich immer am Standard von SQL. Darüber hinaus sind die [Anwendungsbeispiele](#User-Storys) für die im [MS-Server Management Studio](https://docs.microsoft.com/de-de/sql/ssms/sql-server-management-studio-ssms?view=sql-server-ver15) enthaltene [T-SQL](https://de.wikipedia.org/wiki/Transact-SQL) Sprache angepasst.
+# Erläuterung der Struktur
+Dieses Dokument wird zunächst die verschiedene Sprachbestandteile von SQL behandelt. 
+Nach diesem erläuternden Teil, leitet das Dokument in den analytischen Teil, hier in Form von der Auftragsanalyse, SOLL-IST Analyse und Schutzbedarfsanalyse, ein und schließt mit der Quellenangabe ab.
 
-# Auftragsanalyse
+**Hinweise zum Verständnis des Syntax:**
+Die allgemeine Syntax der Befehle orientiert sich immer an dem vom SQL vorgegebenen Standard. Darüber hinaus werden die [Anwendungsbeispiele](#User-Storys) nach dem im [MS-Server Management Studio](https://docs.microsoft.com/de-de/sql/ssms/sql-server-management-studio-ssms?view=sql-server-ver15) enthaltenen [T-SQL](https://de.wikipedia.org/wiki/Transact-SQL) Standard erläutert. 
 
-# Arbeitsplanung
+## Arbeitsplanung
 
 **Louis:**
 - Schutzbedarfsanalyse
@@ -34,8 +36,6 @@ In den folgenden Punkten werden zunächst die verschiedene Sprachbestandteile vo
 - DDL
 - DQL
 - Auftragsanalyse
-
-# SOLL-IST Auswertung
 
 # SQL Bestandteile
 Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standard-Query-Language im Bezug auf den Auftrag "Ferienhaus".
@@ -452,6 +452,10 @@ REVOKE CREATE SESSION FROM <username_mitarbeiter_chef>;
 REVOKE ALL ON Ferienhaus FROM <username_mitarbeiter_chef>;
 REVOKE ALL ON Mietvertrag FROM <username_mitarbeiter_chef>;
 ```
+# SOLL-IST Analyse
+
+# Auftragsanalyse
+
 # Schutzbedarfsanalyse
 
 Die Schutzbedarfsanalyse baut auf das vom Bundesamt für Sicherheit in der Informationstechnik veröffentlichte Dokument „APP.4.3: Relationale Datenbanken“ auf und versucht ein Konzept zum sicheren Betrieb von relationalen Datenbanksysteme aufzustellen. Die Schutzbedarfsanalyse ist somit ein wichtiger Teil des analytischen Anteils von jedem Projekt um Datenbanksystemen.
@@ -464,7 +468,7 @@ Die speicherorientierte Abschätzung beschäftigt sich mit der benötigten Menge
 
 Dazu sollte man folglich zuerst die Auslastung des projektspezifische Datenbanksystem (in diesem Falle ein Microsoft SQL Server) protokollieren und dann diese Daten auf den gewünschten Zeitraum spekulativ aber auch realitätsnah hochrechnen, Die Berichtserstellung für die Speicherauslastung, kann man mit dem Microsoft SQL Server Management Studio überbrücken, da dieses ein internes Feature bietet, welches diesen Bericht generiert.
 Hier wird nun der Allgemeine Bericht aufgelistet:
-** IMAGE Datenbankverwendung**
+**IMAGE Datenbankverwendung**
 Aus den beiden Berichten kann man entnehmen, dass gerade die Gesamtspeichermenge der Datenbank 3,63 MB beträgt. Dazu muss angemerkt werden, dass die Datenbank natürlich für jeden einzelnen Teil ihrer Struktur (pro Tabellenspalte bspw.) im Speichermedium Speicherplatz reserviert. Dieses Verhalten und dessen Ergebnis (reservierter Speicherplatz) sollte mit beachtet werden. Somit kann man nun vom reservierten und aktuell belegten Speicherplatz ausgehend, die Speichermenge auf die 5 Jahre hochrechnen.
 
 ## Aktivierte Standard-Benutzerkonten
@@ -472,6 +476,8 @@ Aus den beiden Berichten kann man entnehmen, dass gerade die Gesamtspeichermenge
 Um diesen Gefahrenbereich auszuweichen sollte man, nachdem man die Datenbank aufgesetzt hat, darauf achten, dass man die in der Überschrift erwähnten Standard-Benutzerkonten deaktiviert, löscht bzw. dessen Passwort vom Standard abändert. Dieser Hinweis ist recht allgemein, und nicht projektspezifisch. Jedes Projekt welches Teilweise mit Datenbanken zu tun hat sollte sich diesem Hinweis fügen. Wie in dem maßgebendem Dokument erwähnt, können sich Angreifer durch diese vom Hersteller vorgegebenen Passwörter, welche öffentlich zugängig sind, Zugang verschaffen und Konfigurationen durch die Rechte der offengelegten Accounts bspw. ändern.
 
 ## Unverschlüsselte Datenbankverbindung
+
+
 
 ## Datenverlust in der Datenbank
 
