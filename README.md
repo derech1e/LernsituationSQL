@@ -276,7 +276,7 @@ SELECT Name, Abkuerzung FROM Herkunftsland WHERE Name LIKE 'D%' AND Abkuerzung =
 Der Auftraggeber probiert den Filter weiter aus.
 Es soll nun die durchschnittliche Anzahl an Schlafzimmer von Ferienhäusern, die später als dem 01.04.2008 eingestellt wurden gefiltert werden.
 ```sql
-SELECT Name, AVG(Anzahl_Schlafzimmer) AS DurchschnitsSchlafzimmer FROM Ferienhaus WHERE Einstell_dat >= CAST('2008-04-01' AS Date);  
+SELECT AVG(Anzahl_Schlafzimmer) AS DurchschnitsSchlafzimmer FROM Ferienhaus WHERE Einstell_dat >= CAST('2008-04-01' AS Date) 
 ```
 
 ```sql
@@ -286,7 +286,7 @@ SELECT Name INTO GuteFerienhaeuser FROM Ferienhaus WHERE Anzahl_Schlafzimmer > 3
 
 ```sql
 -- Anzeigen aller Kunden die in Dresden wohen und den Buchstaben k in ihrem Namen haben
-SELECT Adresse.Address_ID, Name FROM Kunde INNER JOIN Adresse ON Adresse.Address_ID = Kunde.Address_ID WHERE Adresse.Stadt LIKE 'Dresden' AND WHERE Kunde.Name LIKE '%k%';
+SELECT Adresse.Address_ID, Name FROM Kunde INNER JOIN Adresse ON Adresse.Address_ID = Kunde.Address_ID WHERE Adresse.Stadt LIKE 'Dresden' AND Kunde.Name LIKE '%k%';
 ```
 
 ### Join
