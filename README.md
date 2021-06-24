@@ -238,6 +238,7 @@ SELECT [{ ALL | * } | DISTINCT] FROM <name> [AS columnname];
 ```
 
 **User-Storys**
+
 Um zu überprüfen, ob die Mietverträge richtig gespeichert werden, möchte ich mir alle Spalten vom der Tabelle ``Mietvertrag`` anzeigen lassen.
 ```sql
 -- Anzeigen aller Mietverträge
@@ -263,6 +264,7 @@ SELECT ... FROM ... [WHERE ...][GROUP BY ... HAVING...][ORDER BY ...];
 ```
 
 **User-Storys**
+
 Der Auftraggeber wünscht sich eine Filtermöglichkeit für die Tabelle `Herkunftsländer`.
 Anzeigt sollen alle Herkunftsländer deren Name mit D beginnt und endet, sowie deren Kürzel ein e an zweiter Position nachweisen kann.
 Da der Filter 1 : 1 in SQL übersetzt wird, werden die [Wildcards](#Wildcards) aus dem GUI ebenfalls in das Statement übernommen.
