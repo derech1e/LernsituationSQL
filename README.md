@@ -1,12 +1,10 @@
+
 # Dokumentation Lernsituation SQL 
 Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
 
 # Inhaltsverzeichnis
 - [Auftragsanalyse](#Auftragsanalyse)
 - [Arbeitsplanung](#Arbeitsplanung)
-	- [Thomas](#Thomas)
-	- [Anton](#Anton)
-	- [Louis](#Louis)
 - [SOLL-IST Auswertung](#SOLL-IST-Auswertung)
 - [Hinweise zum Verständnis](#Hinweise-zum-Verständnis)
 - [SQL Bestandteile](#SQL-Bestandteile)
@@ -14,6 +12,7 @@ Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zu
 	- [DML](#DML)
 	- [DQL](#DQL)
 	- [DCL](#DCL)
+- [Schutzbedarfsanalyse](#Schutzbedarfsanalyse)
 - [Quellen](#Quellen)
 - [TODO](#TODO)
 
@@ -23,12 +22,15 @@ In den folgenden Punkten werden zunächst die verschiedene Sprachbestandteile vo
 # Auftragsanalyse
 
 # Arbeitsplanung
-## Louis
+
+**Louis:**
 - Schutzbedarfsanalyse
-## Anton
+
+**Anton:**
 - DML
 - DCL
-## Thomas
+
+**Thomas:**
 - DDL
 - DQL
 - Auftragsanalyse
@@ -70,9 +72,10 @@ CREATE TABLE Adresse (
 	Herkunftsland_ID int NULL DEFAULT (NULL));
 ```
 
-Im Beispiel sollen alle Kunden aus Dresden in der Tabelle `Dresdener` erfasst werden. Dies gelingt mithilfe eines [Join's](#Join).
+Im Beispiel sollen alle Kunden aus Dresden in der Tabelle `Dresdner` erfasst werden. 
+Dies gelingt mithilfe eines [Join's](#Join).
 ```sql
-CREATE TABLE Dresdener AS [EDGE] SELECT Adresse.Address_ID, Name FROM Kunde INNER JOIN Adresse ON Adresse.Address_ID = Kunde.Address_ID WHERE Adresse.Stadt LIKE 'Dresden';
+CREATE TABLE Dresdner AS [EDGE] SELECT Adresse.Address_ID, Name FROM Kunde INNER JOIN Adresse ON Adresse.Address_ID = Kunde.Address_ID WHERE Adresse.Stadt LIKE 'Dresden';
 -- [EDGE] wird nur in T-SQL benötigt.
 ```
 #### Alter
@@ -238,6 +241,7 @@ SELECT [{ ALL | * } | DISTINCT] FROM <name> [AS columnname];
 ```
 
 **User-Storys**
+
 Um zu überprüfen, ob die Mietverträge richtig gespeichert werden, möchte ich mir alle Spalten vom der Tabelle ``Mietvertrag`` anzeigen lassen.
 ```sql
 -- Anzeigen aller Mietverträge
@@ -263,6 +267,7 @@ SELECT ... FROM ... [WHERE ...][GROUP BY ... HAVING...][ORDER BY ...];
 ```
 
 **User-Storys**
+
 Der Auftraggeber wünscht sich eine Filtermöglichkeit für die Tabelle `Herkunftsländer`.
 Anzeigt sollen alle Herkunftsländer deren Name mit D beginnt und endet, sowie deren Kürzel ein e an zweiter Position nachweisen kann.
 Da der Filter 1 : 1 in SQL übersetzt wird, werden die [Wildcards](#Wildcards) aus dem GUI ebenfalls in das Statement übernommen.
@@ -447,6 +452,40 @@ REVOKE CREATE SESSION FROM <username_mitarbeiter_chef>;
 REVOKE ALL ON Ferienhaus FROM <username_mitarbeiter_chef>;
 REVOKE ALL ON Mietvertrag FROM <username_mitarbeiter_chef>;
 ```
+# Schutzbedarfsanalyse
+
+Die Schutzbedarfsanalyse baut auf das vom Bundesamt für Sicherheit in der Informationstechnik veröffentlichte Dokument „APP.4.3: Relationale Datenbanken“ auf und versucht ein Konzept zum sicheren Betrieb von relationalen Datenbanksysteme aufzustellen. Die Schutzbedarfsanalyse ist somit ein wichtiger Teil des analytischen Anteils von jedem Projekt um Datenbanksystemen.
+## Unzureichende Dimensionierung der Systemressourcen
+
+Die Analyse und Abschätzung der zureichenden Dimensionierung der Systemressourcen, ist, damit es nicht zu unzureichenden Systemressourcen kommt, in zwei Teile einzuteilen.
+
+Einmal in eine speicherorientierte und zweitens in die leistungsorientierte Abschätzung.
+Die speicherorientierte Abschätzung beschäftigt sich mit der benötigten Menge an Speicherplatz, welche auch noch nach z.B. 5 Jahren mit den vorangelegten Datenbankkonfigurationen, gemeint sind Tabellenstrukturen, Tabellenrelationen usw. nicht voll läuft.
+
+Dazu sollte man folglich zuerst die Auslastung des projektspezifische Datenbanksystem (in diesem Falle ein Microsoft SQL Server) protokollieren und dann diese Daten auf den gewünschten Zeitraum spekulativ aber auch realitätsnah hochrechnen, Die Berichtserstellung für die Speicherauslastung, kann man mit dem Microsoft SQL Server Management Studio überbrücken, da dieses ein internes Feature bietet, welches diesen Bericht generiert.
+Hier wird nun der Allgemeine Bericht aufgelistet:
+** IMAGE Datenbankverwendung**
+Aus den beiden Berichten kann man entnehmen, dass gerade die Gesamtspeichermenge der Datenbank 3,63 MB beträgt. Dazu muss angemerkt werden, dass die Datenbank natürlich für jeden einzelnen Teil ihrer Struktur (pro Tabellenspalte bspw.) im Speichermedium Speicherplatz reserviert. Dieses Verhalten und dessen Ergebnis (reservierter Speicherplatz) sollte mit beachtet werden. Somit kann man nun vom reservierten und aktuell belegten Speicherplatz ausgehend, die Speichermenge auf die 5 Jahre hochrechnen.
+
+## Aktivierte Standard-Benutzerkonten
+
+Um diesen Gefahrenbereich auszuweichen sollte man, nachdem man die Datenbank aufgesetzt hat, darauf achten, dass man die in der Überschrift erwähnten Standard-Benutzerkonten deaktiviert, löscht bzw. dessen Passwort vom Standard abändert. Dieser Hinweis ist recht allgemein, und nicht projektspezifisch. Jedes Projekt welches Teilweise mit Datenbanken zu tun hat sollte sich diesem Hinweis fügen. Wie in dem maßgebendem Dokument erwähnt, können sich Angreifer durch diese vom Hersteller vorgegebenen Passwörter, welche öffentlich zugängig sind, Zugang verschaffen und Konfigurationen durch die Rechte der offengelegten Accounts bspw. ändern.
+
+## Unverschlüsselte Datenbankverbindung
+
+## Datenverlust in der Datenbank
+
+## Integritätsverlust der gespeicherten Daten
+
+Um einem Integritätsverlust gespeicherter Daten, gerade durch fehlerhaft konfigurierte Datenbanken und manipulierten Daten vorzubeugen, wäre allgemein und somit auch projektspezifisch zu empfehlen, ein Testsystem zu kreieren und zu nutzen. Dieses hätte effektiv eine deckungsgleiche Tabellen- bzw. Datenbankstruktur mit dem Produktivsystem. Zusammen mit einigen Testdaten, welche möglichst viele Sonderfälle abdecken sollten, kann man sicherstellen, dass kritische Änderungen zum Beispiel an Job-Abläufen im Testsystem zuerst durch allgemeine Beobachtung und Prüfung der Ergebnisse getestet werden. Die Änderungen sollten in diesem Zeitraum auch durch manipulierten Daten bezüglich der Sicherheit geprüft werden. Somit werden die angesprochenen Test-Objekte  und Strukturen für die Testung der Patches bzw. Änderungen verwendet und nachdem sich diese als Funktional erwiesen haben, können sie im Produktivsystem sicher angewendet werden.
+
+## SQL-Injections
+
+## Unsichere Konfiguration des DBS
+
+## Malware und unsichere Datenbank-Skripte
+
+## Beschreibung der Sicherheitsrichtlinie für Datenbanksysteme
 
 # Quellen
 - https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
