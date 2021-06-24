@@ -117,9 +117,10 @@ ALTER TABLE Kunde ADD Email nvarchar(255);
 ```
 
 Nach längerer Nutzung, fällt durch Analysen auf das auch eine maximale Zeichenlänge von 100 ausreicht. Die E-Mail Spalte wird dahingehend angepasst.
+Todo: T-SQL Modify ist anders
 ```sql
 -- Änderung der maximalen Zeichenanzahl auf 100
-ALTER TABLE Kunde MODIFY COLUMN Email nvarchar(100);
+ALTER TABLE Kunde ALTER COLUMN Email nvarchar(100);
 ```
 
 Alle E-Mail Adressen sollen nach einer IT-Sicherheit-Analyse aufgrund von datenschutzrechtlichen Bedenken gelöscht werden. 
@@ -174,7 +175,7 @@ VALUES (5, 12, 'Ehepaar Zander');
 
 --Mietvertrag anlegen
 INSERT INTO Mietvertrag (Mietvertrag_ID, Ferienhaus_ID, Kunde_ID, Beginn, Ende) 
-VALUES (1, 2, 5, CONVERT('2007-08-29'  AS  Date), CONVERT('2007-09-19'  AS  Date));
+VALUES (1, 2, 5, CAST('2007-08-29' AS Date), CAST('2007-09-19'  AS  Date));
 ```
 
 ### Update
@@ -193,7 +194,7 @@ Ein Mitarbeiter hat einen Fehler gemacht, als er dem Ehepaar Zander den Mietvert
 -- Mietvertrag bearbeiten
 UPDATE Mietvertrag SET Ferienhaus_ID = 1
 -- Bedinunungen: Kunde = Ehepaar Zander, Beginn = 29.08.2007, FerienhausID = 2
-WHERE Kunde_ID = 5 AND Beginn = CONVERT('2007-08-29'  AS  Date) AND Ferienhaus_ID = 2
+WHERE Kunde_ID = 5 AND Beginn = CAST('2007-08-29'  AS  Date) AND Ferienhaus_ID = 2
 ```
 Der IT-Mitarbeiter muss die Änderung spezifisch auf das Ferienhaus mit dem Fehler auslegen, wo jener Fehler unterlaufen ist. Aus diesem Grund muss man mehrere Faktoren in die Bedingungen (Conditions) einfließen lassen. Das Ehepaar Zander kann auch mehrere Ferienhäuser gebucht haben, deswegen muss man auch den Beginn einfließen lassen. 
 
@@ -211,7 +212,7 @@ Eine Mängelanzeige, explizit eine *"Defekte Heizung"*, muss aus der Datenbank g
 
 ```sql
 -- Löschen einer Mängelanzeige
-DELETE FROM Maengelanzeige WHERE ID = 89;
+DELETE FROM Maengelanzeige WHERE Maengelanzeige_ID = 89;
 ```
 
 ## DQL
@@ -269,16 +270,16 @@ SELECT ... FROM ... [WHERE ...][GROUP BY ... HAVING...][ORDER BY ...];
 **User-Storys**
 
 Der Auftraggeber wünscht sich eine Filtermöglichkeit für die Tabelle `Herkunftsländer`.
-Anzeigt sollen alle Herkunftsländer deren Name mit D beginnt und endet, sowie deren Kürzel ein e an zweiter Position nachweisen kann.
+Anzeigt sollen alle Herkunftsländer deren Name mit D beginnt, sowie deren Kürzel ein D ist.
 Da der Filter 1 : 1 in SQL übersetzt wird, werden die [Wildcards](#Wildcards) aus dem GUI ebenfalls in das Statement übernommen.
 ```sql
-SELECT Name, Abkuerzung FROM Herkunftsland WHERE Name LIKE "D%d" AND WHERE Nachname LIKE "_e%";
+SELECT Name, Abkuerzung FROM Herkunftsland WHERE Name LIKE 'D%' AND Abkuerzung = 'D';;
 ```
 
 Der Auftraggeber probiert den Filter weiter aus.
 Es soll nun die durchschnittliche Anzahl an Schlafzimmer von Ferienhäusern, die später als dem 01.04.2008 eingestellt wurden gefiltert werden.
 ```sql
-SELECT Name, AVG(Anzahl_Schlafzimmer) AS DurchschnitsSchlafzimmer FROM Ferienhaus WHERE Einstell_dat >= CAST('2008-04-01' AS Date);  
+SELECT AVG(Anzahl_Schlafzimmer) AS DurchschnitsSchlafzimmer FROM Ferienhaus WHERE Einstell_dat >= CAST('2008-04-01' AS Date) 
 ```
 
 ```sql
@@ -288,7 +289,7 @@ SELECT Name INTO GuteFerienhaeuser FROM Ferienhaus WHERE Anzahl_Schlafzimmer > 3
 
 ```sql
 -- Anzeigen aller Kunden die in Dresden wohen und den Buchstaben k in ihrem Namen haben
-SELECT Adresse.Address_ID, Name FROM Kunde INNER JOIN Adresse ON Adresse.Address_ID = Kunde.Address_ID WHERE Adresse.Stadt LIKE 'Dresden' AND WHERE Kunde.Name LIKE '%k%';
+SELECT Adresse.Address_ID, Name FROM Kunde INNER JOIN Adresse ON Adresse.Address_ID = Kunde.Address_ID WHERE Adresse.Stadt LIKE 'Dresden' AND Kunde.Name LIKE '%k%';
 ```
 
 ### Join
@@ -350,12 +351,12 @@ SELECT ... FROM ... [WHERE ...] GROUP BY <columnname> [ORDER BY ...]
 **User-Storys**
 ```sql
 -- Gruppiert alle Schlafzimmer von Ferienhäuser die nicht am 01.04.2008 eigestellt wurden und Sortiert der Anzahl nach aufsteigend 
-SELECT COUNT(Anzahl_Schlafzimmer), Name FROM Ferienhaus WHERE Einstell_dat != CAST('2008-04-01' AS Date) GROUP BY Name ORDER BY Anzahl_Schlafzimmer ASC;
+SELECT Anzahl_Schlafzimmer, Name FROM Ferienhaus GROUP BY Anzahl_Schlafzimmer, Name ORDER BY Anzahl_Schlafzimmer ASC;
 ```
 
 ```sql 
 -- Gruppiert alle Schlafzimmer von Ferienhäuser die nicht am 01.04.2008 eigestellt wurden, dem Eigenümer mit der ID 2 gehöhren und Sortiert diese der Schlafzimmeranzahl nach aufsteigend 
-SELECT COUNT(fer.Anzahl_Schlafzimmer), fer.Name, eig.Name FROM Ferienhaus fer RIGHT JOIN Eigentuemer eig ON eig.Eigentuemer_ID = 2 WHERE Einstell_dat != CAST('2008-04-01' AS Date) GROUP BY Name ORDER BY Anzahl_Schlafzimmer ASC;
+SELECT fer.Anzahl_Schlafzimmer, fer.Name, eig.Name FROM Ferienhaus fer RIGHT JOIN Eigentuemer eig ON eig.Eigentuemer_ID = 2 WHERE Einstell_dat != CAST('2008-04-01' AS Date) GROUP BY fer.Anzahl_Schlafzimmer, fer.Name, eig.Name ORDER BY Anzahl_Schlafzimmer ASC;
 ```
 
 ## DCL
