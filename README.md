@@ -25,6 +25,7 @@ Nach diesem erläuternden Teil, leitet das Dokument in den analytischen Teil, hi
 Die allgemeine Syntax der Befehle orientiert sich immer an dem vom SQL vorgegebenen Standard. Darüber hinaus werden die [Anwendungsbeispiele](#User-Storys) nach dem im [MS-Server Management Studio](https://docs.microsoft.com/de-de/sql/ssms/sql-server-management-studio-ssms?view=sql-server-ver15) enthaltenen [T-SQL](https://de.wikipedia.org/wiki/Transact-SQL) Standard erläutert. 
 
 **Conditions/ WHERE Clause**
+
 In SQL gibt es verschiedene Vergleichsoperatoren. In der nachfolgenden Tabelle sind alle Operatoren gelistet, die in einer `WHERE` Klausel benutzt werden können. Die `WHERE` Klausel befindet sich am Ende eines Statements.
 
 | Operator| Beschreibung| 
@@ -40,15 +41,19 @@ In SQL gibt es verschiedene Vergleichsoperatoren. In der nachfolgenden Tabelle s
 | IN      | Das Spezifizieren von mehreren möglichen Werten für eine Spalte |
 
 
-> **Predicates:** Ein Predicate definiert eine logische Bedingung, die auf Zeilen in einer Tabelle angewendet wird. Sie werden in der Suchbedingung von `WHERE` Klauseln verwendet, bei denen ein boolescher Wert erforderlich ist. Ein überblick zu den Predicates, ist [hier](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_PREDICATES) zu finden. 
+> **Predicates:** 
+> Ein Predicate definiert eine logische Bedingung, die auf Zeilen in einer Tabelle angewendet wird. Sie werden in der Suchbedingung von `WHERE` Klauseln verwendet, bei denen ein boolescher Wert erforderlich ist. Ein überblick zu den Predicates, ist [hier](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_PREDICATES) zu finden. 
 
 **Wildcards**
+
 Wildcards sind Platzhalterzeichen, die in Zeichenfolgen eingesetzt werden können. Sie dienen zur besseren Einstellung von Filtern und werden mit dem `LIKE` operator benutzt, bei einer `WHERE` Bedingung. Die Platzhalter werden später in die entsprechende Filter Logik übersetzt. Eine Liste zu allen Wildcards mit entsprechender Erklärung, ist [hier](https://www.w3schools.com/sql/sql_wildcards.asp) zu finden. 
 
 **Constraints**
+
 Constraints bedeutet zu Deutsch soviel wie Einschränkungen. Sie werden in Datenbanken benutzt um Regeln für Daten in Tabellen festzulegen. Die Einschränkungen können beispielsweise Datentypen einschränken, die in der Tabelle aufgenommen werden dürfen. Dies gewährleistet die Genauigkeit und Zuverlässigkeit von Daten in der Tabelle. Eine Liste zu allen Constraints mit entsprechender Erklärung, ist [hier](https://www.w3schools.com/sql/sql_constraints.asp) zu finden.
 
 **Order By**
+
 Die `ORDER BY` Klausel, wird benutzt um Datensätze zu sortieren. Es gibt zwei Möglichkeiten der Sortierung. 
 `ASC` (Ascending) und `DESC` (Descending).
 
