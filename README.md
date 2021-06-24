@@ -348,12 +348,12 @@ SELECT ... FROM ... [WHERE ...] GROUP BY <columnname> [ORDER BY ...]
 **User-Storys**
 ```sql
 -- Gruppiert alle Schlafzimmer von Ferienhäuser die nicht am 01.04.2008 eigestellt wurden und Sortiert der Anzahl nach aufsteigend 
-SELECT COUNT(Anzahl_Schlafzimmer), Name FROM Ferienhaus WHERE Einstell_dat != CAST('2008-04-01' AS Date) GROUP BY Name ORDER BY Anzahl_Schlafzimmer ASC;
+SELECT Anzahl_Schlafzimmer, Name FROM Ferienhaus GROUP BY Anzahl_Schlafzimmer, Name ORDER BY Anzahl_Schlafzimmer ASC;
 ```
 
 ```sql 
 -- Gruppiert alle Schlafzimmer von Ferienhäuser die nicht am 01.04.2008 eigestellt wurden, dem Eigenümer mit der ID 2 gehöhren und Sortiert diese der Schlafzimmeranzahl nach aufsteigend 
-SELECT COUNT(fer.Anzahl_Schlafzimmer), fer.Name, eig.Name FROM Ferienhaus fer RIGHT JOIN Eigentuemer eig ON eig.Eigentuemer_ID = 2 WHERE Einstell_dat != CAST('2008-04-01' AS Date) GROUP BY Name ORDER BY Anzahl_Schlafzimmer ASC;
+SELECT fer.Anzahl_Schlafzimmer, fer.Name, eig.Name FROM Ferienhaus fer RIGHT JOIN Eigentuemer eig ON eig.Eigentuemer_ID = 2 WHERE Einstell_dat != CAST('2008-04-01' AS Date) GROUP BY fer.Anzahl_Schlafzimmer, fer.Name, eig.Name ORDER BY Anzahl_Schlafzimmer ASC;
 ```
 
 ## DCL
