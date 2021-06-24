@@ -3,7 +3,7 @@
 Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
 
 # Inhaltsverzeichnis
-- [Erläuterung der Struktur](#Erläuterung der Struktur)
+- [Erläuterung der Struktur](#Erläuterung-der-Struktur)
 - [Arbeitsplanung](#Arbeitsplanung)
 - [Hinweise zum Verständnis](#Hinweise-zum-Verständnis)
 - [SQL Bestandteile](#SQL-Bestandteile)
@@ -12,7 +12,7 @@ Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zu
 	- [DQL](#DQL)
 	- [DCL](#DCL)
 - [Auftragsanalyse](#Auftragsanalyse)
-- [SOLL-IST Analyse](#SOLL-IST Analyse)
+- [SOLL-IST Analyse](#SOLL-IST-Analyse)
 - [Schutzbedarfsanalyse](#Schutzbedarfsanalyse)
 - [Quellen](#Quellen)
 
@@ -41,7 +41,7 @@ Die allgemeine Syntax der Befehle orientiert sich immer an dem vom SQL vorgegebe
 Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standard-Query-Language im Bezug auf den Auftrag "Ferienhaus".
 
 ## DDL
-Die **D**ata **D**efinition **L**anguage (dt. Datendefinitionssprache) dient zum Beschreiben von Datenstrukturen und Elementen. Die Sprache beschreibt die Struktur und den Aufbau einer Datenbank.
+Die **D**ata **D**efinition **L**anguage (dt. Datendefinitionssprache) dient der Beschreibung von Datenstrukturen und Elementen. Die Sprache wird verwendet um die Struktur und den Aufbau einer Datenbank zu beschreiben.
 
 **Befehlsübersicht**
 - [Create](#Create)
@@ -50,7 +50,7 @@ Die **D**ata **D**efinition **L**anguage (dt. Datendefinitionssprache) dient zum
 
 ### Create
 Das `CREATE` Statement wird in SQL benutzt um eine neue Datenbank oder Tabelle zu erstellen.
-Für die Erzeugung einer Tabelle gilt ein standardisierter Syntax. Datenbank abhängig kann es eigene Erweiterungen geben.
+Für die Erzeugung einer Tabelle gilt ein standardisierter Syntax. Datenbankabhängig kann es eigene Erweiterungen geben.
 
 **Syntax des Statements**
 ```sql
@@ -109,20 +109,20 @@ ALTER TABLE <table> ALTER [COLUMN] <columnname> DROP SCOPE {RESTRICT | CASCADE}
 
 **User-Storys**
 Als Beispiel möchte der Auftraggeber im Nachhinein die E-Mail-Adresse der Kunden speichern. 
-Es wird das ``ALTER`` Statement benutzt, um einen neue Spalte vom Typ `nvarchar` mit einer maximalen Zeichenlänge von 255 hinzuzufügen.
+Es wird das ``ALTER`` Statement benutzt, um eine neue Spalte `Email` vom Typ `nvarchar` mit einer maximalen Zeichenlänge von 255 hinzuzufügen.
 
 ```sql
 -- Fügt die Spalte `Email` zur Tabelle Kunde hinzu.
 ALTER TABLE Kunde ADD Email nvarchar(255);
 ```
 
-Nach längerer nutzung, fällt durch Analysen auf das auch eine maximale Zeichenlänge von 100 ausreicht. Die E-Mail Spalte wird dahingehen angepasst.
+Nach längerer Nutzung, fällt durch Analysen auf das auch eine maximale Zeichenlänge von 100 ausreicht. Die E-Mail Spalte wird dahingehend angepasst.
 ```sql
 -- Änderung der maximalen Zeichenanzahl auf 100
 ALTER TABLE Kunde MODIFY COLUMN Email nvarchar(100);
 ```
 
-Alle E-Mail Adressen sollen nach einer IT-Sicherheit-Analyse aufgrund von Datenschutzrechtlichen bedenken gelöscht werden. 
+Alle E-Mail Adressen sollen nach einer IT-Sicherheit-Analyse aufgrund von datenschutzrechtlichen Bedenken gelöscht werden. 
 ```sql
 -- Löschen der Spalte `Email`
 ALTER TABLE Kunde DROP COLUMN Email;
