@@ -508,6 +508,9 @@ REVOKE ALL ON Mietvertrag FROM <username_mitarbeiter_chef>;
 # SOLL-IST Analyse
 
 # Auftragsanalyse
+Auftrag ist die Restrukturierung und Aktualisierung des örtlichen IT-Systems des Unternehmen Bengel&Gölp GmbH. Eines der Hauptziele ist die Ertüchtigung der Datenbank für die Bereitstellung und Nutzung der Geschäftsdaten unter Beachtung aktueller Bestimmungen des Datenschutzes.
+Der nächste Schritt in diesem Auftrag, ist nun die Überprüfung der primären funktionalitäten während der nutzung der Datenbank. Mithilfe eines [Schutzbedarfsanalyseprotokoll](#Schutzbedarfsanalyse) soll bewiesen werden, dass alle richtlinien zum Datenschutz- und sicherheit erfüllt sind. Fehlenden Maßnamen sind in einer [SOLL-IST Analyse](SOLLT-IST-Analyse) festzuhalten.
+
 
 # Schutzbedarfsanalyse
 
