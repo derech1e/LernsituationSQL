@@ -332,13 +332,6 @@ SELECT Adresse.Address_ID, Name FROM Kunde INNER JOIN Adresse ON Adresse.Address
 ```
 
 ### Join
-
-**Befehlsübersicht**
-- [Inner Join](#Inner-Join)
-- [Left Join](#Left-[Outer]-Join)
-- [Right Join](#Right-[Outer]-Join)
-- [Full Join](#Full-[Outer]-Join)
-
 **Syntax des Statements**
 ```sql
 SELECT <columnname> FROM <tablename> {INNER JOIN | LEFT JOIN | RIGHT JOIN | FULL JOIN} <tablename> ON <columnname> = <columnname>;
@@ -353,7 +346,7 @@ Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmend
 SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person INNER JOIN Mitarbeiter
 ON Mitarbeiter.Name = Person.Nachname;
 ```
-### Left [Outer] Join
+### Left Join
 Gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende Datensätze aus der "rechten" Tabelle.
 
 **Wichtig: Die Datensätze werden aus der linken Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit den Datensätzen aus der rechten Tabelle gibt.**
@@ -365,7 +358,7 @@ Gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende 
 SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person LEFT JOIN Mitarbeiter
 ON Mitarbeiter.Name = Person.Nachname ORDER BY Mitarbeiter.Name;
 ```
-### Right [Outer] Join
+### Right Join
 Gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken" Tabelle.
 
 **Wichtig: Die Datensätze werden aus der rechten Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit Datensätzen aus der linken Tabelle gibt.**
@@ -378,7 +371,7 @@ SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person RIGHT JOIN
 ON Mitarbeiter.Name = Person.Nachname;
 ```
 
-### Full [Outer] Join
+### Full Join
 Gibt immer Datensätze zurück, unabhängig davon ob es eine Übereinstimmung in der anderen Tabelle gibt oder nicht. Es können keine Datensätze verschwinden.
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/all-joins.png" width="500" height="300" />
