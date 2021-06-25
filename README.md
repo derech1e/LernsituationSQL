@@ -346,6 +346,13 @@ Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmend
 SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person INNER JOIN Mitarbeiter
 ON Mitarbeiter.Name = Person.Nachname;
 ```
+
+**User-Story**
+Der Auftraggeber möchte alle Kunden und die Zugehörigenen Herkunftsländer-Kürzel angezeigt bekommen haben. Es wird ein INNER JOIN benutzt um eine exacte zuordnung zu gewähren.
+```sql
+
+```
+
 ### Left Join
 Gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende Datensätze aus der "rechten" Tabelle.
 
