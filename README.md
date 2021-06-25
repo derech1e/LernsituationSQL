@@ -332,6 +332,18 @@ SELECT Adresse.Address_ID, Name FROM Kunde INNER JOIN Adresse ON Adresse.Address
 ```
 
 ### Join
+
+**Befehlsübersicht**
+- [Inner Join](#Inner-Join)
+- [Left Join](#Left-[Outer]-Join)
+- [Right Join](#Right-[Outer]-Join)
+- [Full Join](#Full-[Outer]-Join)
+
+**Syntax des Statements**
+```sql
+SELECT <columnname> FROM <tablename> {INNER JOIN | LEFT JOIN | RIGHT JOIN | FULL JOIN} <tablename> ON <columnname> = <columnname>;
+```
+
 #### Inner Join
 Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmenden Wert haben.
 
@@ -376,6 +388,10 @@ Gibt immer Datensätze zurück, unabhängig davon ob es eine Übereinstimmung in
 SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person FULL JOIN Mitarbeiter
 ON Mitarbeiter.Name = Person.Nachname;
 ```
+
+**User-Storys**
+Todo...
+
 
 **Weitere Join-Varianten die für MS SQL Server gelten sind [hier](https://github.com/derech1e/LernsituationSQL/blob/vortrag_joins/README.md) zu finden.**
 
