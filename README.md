@@ -160,3 +160,4 @@ https://www.ionos.de/digitalguide/hosting/hosting-technik/sql-outer-join/
 
  - [ ] https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
  - [ ] https://stackedit.io
+ - [ ] Impliziete und Expliziete Schreibweise
