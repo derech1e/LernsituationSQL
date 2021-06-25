@@ -1,6 +1,3 @@
-
-
-
 # Dokumentation Lernsituation SQL 
 Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
 
@@ -60,7 +57,7 @@ Die `ORDER BY` Klausel, wird benutzt um Datensätze zu sortieren. Es gibt zwei M
 
 *Syntax des Statements*
 ```sql
-SELECT <name> FROM <name> ORDER BY <columnname>[,...] {ASC | DESC}
+SELECT { * | <columnname>[,...]} FROM <tablename>[,...] ORDER BY <columnname>[,...] {ASC | DESC}
 ```
 
 ## Arbeitsplanung
@@ -94,7 +91,7 @@ Für die Erzeugung einer Tabelle gilt ein standardisierter Syntax. Abhängig vom
 
 **Syntax des Statements**
 ```sql
-CREATE TABLE <name> [<column>[,...] <constraint>[,...]];
+REATE TABLE <tablename> [<columnname>[,...] <constraint>[,...]];
 ```
 
 **User-Storys**
@@ -125,26 +122,26 @@ Das `ALTER` Statement wird in SQL benutzt um Spalten und [Constraints](#Constrai
 
 *Löschen einer Spalte*
 ```sql
-ALTER TABLE <table> DROP [COLUMN] <columnname> {RESTRICT | CASCADE}
+ALTER TABLE <tablename> DROP [COLUMN] <columnname> {RESTRICT | CASCADE}
 ```
 *Hinzufügen einer Spalte*
 ```sql
-ALTER TABLE <table> ADD [COLUMN] <columnname> <datatype> [[NOT]NULL] [DEFAULT <value>] [PRIMARY KEY] [REFERENCES <table> (<column>)]
+ALTER TABLE <tablename> ADD [COLUMN] <columnname> <datatype> [[NOT]NULL] [DEFAULT <value>] [PRIMARY KEY] [REFERENCES <tablename> (<columnname>)]
 ```
 
 *Ändern einer Spalte*
 ```sql
 -- Setzen des Default-Werts
-ALTER TABLE <table> ALTER [COLUMN] <columnname> SET DEFAULT  <defaultvalue>
+ALTER TABLE <tablename> ALTER [COLUMN] <columnname> SET DEFAULT  <defaultvalue>
 
 -- Löschen des Default-Werts
-ALTER TABLE <table> ALTER [COLUMN] <columnname> DROP DEFAULT
+ALTER TABLE <tablename> ALTER [COLUMN] <columnname> DROP DEFAULT
 
 -- Hinzufügen einer Referenz auf einen Datentypen
-ALTER TABLE <table> ALTER [COLUMN] <columnname> ADD SCOPE <table> 
+ALTER TABLE <tablename> ALTER [COLUMN] <columnname> ADD SCOPE <tablename> 
 
 -- Löschen einer Referenz
-ALTER TABLE <table> ALTER [COLUMN] <columnname> DROP SCOPE {RESTRICT | CASCADE}
+ALTER TABLE <tablename> ALTER [COLUMN] <columnname> DROP SCOPE {RESTRICT | CASCADE}
 ```
 
 **User-Storys**
@@ -201,7 +198,7 @@ Das Beiwort `INTO` bei dem Statement `INSERT INTO` ist rein optional und unterni
 
 **Syntax des Statements**
 ```sql
-INSERT INTO <name> (<columnname>[,...]) VALUES (<value>[,...]);
+NSERT INTO <tablename> (<columnname>[,...]) VALUES (<value>[,...]);
 ```
 
 **User-Storys**
@@ -223,7 +220,7 @@ VALUES (1, 2, 5, CAST('2007-08-29' AS Date), CAST('2007-09-19'  AS  Date));
 
 **Syntax des Statements**
 ```sql
-UPDATE <tabelle> SET <columnname> = <value> [,...] WHERE <condition>[,...]; 
+UPDATE <tablename> SET <columnname> = <value> [,...] WHERE <condition>[,...]; 
 ```
 
 **User-Storys**
@@ -243,7 +240,7 @@ Der IT-Mitarbeiter muss die Änderung spezifisch auf das Ferienhaus mit dem Fehl
 
 **Syntax des Statements**
 ```sql
-DELETE FROM <tabelle> WHERE <condition>[,...];
+DELETE FROM <tablename> WHERE <condition>[,...];
 ```
 
 **User-Storys**
@@ -278,7 +275,7 @@ Die Projektion wird in SQL mit dem `SELECT`-Statement realisiert. Das Statement 
 SELECT ... FROM ...;
 ```
 ```sql
-SELECT [{ ALL | * } | DISTINCT] FROM <name> [AS columnname];
+SELECT [{ *, <columname[,...]> } | DISTINCT] FROM <name> [AS columnname];
 ```
 
 **User-Storys**
@@ -304,7 +301,7 @@ Die Selektion wird in SQL mit der sogenannten `WHERE`-Bedingungen hinter dem eig
 
 **Syntax des Statements**
 ```sql
-SELECT ... FROM ... [WHERE ...][GROUP BY ... HAVING...][ORDER BY ...];
+SELECT ... FROM ... [WHERE <condition>[,...]][GROUP BY ... HAVING...][ORDER BY ...];
 ```
 
 **User-Storys**
@@ -334,7 +331,7 @@ SELECT Adresse.Address_ID, Name FROM Kunde INNER JOIN Adresse ON Adresse.Address
 ### Join
 **Syntax des Statements**
 ```sql
-SELECT <columnname> FROM <tablename> {INNER JOIN | LEFT JOIN | RIGHT JOIN | FULL JOIN} <tablename> ON <columnname> = <columnname>;
+SELECT {* | <columnname> [,...]} FROM <tablename> {INNER JOIN | LEFT JOIN | RIGHT JOIN | FULL JOIN} <tablename> ON <columnname> = <columnname>;
 ```
 
 #### Inner Join
@@ -342,40 +339,40 @@ Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmend
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/inner-schema.png" width="500" height="300" />
 
-```sql
-SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person INNER JOIN Mitarbeiter
-ON Mitarbeiter.Name = Person.Nachname;
-```
-
 **User-Story**
-Der Auftraggeber möchte alle Kunden und die Zugehörigenen Herkunftsländer-Kürzel angezeigt bekommen haben. Es wird ein INNER JOIN benutzt um eine exacte zuordnung zu gewähren.
-```sql
 
+Der Auftraggeber möchte gerne alle wissen, welche Miertverträge dem Kunde 1 zugeordnet sind. 
+```sql
+SELECT Mietvertrag.Mietvertrag_ID, Mietvertrag.Kunde_ID, Kunde.Name FROM Mietvertrag INNER JOIN Kunde ON Mietvertrag.Kunde_ID = Kunde.Kunde_ID WHERE Kunde.Kunde_ID = 1;
 ```
 
 ### Left Join
-Gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende Datensätze aus der "rechten" Tabelle.
+Gibt auf jeden Fall alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende Datensätze aus der "rechten" Tabelle.
 
 **Wichtig: Die Datensätze werden aus der linken Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit den Datensätzen aus der rechten Tabelle gibt.**
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/left-outer-schema.png" width="500" height="300" />
 
+**User-Story**
+
+Der Auftraggeber möchte gern zustätzliche Daten, wie beispielsweise den Namen der Ferienhäusern erfahren, die geschlossen sind. 
 
 ```sql
-SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person LEFT JOIN Mitarbeiter
-ON Mitarbeiter.Name = Person.Nachname ORDER BY Mitarbeiter.Name;
+SELECT * FROM geschlossen LEFT JOIN Ferienhaus ON geschlossen.Ferienhaus_ID = Ferienhaus.Ferienhaus_ID;
 ```
 ### Right Join
-Gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken" Tabelle.
+Gibt auf jeden Fall alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken" Tabelle.
 
 **Wichtig: Die Datensätze werden aus der rechten Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit Datensätzen aus der linken Tabelle gibt.**
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/right-outer-schema.png" width="500" height="300" />
 
+**User-Story**
+
+Der Auftraggeber möchte gern von allen Ferienhäusern wissen, welche momentan geschlossen sind. 
 
 ```sql 
-SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person RIGHT JOIN Mitarbeiter
-ON Mitarbeiter.Name = Person.Nachname;
+SELECT * FROM geschlossen RIGHT JOIN Ferienhaus ON geschlossen.Ferienhaus_ID = Ferienhaus.Ferienhaus_ID;
 ```
 
 ### Full Join
@@ -383,14 +380,12 @@ Gibt immer Datensätze zurück, unabhängig davon ob es eine Übereinstimmung in
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/all-joins.png" width="500" height="300" />
 
+**User-Story**
 
+Der Auftraggeber möchte zu allen Ferienhäuser den entsprechenden Eigentümer herrausfinden und Ihnen unter anderem beim Namen nennen können.
 ```sql 
-SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person FULL JOIN Mitarbeiter
-ON Mitarbeiter.Name = Person.Nachname;
+SELECT * FROM Ferienhaus FULL JOIN Eigentuemer ON Eigentuemer.Eigentuemer_ID = Ferienhaus.Eigentuemer_ID;
 ```
-
-**User-Storys**
-Todo...
 
 
 **Weitere Join-Varianten die für MS SQL Server gelten sind [hier](https://github.com/derech1e/LernsituationSQL/blob/vortrag_joins/README.md) zu finden.**
@@ -511,6 +506,10 @@ REVOKE ALL ON Mietvertrag FROM <username_mitarbeiter_chef>;
 # SOLL-IST Analyse
 
 # Auftragsanalyse
+
+Auftrag ist die Restrukturierung und Aktualisierung des örtlichen IT-Systems des Unternehmen Bengel&Gölp GmbH. Eines der Hauptziele ist die Ertüchtigung der Datenbank für die Bereitstellung und Nutzung der Geschäftsdaten unter Beachtung aktueller Bestimmungen des Datenschutzes.
+Der nächste Schritt in diesem Auftrag, ist nun die Überprüfung der primären funktionalitäten während der nutzung der Datenbank. Mithilfe eines [Schutzbedarfsanalyseprotokoll](#Schutzbedarfsanalyse) soll bewiesen werden, dass alle richtlinien zum Datenschutz- und sicherheit erfüllt sind. Fehlenden Maßnamen sind in einer [SOLL-IST Analyse](SOLLT-IST-Analyse) festzuhalten.
+
 
 # Schutzbedarfsanalyse
 
