@@ -410,14 +410,14 @@ SELECT fer.Anzahl_Schlafzimmer, fer.Name, eig.Name FROM Ferienhaus fer RIGHT JOI
 ```
 
 ## DCL
-Mit der **D**ata **C**ontrol **L**anguage *(dt. Datenkontrollsprache)* werden Berechtigungen erteilt und entzogen. Die Sprache ist mit einem Berichtigungssystem vergleichbar.
+Mit der **D**ata **C**ontrol **L**anguage *(dt. Datenkontrollsprache)* werden Berechtigungen an User erteilt und entfernt. Die Sprache ist mit einem Berechtigungssystem vergleichbar.
 
 **Befehlsübersicht**
 - [Grant](#Grant)
 - [Revoke](#Revoke)
 
 ### Grant
->`GRANT` *(dt. gewähren)* gewährt Datenbankbenutzern bestimmte Rechte auf eine Tabelle. 
+>`GRANT` *(dt. gewähren)* gibt Datenbankbenutzern bestimmte Rechte, beschränkt auf eine Tabelle. 
 
 **Syntax des Statements**
 ```sql
@@ -427,9 +427,9 @@ GRANT <privilegename> ON <objectname> TO <username> [WITH GRANT OPTION];
 **User-Storys**
 
 *User-Story 1*
-In dieser Userstory bekommt ein neuer Mitarbeiter definierte Rechte auf die Tabellen *"Ferienhaus"* und *"Mietvertrag"*, damit dieser das System benutzen kann. Er kann sich somit mit einer SQL Session verbinden und in dieser über ein UI arbeiten. 
+In dieser Userstory bekommt ein neuer Mitarbeiter definierte Rechte auf die Tabellen "Ferienhaus" und "Mietvertrag", damit dieser das System benutzen kann. Er kann sich somit mit einer SQL Session verbinden und in dieser über eine UI arbeiten. 
 
-Das Statement `ALTER` gibt in diesem Beispiel der Benutzer die Rechte, dass er auf der Datenbank unendlich viele Daten speichern kann.  [Siehe mehr](#Alter)
+Das Statement `ALTER` gibt in diesem Beispiel dem Benutzer die Rechte, dass er auf der Datenbank unendlich viele Daten speichern kann.  [Siehe mehr](#Alter)
 
 Er erhält aus Sicherheitsgründen keine [Delete](#Delete) und [Update](#Update) Rechte. 
 Diese werden dann von IT-Mitarbeitern übernommen. 
