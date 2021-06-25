@@ -1,4 +1,3 @@
-
 # Dokumentation Lernsituation SQL 
 Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
 
@@ -17,7 +16,7 @@ Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zu
 - [Quellen](#Quellen)
 
 # Erläuterung der Struktur
-Dieses Dokument wird zunächst die verschiedene Sprachbestandteile von SQL behandelt. 
+Dieses Dokument wird zunächst die verschiedenen Sprachbestandteile von SQL behandeln.
 Nach diesem erläuternden Teil, leitet das Dokument in den analytischen Teil, hier in Form von der Auftragsanalyse, SOLL-IST Analyse und Schutzbedarfsanalyse, ein und schließt mit der Quellenangabe ab.
 
 #### Hinweise zum Verständnis des Syntax
@@ -25,7 +24,7 @@ Die allgemeine Syntax der Befehle orientiert sich immer an dem vom SQL vorgegebe
 
 #### Conditions/ WHERE Clause
 
-In SQL gibt es verschiedene Vergleichsoperatoren. In der nachfolgenden Tabelle sind alle Operatoren gelistet, die in einer `WHERE` Klausel benutzt werden können. Die `WHERE` Klausel befindet sich am Ende eines Statements.
+In SQL gibt es verschiedene Vergleichsoperatoren. In der nachfolgenden Tabelle sind alle Operatoren gelistet, die in einer `WHERE` Klausel benutzt werden können. Die `WHERE` Klausel an sich befindet sich am Ende eines Statements.
 
 | Operator| Beschreibung| 
 | ------- | -------|
@@ -45,11 +44,11 @@ In SQL gibt es verschiedene Vergleichsoperatoren. In der nachfolgenden Tabelle s
 
 #### Wildcards
 
-Wildcards sind Platzhalterzeichen, die in Zeichenfolgen eingesetzt werden können. Sie dienen zur besseren Einstellung von Filtern und werden mit dem `LIKE` operator benutzt, bei einer `WHERE` Bedingung. Die Platzhalter werden später in die entsprechende Filter Logik übersetzt. Eine Liste zu allen Wildcards mit entsprechender Erklärung, ist [hier](https://www.w3schools.com/sql/sql_wildcards.asp) zu finden. 
+Wildcards sind Platzhalterzeichen, die in Zeichenfolgen eingesetzt werden können. Sie dienen zur besseren Einstellung von Filtern und werden mit dem `LIKE` Operator benutzt, bei einer `WHERE` Bedingung. Die Platzhalter werden später in die entsprechende Filter-Logik übersetzt. Eine Liste zu allen Wildcards mit entsprechender Erklärung, ist [hier](https://www.w3schools.com/sql/sql_wildcards.asp) zu finden. 
 
 #### Constraints
 
-Constraints bedeutet zu Deutsch soviel wie Einschränkungen. Sie werden in Datenbanken benutzt um Regeln für Daten in Tabellen festzulegen. Die Einschränkungen können beispielsweise Datentypen einschränken, die in der Tabelle aufgenommen werden dürfen. Dies gewährleistet die Genauigkeit und Zuverlässigkeit von Daten in der Tabelle. Eine Liste zu allen Constraints mit entsprechender Erklärung, ist [hier](https://www.w3schools.com/sql/sql_constraints.asp) zu finden.
+Constraints heißt im Deutschen soviel wie Einschränkungen. Constraints sind Integritätsregeln die Fehler und Unschlüssigkeiten bei der Erstellung von Tabellen ausschließen sollen. Dies gewährleistet die Integrität von Daten in der Tabelle somit werden durch diese Regeln fehlerhafte Datensätze gar nicht erst von der Datenbank angenommen. Eine Liste zu allen Constraints mit entsprechender Erklärung, ist [hier](https://www.w3schools.com/sql/sql_constraints.asp) zu finden.
 
 #### Order By
 
@@ -88,11 +87,11 @@ Die **D**ata **D**efinition **L**anguage (dt. Datendefinitionssprache) dient der
 
 ### Create
 Das `CREATE` Statement wird in SQL benutzt um eine neue Datenbank oder Tabelle zu erstellen.
-Für die Erzeugung einer Tabelle gilt ein standardisierter Syntax. Datenbankabhängig kann es eigene Erweiterungen geben.
+Für die Erzeugung einer Tabelle gilt ein standardisierter Syntax. Abhängig vom Datenbanktypen kann es eigene Besonderheiten geben.
 
 **Syntax des Statements**
 ```sql
-CREATE TABLE <tablename> [<columnname>[,...] <constraint>[,...]];
+REATE TABLE <tablename> [<columnname>[,...] <constraint>[,...]];
 ```
 
 **User-Storys**
@@ -117,7 +116,7 @@ CREATE TABLE Dresdner AS [EDGE] SELECT Adresse.Address_ID, Name FROM Kunde INNER
 -- [EDGE] wird nur in T-SQL benötigt.
 ```
 #### Alter
-Das `ALTER` Statement wird in SQL benutzt um Spalten und [Constrains](https://glossar.hs-augsburg.de/SQL_Integrit%C3%A4tsregeln) zu modifizieren. Constrains sind Integritätsregeln die Fehler und Unschlüssigkeiten bei der Erstellung von Tabellen ausschließen sollen. Durch richtig festgelegte Regeln werden fehlerhafte Datensätze gar nicht erst von der Datenbank angenommen. 
+Das `ALTER` Statement wird in SQL benutzt um Spalten und [Constraints](#Constraints) zu modifizieren.  
 
 **Syntax der Statements**
 
@@ -185,7 +184,7 @@ DROP TABLE Adresse;
 DROP DATABASE Ferienhaus;
 ```
 ## DML
-Mit der **D**ata **M**odifying **L**anguage *(dt. Datenmanipulationssprache)* kann man Daten bearbeiten, löschen, erstellen und auslesen.
+Mit der **D**ata **M**odifying **L**anguage *(dt. Datenmanipulationssprache)* kann man Daten bearbeiten, löschen, erstellen.
 
 **Befehlsübersicht**
  - [Insert](#Insert)
@@ -195,11 +194,11 @@ Mit der **D**ata **M**odifying **L**anguage *(dt. Datenmanipulationssprache)* ka
 ### Insert
 >`INSERT` *(dt. einfügen)* fügt neue Datensätze hinzu.
 
-Das Beiwort `INTO` bei dem Statement `INSERT INTO` ist rein optional und unternimmt keinerlei Änderungen an der Verarbeitung des Befehls. Beide Varianten sind sozusagen identisch. [Siehe mehr](https://stackoverflow.com/questions/233919/insert-vs-insert-into)
+Das Beiwort `INTO` bei dem Statement `INSERT INTO` ist rein optional und unternimmt keinerlei Änderungen an der Verarbeitung des Befehls. Beide erwähnten Varianten sind sozusagen identisch. [Hier mehr dazu.](https://stackoverflow.com/questions/233919/insert-vs-insert-into)
 
 **Syntax des Statements**
 ```sql
-INSERT INTO <tablename> (<columnname>[,...]) VALUES (<value>[,...]);
+NSERT INTO <tablename> (<columnname>[,...]) VALUES (<value>[,...]);
 ```
 
 **User-Storys**
@@ -217,7 +216,7 @@ VALUES (1, 2, 5, CAST('2007-08-29' AS Date), CAST('2007-09-19'  AS  Date));
 ```
 
 ### Update
->`UPDATE` *(dt. update)* ändert vorhandene Datensätze.
+>`UPDATE` *(dt. aktualisieren)* ändert und erneuert vorhandene Datensätze.
 
 **Syntax des Statements**
 ```sql
@@ -226,7 +225,7 @@ UPDATE <tablename> SET <columnname> = <value> [,...] WHERE <condition>[,...];
 
 **User-Storys**
 
-Ein Mitarbeiter hat einen Fehler gemacht, als er dem Ehepaar Zander den Mietvertrag aufsetzte. Der Mitarbeiter hat das falsche Haus für die Buchung ausgewählt. Zwecks fehlender Rechte muss ein IT-Mitarbeiter eine Änderung im System vornehmen und das richtige Haus eintragen. 
+Ein Mitarbeiter hat einen Fehler gemacht, als er dem Ehepaar Zander den Mietvertrag aufsetzte. Der Mitarbeiter hat ein falsches Haus für die Buchung ausgewählt. Zwecks fehlender Rechte muss ein Mitarbeiter der IT-Abteilung eine Änderung im System vornehmen und das richtige Haus eintragen. 
 
 ```sql
 -- Mietvertrag bearbeiten
@@ -234,10 +233,10 @@ UPDATE Mietvertrag SET Ferienhaus_ID = 1
 -- Bedinunungen: Kunde = Ehepaar Zander, Beginn = 29.08.2007, FerienhausID = 2
 WHERE Kunde_ID = 5 AND Beginn = CAST('2007-08-29'  AS  Date) AND Ferienhaus_ID = 2
 ```
-Der IT-Mitarbeiter muss die Änderung spezifisch auf das Ferienhaus mit dem Fehler auslegen, wo jener Fehler unterlaufen ist. Aus diesem Grund muss man mehrere Faktoren in die Bedingungen (Conditions) einfließen lassen. Das Ehepaar Zander kann auch mehrere Ferienhäuser gebucht haben, deswegen muss man auch den Beginn einfließen lassen. 
+Der IT-Mitarbeiter muss die Änderung spezifisch auf das Ferienhaus mit dem Fehler auslegen, wo jener Fehler unterlaufen ist. Aus diesem Grund muss man mehrere Faktoren in die Bedingungen (Conditions) einfließen lassen. Das Ehepaar Zander kann auch mehrere Ferienhäuser gebucht haben, deswegen muss man auch den "Beginn" einfließen lassen. 
 
 ### Delete
->`DELETE` *(dt. löschen)* löscht einzelne oder mehrere Datensätze.
+>`DELETE` *(dt. löschen)* entfernt einzelne oder mehrere Datensätze.
 
 **Syntax des Statements**
 ```sql
@@ -246,7 +245,7 @@ DELETE FROM <tablename> WHERE <condition>[,...];
 
 **User-Storys**
 
-Eine Mängelanzeige, explizit eine *"Defekte Heizung"*, muss aus der Datenbank gelöscht werden, da diese sich als Fehler herausstellte. Ein IT-Mitarbeiter nimmt die Löschung im System vor. Vorher holt er sich die Mängel-ID aus dem System. 
+Eine Mängelanzeige, explizit eine *"Defekte Heizung"*, muss aus der Datenbank gelöscht werden, da diese sich als Fehler herausstellte. Ein IT-Mitarbeiter nimmt die Löschung im System vor. Vorher holt er sich die Mängelanzeige-ID aus dem System.
 
 ```sql
 -- Löschen einer Mängelanzeige
@@ -254,13 +253,13 @@ DELETE FROM Maengelanzeige WHERE Maengelanzeige_ID = 89;
 ```
 
 ## DQL
-In einer Datenbank werden verschiedene Abfragen und Operationen über mehre Tabellen hinweg ausgeführt. Als Ergebnis wird immer eine Tabelle zurückgegeben.
+In einer Datenbank werden verschiedene Abfragen und Operationen über mehrere Tabellen hinweg ausgeführt. Als Ergebnis wird immer eine aus dem Befehl resultierende Tabelle zurückgegeben.
 
 **D**ata **Q**uery **L**anguage, bedeutet übersetzt so viel wie Datenbankabfragesprache. Diese ist ein Bestandteil von SQL und dient zum konkreten Abfragen von Datensätzen aus Tabellen.
 
 **Befehlsübersicht**
 - [Projektion](#Projektion)
-- [Selektion ](#Selektion)
+- [Selektion](#Selektion)
 - [Join](#Join)
 - [Group By](#Group-By)
 
@@ -269,7 +268,7 @@ In einer Datenbank werden verschiedene Abfragen und Operationen über mehre Tabe
 
 > Projektion = Auswahl von speziellen Spalten
 
-Die Projektion wird in SQL mit dem `SELECT`-Statement realisiert. Das Statement kann verschiedene Eigenschaften enthalten. Diese repräsentieren die Spaltennamen der entsprechenden Tabelle. Werden keine Eigenschaften im Statement angegeben, wird dies automatisch durch einen `*` in SQL ersetzt. 
+Die Projektion wird in SQL mit dem `SELECT`-Statement realisiert. Das Statement kann durch Parameterangaben, in diesem Falle die Angabe von Spaltennamen, die bestimmten Spalten auslesen und anzeigen. Diese repräsentieren die Spaltennamen der entsprechenden Tabelle. Werden keine Eigenschaften im Statement angegeben, wird dies automatisch durch einen `*` in SQL ersetzt. 
 
 **Syntax des Statements**
 ```sql
@@ -281,13 +280,13 @@ SELECT [{ *, <columname[,...]> } | DISTINCT] FROM <name> [AS columnname];
 
 **User-Storys**
 
-Um zu überprüfen, ob die Mietverträge richtig gespeichert werden, möchte ich mir alle Spalten vom der Tabelle ``Mietvertrag`` anzeigen lassen.
+Um zu überprüfen, ob die Mietverträge richtig gespeichert werden, kann man sich alle Spalten von der Tabelle ``Mietvertrag`` anzeigen lassen.
 ```sql
 -- Anzeigen aller Mietverträge
 SELECT * FROM Mietvertrag;
 ```
 
-Man möchte ebenfalls die funktionalität der Tabellen `Kunde` in relation der Tabelle `Adresse` überprüfen. 
+Man möchte ebenfalls die Funktionalität der Tabelle `Kunde` in Relation der Tabelle `Adresse` überprüfen. 
 Um manuell zu überprüfen, ob die Tabelle Kunden die `Address_ID` richtig speichert, werden beide Tabellen über das Statement projiziert.
 ```sql
 -- Anzeigen von Spalten aus Tabellen über einen Alias
@@ -296,9 +295,9 @@ SELECT adr.Address_ID, k.Address_ID, k.Kunde_ID, adr.Stadt, k.Name FROM Kunde k,
 
 #### Selektion
 
-> Auswahl von Zeilen nach Bedingungen
+> Selektion = Auswahl von Zeilen nach Bedingungen
 
-Die Selektion wird in SQL mit der sogenannten `WHERE`-Bedingungen hinter dem eigentlichem `SELECT` Statement realisiert. Die `WHERE` -Bedingung kann mehrere Prädikate enthalten. Zurückgegeben wird  eine Tabelle mit einer bestimmten Ergebnismenge, die diese(s) Prädikate erfüllen.
+Die Selektion wird in SQL mit der sogenannten `WHERE`-Bedingungen hinter dem eigentlichem `SELECT` Statement realisiert. Die `WHERE` -Bedingung kann mehrere Prädikate enthalten. Zurückgegeben wird eine Tabelle mit einer bestimmten Ergebnismenge, die dieses Prädikat bzw. diese Prädikate erfüllen.
 
 **Syntax des Statements**
 ```sql
@@ -308,14 +307,13 @@ SELECT ... FROM ... [WHERE <condition>[,...]][GROUP BY ... HAVING...][ORDER BY .
 **User-Storys**
 
 Der Auftraggeber wünscht sich eine Filtermöglichkeit für die Tabelle `Herkunftsländer`.
-Anzeigt sollen alle Herkunftsländer deren Name mit D beginnt, sowie deren Kürzel ein D ist.
-Da der Filter 1 : 1 in SQL übersetzt wird, werden die [Wildcards](#Wildcards) aus dem GUI ebenfalls in das Statement übernommen.
+Angezeigt werden, sollen alle Herkunftsländer deren Name mit "D" beginnt, sowie wenn deren Kürzel ein "D" ist. Da der Filter 1 : 1 in SQL übersetzt wird, werden die [Wildcards](#Wildcards) aus dem GUI ebenfalls in das Statement übernommen.
 ```sql
 SELECT Name, Abkuerzung FROM Herkunftsland WHERE Name LIKE 'D%' AND Abkuerzung = 'D';;
 ```
 
-Der Auftraggeber probiert den Filter weiter aus.
-Es soll nun die durchschnittliche Anzahl an Schlafzimmer von Ferienhäusern, die später als dem 01.04.2008 eingestellt wurden gefiltert werden.
+Der Auftraggeber möchte den Filter erweitern.
+Es soll nun die durchschnittliche Anzahl an Schlafzimmern von Ferienhäusern, die später als dem 01.04.2008 in die Datenbank aufgenommen wurden, gefiltert werden.
 ```sql
 SELECT AVG(Anzahl_Schlafzimmer) AS DurchschnitsSchlafzimmer FROM Ferienhaus WHERE Einstell_dat >= CAST('2008-04-01' AS Date) 
 ```
@@ -326,7 +324,7 @@ SELECT Name INTO GuteFerienhaeuser FROM Ferienhaus WHERE Anzahl_Schlafzimmer > 3
 ```
 
 ```sql
--- Anzeigen aller Kunden die in Dresden wohen und den Buchstaben k in ihrem Namen haben
+-- Anzeigen aller Kunden die in Dresden wohnen und den Buchstaben k in ihrem Namen haben
 SELECT Adresse.Address_ID, Name FROM Kunde INNER JOIN Adresse ON Adresse.Address_ID = Kunde.Address_ID WHERE Adresse.Stadt LIKE 'Dresden' AND Kunde.Name LIKE '%k%';
 ```
 
@@ -412,14 +410,14 @@ SELECT fer.Anzahl_Schlafzimmer, fer.Name, eig.Name FROM Ferienhaus fer RIGHT JOI
 ```
 
 ## DCL
-Mit der **D**ata **C**ontrol **L**anguage *(dt. Datenkontrollsprache)* werden Berechtigungen erteilt und entzogen. Die Sprache ist mit einem Berichtigungssystem vergleichbar.
+Mit der **D**ata **C**ontrol **L**anguage *(dt. Datenkontrollsprache)* werden Berechtigungen an User erteilt und entfernt. Die Sprache ist mit einem Berechtigungssystem vergleichbar.
 
 **Befehlsübersicht**
 - [Grant](#Grant)
 - [Revoke](#Revoke)
 
 ### Grant
->`GRANT` *(dt. gewähren)* gewährt Datenbankbenutzern bestimmte Rechte auf eine Tabelle. 
+>`GRANT` *(dt. gewähren)* gibt Datenbankbenutzern bestimmte Rechte, beschränkt auf eine Tabelle. 
 
 **Syntax des Statements**
 ```sql
@@ -429,9 +427,9 @@ GRANT <privilegename> ON <objectname> TO <username> [WITH GRANT OPTION];
 **User-Storys**
 
 *User-Story 1*
-In dieser Userstory bekommt ein neuer Mitarbeiter definierte Rechte auf die Tabellen *"Ferienhaus"* und *"Mietvertrag"*, damit dieser das System benutzen kann. Er kann sich somit mit einer SQL Session verbinden und in dieser über ein UI arbeiten. 
+In dieser Userstory bekommt ein neuer Mitarbeiter definierte Rechte auf die Tabellen "Ferienhaus" und "Mietvertrag", damit dieser das System benutzen kann. Er kann sich somit mit einer SQL Session verbinden und in dieser über eine UI arbeiten. 
 
-Das Statement `ALTER` gibt in diesem Beispiel der Benutzer die Rechte, dass er auf der Datenbank unendlich viele Daten speichern kann.  [Siehe mehr](#Alter)
+Das Statement `ALTER` gibt in diesem Beispiel dem Benutzer die Rechte, dass er auf der Datenbank unendlich viele Daten speichern kann.  [Siehe mehr](#Alter)
 
 Er erhält aus Sicherheitsgründen keine [Delete](#Delete) und [Update](#Update) Rechte. 
 Diese werden dann von IT-Mitarbeitern übernommen. 
@@ -508,6 +506,7 @@ REVOKE ALL ON Mietvertrag FROM <username_mitarbeiter_chef>;
 # SOLL-IST Analyse
 
 # Auftragsanalyse
+
 Auftrag ist die Restrukturierung und Aktualisierung des örtlichen IT-Systems des Unternehmen Bengel&Gölp GmbH. Eines der Hauptziele ist die Ertüchtigung der Datenbank für die Bereitstellung und Nutzung der Geschäftsdaten unter Beachtung aktueller Bestimmungen des Datenschutzes.
 Der nächste Schritt in diesem Auftrag, ist nun die Überprüfung der primären funktionalitäten während der nutzung der Datenbank. Mithilfe eines [Schutzbedarfsanalyseprotokoll](#Schutzbedarfsanalyse) soll bewiesen werden, dass alle richtlinien zum Datenschutz- und sicherheit erfüllt sind. Fehlenden Maßnamen sind in einer [SOLL-IST Analyse](SOLLT-IST-Analyse) festzuhalten.
 
@@ -515,6 +514,7 @@ Der nächste Schritt in diesem Auftrag, ist nun die Überprüfung der primären 
 # Schutzbedarfsanalyse
 
 Die Schutzbedarfsanalyse baut auf das vom Bundesamt für Sicherheit in der Informationstechnik veröffentlichte Dokument „APP.4.3: Relationale Datenbanken“ auf und versucht ein Konzept zum sicheren Betrieb von relationalen Datenbanksysteme aufzustellen. Die Schutzbedarfsanalyse ist somit ein wichtiger Teil des analytischen Anteils von jedem Projekt um Datenbanksystemen.
+
 ## Unzureichende Dimensionierung der Systemressourcen
 
 Die Analyse und Abschätzung der zureichenden Dimensionierung der Systemressourcen, ist, damit es nicht zu unzureichenden Systemressourcen kommt, in zwei Teile einzuteilen.
@@ -555,3 +555,4 @@ Um einem Integritätsverlust gespeicherter Daten, gerade durch fehlerhaft konfig
 - https://www.quora.com/What-is-a-predicate-in-SQL
 - https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_PREDICATES
 - https://stackedit.io
+
