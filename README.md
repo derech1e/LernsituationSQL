@@ -1,5 +1,3 @@
-
-
 # Dokumentation Lernsituation SQL 
 Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
 
@@ -342,40 +340,40 @@ Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmend
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/inner-schema.png" width="500" height="300" />
 
-```sql
-SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person INNER JOIN Mitarbeiter
-ON Mitarbeiter.Name = Person.Nachname;
-```
-
 **User-Story**
-Der Auftraggeber möchte alle Kunden und die Zugehörigenen Herkunftsländer-Kürzel angezeigt bekommen haben. Es wird ein INNER JOIN benutzt um eine exacte zuordnung zu gewähren.
-```sql
 
+Der Auftraggeber möchte gerne alle wissen, welche Miertverträge dem Kunde 1 zugeordnet sind. 
+```sql
+SELECT Mietvertrag.Mietvertrag_ID, Mietvertrag.Kunde_ID, Kunde.Name FROM Mietvertrag INNER JOIN Kunde ON Mietvertrag.Kunde_ID = Kunde.Kunde_ID WHERE Kunde.Kunde_ID = 1;
 ```
 
 ### Left Join
-Gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende Datensätze aus der "rechten" Tabelle.
+Gibt auf jeden Fall alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende Datensätze aus der "rechten" Tabelle.
 
 **Wichtig: Die Datensätze werden aus der linken Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit den Datensätzen aus der rechten Tabelle gibt.**
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/left-outer-schema.png" width="500" height="300" />
 
+**User-Story**
+
+Der Auftraggeber möchte gern zustätzliche Daten, wie beispielsweise den Namen der Ferienhäusern erfahren, die geschlossen sind. 
 
 ```sql
-SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person LEFT JOIN Mitarbeiter
-ON Mitarbeiter.Name = Person.Nachname ORDER BY Mitarbeiter.Name;
+SELECT * FROM geschlossen LEFT JOIN Ferienhaus ON geschlossen.Ferienhaus_ID = Ferienhaus.Ferienhaus_ID;
 ```
 ### Right Join
-Gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken" Tabelle.
+Gibt auf jeden Fall alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken" Tabelle.
 
 **Wichtig: Die Datensätze werden aus der rechten Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit Datensätzen aus der linken Tabelle gibt.**
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/right-outer-schema.png" width="500" height="300" />
 
+**User-Story**
+
+Der Auftraggeber möchte gern von allen Ferienhäusern wissen, welche momentan geschlossen sind. 
 
 ```sql 
-SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person RIGHT JOIN Mitarbeiter
-ON Mitarbeiter.Name = Person.Nachname;
+SELECT * FROM geschlossen RIGHT JOIN Ferienhaus ON geschlossen.Ferienhaus_ID = Ferienhaus.Ferienhaus_ID;
 ```
 
 ### Full Join
@@ -383,14 +381,12 @@ Gibt immer Datensätze zurück, unabhängig davon ob es eine Übereinstimmung in
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/all-joins.png" width="500" height="300" />
 
+**User-Story**
 
+Der Auftraggeber möchte zu allen Ferienhäuser den entsprechenden Eigentümer herrausfinden und Ihnen unter anderem beim Namen nennen können.
 ```sql 
-SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person FULL JOIN Mitarbeiter
-ON Mitarbeiter.Name = Person.Nachname;
+SELECT * FROM Ferienhaus FULL JOIN Eigentuemer ON Eigentuemer.Eigentuemer_ID = Ferienhaus.Eigentuemer_ID;
 ```
-
-**User-Storys**
-Todo...
 
 
 **Weitere Join-Varianten die für MS SQL Server gelten sind [hier](https://github.com/derech1e/LernsituationSQL/blob/vortrag_joins/README.md) zu finden.**
