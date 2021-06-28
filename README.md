@@ -247,9 +247,29 @@ Gibt immer Datensätze zurück, unabhängig davon ob es eine Übereinstimmung in
 
 
 ```sql 
-SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person FULL JOIN Mitarbeiter
-ON Mitarbeiter.Name = Person.Nachname;
+SELECT
+  RechnungsNr,
+  KundenNr,
+  Betrag,
+  Rechnungen.Kartennummer,
+  Firma,
+  Inhaber,
+  Ablaufdatum
+FROM Rechnungen
+OUTER JOIN Kreditkarte ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer;
 ```
+
+| RechnungsNr | KundenNr | Betrag | Kartennummer | Firma            | Inhaber           | Ablaufdatum |
+| ----------- | -------- | ------ | ------------ | ---------------- | ----------------- | ----------- |
+| 98765       | ABX039   | 49,95  | 12345        | VISA             | Max Mustermann    | 05/2007     |
+| 98766       | ABX039   | 12,95  | -           | -               | -                | -          |
+| -          | -       | -     | 12346        | Mastercard       | Katrin Musterfrau | 01/2008     |
+| 98767       | ABX040   | 79,95  | 12347        | American Express | John Doe          | 01/2007     |
+| 98768       | ABX050   | 59,99  | 12347        | American Express | John Doe          | 01/2007     |
+| 98769       | ABX050   | 29,99  | 12348        | Diners Club      | John Doe          | 03/2008     |
+| 98770       | ABX060   | 99,99  | -           | -               | -                | -          |
+
+**Beachten Sie, dass in diesem Fall die Reihenfolge der Tabellen wiederum egal ist. Achtung: MySQL unterstützt diese Abfrage nicht.**
 
 ## Self Join
 
