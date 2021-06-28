@@ -63,17 +63,17 @@ SELECT { * | <columnname>[,...]} FROM <tablename>[,...] ORDER BY <columnname>[,.
 ## Arbeitsplanung
 
 **Louis:**
-- Schutzbedarfsanalyse
+- [Schutzbedarfsanalyse](#Schutzbedarfsanalyse)
 
 **Anton:**
-- DML
-- DCL
+- [DML](#DML)
+- [DCL](#DML)
 
 **Thomas:**
-- DDL
-- DQL
-- Auftragsanalyse
-- 
+- [DDL](#DDL)
+- [DQL](#DQL)
+- [Auftragsanalyse](#Auftragsanalyse)
+
 # Auftragsanalyse
 
 Der Auftrag ist die Restrukturierung und Aktualisierung der IT-Lösung vom Unternehmen Bengel&Gölp GmbH. Eines der Hauptziele ist die Systematisierung der Geschäftsprozesse des Unternehmens in Form einer Datenbank für die Bereitstellung und Nutzung der Geschäftsdaten unter Beachtung aktueller Bestimmungen des Datenschutzes.
