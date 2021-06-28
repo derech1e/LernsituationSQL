@@ -4,6 +4,9 @@ Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zu
 
 # Inhaltsverzeichnis
 - [Erläuterung der Struktur](#Erläuterung-der-Struktur)
+- [Auftragsanalyse](#Auftragsanalyse)
+- [Schutzbedarfsanalyse](#Schutzbedarfsanalyse)
+- [SOLL-IST Analyse](#SOLL-IST-Analyse)
 - [Arbeitsplanung](#Arbeitsplanung)
 - [Hinweise zum Verständnis](#Hinweise-zum-Verständnis)
 - [SQL Bestandteile](#SQL-Bestandteile)
@@ -11,10 +14,6 @@ Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zu
 	- [DML](#DML)
 	- [DQL](#DQL)
 	- [DCL](#DCL)
-- [Auftragsanalyse](#Auftragsanalyse)
-- [SOLL-IST Analyse](#SOLL-IST-Analyse)
-- [Schutzbedarfsanalyse](#Schutzbedarfsanalyse)
-- [Quellen](#Quellen)
 
 # Erläuterung der Struktur
 Dieses Dokument wird zunächst die verschiedenen Sprachbestandteile von SQL behandeln.
