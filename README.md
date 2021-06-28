@@ -66,14 +66,14 @@ Der Cross Join ist der "standard" Join, es wird aus alle Einträgen der beiden T
 Das Kreuzprodukt, lieft als Resultat alle Kombinationsmöglichkeiten beider Tabellen.
 
 **Beispiel**
+<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/inner-schema.png" width="50%" height="50%" />
 
-![Table_1](./assets/img/Table1.png)
+<p float="left">
+<img src="./assets/img/Table1.png" width="18%" height="18%" />
+<img src="./assets/img/Table2.png" hspace="50" width="25%" height="25%" />
+<img src="./assets/img/Table3.png" width="25%" height="25%" />
+</p>
 
-
-![Table_2](./assets/img/Table2.png)
-
-
-![Table_3](./assets/img/Table3.png)
 
 <table>
 <tr><td>
