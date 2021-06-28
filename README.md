@@ -509,7 +509,9 @@ REVOKE ALL ON Mietvertrag FROM <username_mitarbeiter_chef>;
 # Auftragsanalyse
 
 Der Auftrag ist die Restrukturierung und Aktualisierung der IT-Lösung vom Unternehmen Bengel&Gölp GmbH. Eines der Hauptziele ist die Systematisierung der Geschäftsprozesse des Unternehmens in Form einer Datenbank für die Bereitstellung und Nutzung der Geschäftsdaten unter Beachtung aktueller Bestimmungen des Datenschutzes.
+
 Der erste Schritt zu Abhandlung des Auftrags, ist die Überprüfung der primären Funktionalitäten während der Nutzung der Datenbank. Mithilfe einer [Schutzbedarfsanalyse](#Schutzbedarfsanalyse) sollen Kontrollkriterien klar definiert werden, sodas alle Richtlinien des Datenschutzes und der allg. Daten- und Informationssicherheit unter den Punkten, Vertraulichkeit, Integrität, Verfügbarkeit und Authentizität erfüllt sind. 
+
 Fehlende Kriterien und Zustände sind in einer [SOLL-IST Analyse](SOLLT-IST-Analyse) festzuhalten.
 
 
@@ -520,8 +522,9 @@ Die Schutzbedarfsanalyse baut auf das vom Bundesamt für Sicherheit in der Infor
 ## Unzureichende Dimensionierung der Systemressourcen
 
 Die Analyse und Abschätzung der zureichenden Dimensionierung der Systemressourcen, ist, damit es nicht zu unzureichenden Systemressourcen kommt, in zwei Teile einzuteilen.
-
 Einmal in eine speicherorientierte und zweitens in die leistungsorientierte Abschätzung.
+
+### Speicherorientierte Abschätzung der Systemressourcen
 Die speicherorientierte Abschätzung beschäftigt sich mit der benötigten Menge an Speicherplatz, welche auch noch nach z.B. 5 Jahren mit den vorangelegten Datenbankkonfigurationen, gemeint sind Tabellenstrukturen, Tabellenrelationen usw. nicht voll läuft.
 
 Dazu sollte man folglich zuerst die Auslastung des projektspezifische Datenbanksystem (in diesem Falle ein Microsoft SQL Server) protokollieren und dann diese Daten auf den gewünschten Zeitraum spekulativ aber auch realitätsnah hochrechnen, Die Berichtserstellung für die Speicherauslastung, kann man mit dem Microsoft SQL Server Management Studio überbrücken, da dieses ein internes Feature bietet, welches diesen Bericht generiert.
@@ -535,7 +538,29 @@ Hier wird nun der allgemeine Bericht, welcher von auf der UI ausgelesen werden k
 </p>
 
 
-Aus den beiden Berichten kann man entnehmen, dass gerade die Gesamtspeichermenge der Datenbank 3,63 MB beträgt. Dazu muss angemerkt werden, dass die Datenbank natürlich für jeden einzelnen Teil ihrer Struktur (pro Tabellenspalte bspw.) im Speichermedium Speicherplatz reserviert. Dieses Verhalten und dessen Ergebnis (reservierter Speicherplatz) sollte mit beachtet werden. Somit kann man nun vom reservierten und aktuell belegten Speicherplatz ausgehend, die Speichermenge auf die 5 Jahre hochrechnen.
+Aus den beiden Berichten kann man entnehmen, dass gerade die Datendateienspeichermenge der Datenbank 3,63 MB beträgt. Dazu muss angemerkt werden, dass die Datenbank natürlich für jeden einzelnen Teil ihrer Struktur (pro Tabellenspalte bspw.) im Speichermedium Speicherplatz reserviert. Dieses Verhalten und dessen Ergebnis (reservierter Speicherplatz) sollte mit beachtet werden. Somit kann man nun vom reservierten und aktuell belegten Speicherplatz ausgehend, die Speichermenge auf die 5 Jahre hochrechnen.
+
+Ein guter Standard, welcher hier anzuwenden ist, ist eine prophylaktische Zusatzkapazität von ungefähr 100% also 200% insgesamt einzukalkulieren. Diese würde bei 16,00 MB insgesamt reservierter Speicherplatz eine Minimalspeichermenge von 32,00 MB ergeben. 
+
+Die andere Variante wäre die Hochrechnung auf 5 Jahren bei einem ungefähren Beispielswachstum  des Unternehmens von 20% und einer demzufolge 20% anwachsenden Datenmenge pro Jahr (also exponentiell).
+Dies ergibt bei 16,00MB auf 5 Jahre mit 20% Zuwachs die folgende Tabelle
+| Jahr | Wert | Prozentwert |
+|--|--|--|
+| 1 | 16 | 3,2 |
+| 2 | 19,2 | 3,82 |
+| 3 | 23,04 | 4,608 |
+| 4 | 27,648 | 5,5296 |
+| 5 | 33,1776 | - |
+
+mit 33,1776 MB (Gerundet 33,00 MB) als hypothetischer Wert für 5 Jahre Wachstum. 
+Die Differenz der zwei angewandten Methoden ist mit 1 MB wenig, und für geschätzte Werte somit ignorierbar.
+Die Analyse des Speicherbedarfs in 5 Jahre ist somit mit dem Wert 32,00 MB als Ergebnis beendet.
+
+### Leistungsorientierte Abschätzung der Systemressourcen
+
+Todo: Leistungsstarke Userstory anwenden und Bericht Analysieren
+
+
 
 ## Aktivierte Standard-Benutzerkonten
 
