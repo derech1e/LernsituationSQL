@@ -1,3 +1,4 @@
+
 # Dokumentation Lernsituation SQL 
 Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
 
@@ -507,8 +508,9 @@ REVOKE ALL ON Mietvertrag FROM <username_mitarbeiter_chef>;
 
 # Auftragsanalyse
 
-Auftrag ist die Restrukturierung und Aktualisierung des örtlichen IT-Systems des Unternehmen Bengel&Gölp GmbH. Eines der Hauptziele ist die Ertüchtigung der Datenbank für die Bereitstellung und Nutzung der Geschäftsdaten unter Beachtung aktueller Bestimmungen des Datenschutzes.
-Der nächste Schritt in diesem Auftrag, ist nun die Überprüfung der primären funktionalitäten während der nutzung der Datenbank. Mithilfe eines [Schutzbedarfsanalyseprotokoll](#Schutzbedarfsanalyse) soll bewiesen werden, dass alle richtlinien zum Datenschutz- und sicherheit erfüllt sind. Fehlenden Maßnamen sind in einer [SOLL-IST Analyse](SOLLT-IST-Analyse) festzuhalten.
+Der Auftrag ist die Restrukturierung und Aktualisierung der IT-Lösung vom Unternehmen Bengel&Gölp GmbH. Eines der Hauptziele ist die Systematisierung der Geschäftsprozesse des Unternehmens in Form einer Datenbank für die Bereitstellung und Nutzung der Geschäftsdaten unter Beachtung aktueller Bestimmungen des Datenschutzes.
+Der erste Schritt zu Abhandlung des Auftrags, ist die Überprüfung der primären Funktionalitäten während der Nutzung der Datenbank. Mithilfe einer [Schutzbedarfsanalyse](#Schutzbedarfsanalyse) sollen Kontrollkriterien klar definiert werden, sodas alle Richtlinien des Datenschutzes und der allg. Daten- und Informationssicherheit unter den Punkten, Vertraulichkeit, Integrität, Verfügbarkeit und Authentizität erfüllt sind. 
+Fehlende Kriterien und Zustände sind in einer [SOLL-IST Analyse](SOLLT-IST-Analyse) festzuhalten.
 
 
 # Schutzbedarfsanalyse
@@ -555,4 +557,3 @@ Um einem Integritätsverlust gespeicherter Daten, gerade durch fehlerhaft konfig
 - https://www.quora.com/What-is-a-predicate-in-SQL
 - https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_PREDICATES
 - https://stackedit.io
-
