@@ -181,11 +181,33 @@ Gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende 
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/left-outer-schema.png" width="500" height="300" />
 
-
 ```sql
-SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person LEFT JOIN Mitarbeiter
-ON Mitarbeiter.Name = Person.Nachname ORDER BY Mitarbeiter.Name;
+SELECT
+  RechnungsNr,
+  KundenNr,
+  Betrag,
+  Rechnungen.Kartennummer,
+  Firma,
+  Inhaber,
+  Ablaufdatum
+FROM Rechnungen
+LEFT JOIN Kreditkarte ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer
 ```
+
+| RechnungsNr | KundenNr | Betrag | Kartennummer | Firma            | Inhaber        | Ablaufdatum |
+| ----------- | -------- | ------ | ------------ | ---------------- | -------------- | ----------- |
+| 98765       | ABX039   | 49,95  | 12345        | VISA             | Max Mustermann | 05/2007     |
+| 98766       | ABX039   | 12,95  | -           | -               | -             | -          |
+| 98767       | ABX040   | 79,95  | 12347        | American Express | John Doe       | 01/2007     |
+| 98768       | ABX050   | 59,99  | 12347        | American Express | John Doe       | 01/2007     |
+| 98769       | ABX050   | 29,99  | 12348        | Diners Club      | John Doe       | 03/2008     |
+| 98770       | ABX060   | 99,99  | -           | -               | -             | -          |
+
+
+**Beachten Sie, dass im Unterschied zum INNER JOIN die Herkunft der selektierten Kartennummer eine Rolle spielt. Dies ist mehr eine syntaktische Feinheit als inhaltliche Notwendigkeit.**
+
+
+
 ## Right [Outer] Join
 Gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken " Tabelle.
 
