@@ -525,8 +525,16 @@ Einmal in eine speicherorientierte und zweitens in die leistungsorientierte Absc
 Die speicherorientierte Abschätzung beschäftigt sich mit der benötigten Menge an Speicherplatz, welche auch noch nach z.B. 5 Jahren mit den vorangelegten Datenbankkonfigurationen, gemeint sind Tabellenstrukturen, Tabellenrelationen usw. nicht voll läuft.
 
 Dazu sollte man folglich zuerst die Auslastung des projektspezifische Datenbanksystem (in diesem Falle ein Microsoft SQL Server) protokollieren und dann diese Daten auf den gewünschten Zeitraum spekulativ aber auch realitätsnah hochrechnen, Die Berichtserstellung für die Speicherauslastung, kann man mit dem Microsoft SQL Server Management Studio überbrücken, da dieses ein internes Feature bietet, welches diesen Bericht generiert.
-Hier wird nun der Allgemeine Bericht aufgelistet:
-**IMAGE Datenbankverwendung**
+
+<p align="center">
+Hier wird nun der allgemeine Bericht, welcher von auf der UI ausgelesen werden kann aufgelistet: 
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/derech1e/LernsituationSQL/master/assets/img/Datenträgerverwendung_Bericht.png"/>
+</p>
+
+
 Aus den beiden Berichten kann man entnehmen, dass gerade die Gesamtspeichermenge der Datenbank 3,63 MB beträgt. Dazu muss angemerkt werden, dass die Datenbank natürlich für jeden einzelnen Teil ihrer Struktur (pro Tabellenspalte bspw.) im Speichermedium Speicherplatz reserviert. Dieses Verhalten und dessen Ergebnis (reservierter Speicherplatz) sollte mit beachtet werden. Somit kann man nun vom reservierten und aktuell belegten Speicherplatz ausgehend, die Speichermenge auf die 5 Jahre hochrechnen.
 
 ## Aktivierte Standard-Benutzerkonten
