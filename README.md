@@ -65,9 +65,6 @@ Das Kreuzprodukt, lieft als Resultat alle Kombinationsmöglichkeiten beider Tabe
 
 **Beispiel**
 
-
-
-
 ![Table_1](./assets/img/Table1.png)
 
 
@@ -290,9 +287,5 @@ OUTER JOIN Kreditkarte ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer;
 - https://wiki.selfhtml.org/wiki/Datenbank/Einführung_in_Joins
 - https://www.ionos.de/digitalguide/hosting/hosting-technik/inner-join-erklaerung-und-beispiele/
 - https://www.ionos.de/digitalguide/hosting/hosting-technik/sql-outer-join/
-
-# TODO
-
- - [ ] https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
- - [ ] https://stackedit.io
- - [ ] Impliziete und Expliziete Schreibweise
+- https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
+- https://stackedit.io
