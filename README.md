@@ -171,6 +171,8 @@ Das Ergebnis der Abfrage lautet:
 | 98769       | ABX050   | 29,99  | 12348        | Diners Club      | John Doe       | 03/2008     |
 
 
+**Beachten Sie, dass die Reihenfolge, in der die Tabellen genannt werden, bei diesem Join egal ist.**
+
 
 ## Left [Outer] Join
 Gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende Datensätze aus der "rechten" Tabelle. 
