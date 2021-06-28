@@ -65,6 +65,9 @@ Das Kreuzprodukt, lieft als Resultat alle Kombinationsmöglichkeiten beider Tabe
 
 **Beispiel**
 
+
+
+
 ![Table_1](./assets/img/Table1.png)
 
 
