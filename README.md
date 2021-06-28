@@ -1,4 +1,5 @@
 
+
 # Vortrag Joins
 
 Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
@@ -63,6 +64,15 @@ Der Cross Join ist der "standard" Join, es wird aus alle Einträgen der beiden T
 Das Kreuzprodukt, lieft als Resultat alle Kombinationsmöglichkeiten beider Tabellen.
 
 **Beispiel**
+
+![Table_1](./assets/img/Table1.png)
+
+
+![Table_2](./assets/img/Table2.png)
+
+
+![Table_3](./assets/img/Table3.png)
+
 <table>
 <tr><td>
 
