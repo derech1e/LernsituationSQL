@@ -5,6 +5,7 @@
 Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
 
 # Inhaltsverzeichnis
+- [Beispieldatenbank](#Beispieldatenbank)
 - [Join-Arten](#Join-Arten)
 	- [Cross Join](#Cross-Join)
 	- [Natural Join](#Natural-Join)
@@ -15,7 +16,6 @@ Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zus
 	- [Self Join](#Self-Join)
 	- [Apply](#Apply)
 - [Quellen](#Quellen)
-- [TODO](#TODO)
 
 # Beispieldatenbank
 
