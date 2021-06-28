@@ -217,9 +217,28 @@ Gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende
 
 
 ```sql 
-SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person RIGHT JOIN Mitarbeiter
-ON Mitarbeiter.Name = Person.Nachname;
+SELECT
+  RechnungsNr,
+  KundenNr,
+  Betrag,
+  Kreditkarte.Kartennummer,
+  Firma,
+  Inhaber,
+  Ablaufdatum
+FROM Rechnungen RIGHT JOIN Kreditkarte
+ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer
 ```
+
+| RechnungsNr | KundenNr | Betrag | Kartennummer | Firma            | Inhaber           | Ablaufdatum |
+| ----------- | -------- | ------ | ------------ | ---------------- | ----------------- | ----------- |
+| 98765       | ABX039   | 49,95  | 12345        | VISA             | Max Mustermann    | 05/2007     |
+| -          | -       | -     | 12346        | Mastercard       | Katrin Musterfrau | 01/2008     |
+| 98767       | ABX040   | 79,95  | 12347        | American Express | John Doe          | 01/2007     |
+| 98768       | ABX050   | 59,99  | 12347        | American Express | John Doe          | 01/2007     |
+| 98769       | ABX050   | 29,99  | 12348        | Diners Club      | John Doe          | 03/2008     |
+
+
+**Beachten Sie, dass im Unterschied zum INNER JOIN die Herkunft der selektierte Kartennummer eine Rolle spielt. Dies ist mehr eine syntaktische Feinheit als inhaltliche Notwendigkeit.**
 
 ## Full [Outer] Join
 Gibt immer Datensätze zurück, unabhängig davon ob es eine Übereinstimmung in der anderen Tabelle gibt oder nicht. Es können keine Datensätze verschwinden.
