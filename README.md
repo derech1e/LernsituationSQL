@@ -16,6 +16,45 @@ Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zus
 - [Quellen](#Quellen)
 - [TODO](#TODO)
 
+# Beispieldatenbank
+
+```sql
+# CREATE DATABASE  IF NOT EXISTS `selfhtml`;
+# USE `selfhtml`;
+
+DROP TABLE IF EXISTS `Kreditkarte`;
+CREATE TABLE `Kreditkarte` (
+  `Kartennummer` BIGINT(20) NOT NULL,
+  `Firma` tinytext NOT NULL,
+  `Inhaber` tinytext NOT NULL,
+  `Ablaufdatum` DATE NOT NULL,
+  KEY `Kartennummer` (`Kartennummer`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+LOCK TABLES `Kreditkarte` WRITE;
+INSERT INTO `Kreditkarte` VALUES
+    (12345,'VISA','Max Mustermann','2017-05-01'),
+    (12346,'Mastercard','Katrin Musterfrau','2018-01-01'),
+    (12347,'American Express','John Doe','2015-02-01'),
+    (12348,'Diners Club','John Doe','2020-03-01');
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `Rechnungen`;
+CREATE TABLE `Rechnungen` (
+  `RechnungsNr` BIGINT(20) NOT NULL,
+  `KundenNr` tinytext NOT NULL,
+  `Betrag` DECIMAL(10,2) NOT NULL,
+  `Kartennummer` BIGINT(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+LOCK TABLES `Rechnungen` WRITE;
+INSERT INTO `Rechnungen` VALUES
+    (98765,'ABX039',49.95,12345),
+    (98766,'ABX039',12.95,NULL),
+    (98767,'ABX040',79.95,12347),
+    (98768,'ABX050',59.99,12347),
+    (98769,'ABX050',29.99,12348),
+    (98770,'ABX060',99.99,NULL);
+UNLOCK TABLES;
+```
 
 # Join-Arten
 ## Cross Join
@@ -110,9 +149,29 @@ Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmend
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/inner-schema.png" width="500" height="300" />
 
 ```sql
-SELECT Person.PersonID, Mitarbeiter.Name, Person.Nachname FROM Person INNER JOIN Mitarbeiter
-ON Mitarbeiter.Name = Person.Nachname;
+SELECT
+  RechnungsNr,
+  KundenNr,
+  Betrag,
+  Rechnungen.Kartennummer,
+  Firma,
+  Inhaber,
+  Ablaufdatum
+FROM Kreditkarte
+INNER JOIN Rechnungen ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer
 ```
+
+Das Ergebnis der Abfrage lautet:
+
+| RechnungsNr | KundenNr | Betrag | Kartennummer | Firma            | Inhaber        | Ablaufdatum |
+| ----------- | -------- | ------ | ------------ | ---------------- | -------------- | ----------- |
+| 98765       | ABX039   | 49,95  | 12345        | VISA             | Max Mustermann | 05/2007     |
+| 98767       | ABX040   | 79,95  | 12347        | American Express | John Doe       | 01/2007     |
+| 98768       | ABX050   | 59,99  | 12347        | American Express | John Doe       | 01/2007     |
+| 98769       | ABX050   | 29,99  | 12348        | Diners Club      | John Doe       | 03/2008     |
+
+
+
 ## Left [Outer] Join
 Gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende Datensätze aus der "rechten" Tabelle. 
 
