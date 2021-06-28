@@ -19,6 +19,8 @@ Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zus
 
 # Beispieldatenbank
 
+Auf dieser Beispildatenbank basiren die folgenden Beispile. Das Script ist speziell an T-SQL angepasst und muss daher in entsprechender umgebung ausgeführt werden. 
+
 ```sql
 # CREATE DATABASE  IF NOT EXISTS `selfhtml`;
 # USE `selfhtml`;
