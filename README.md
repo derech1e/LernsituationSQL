@@ -186,6 +186,8 @@ CREATE TABLE <tablename> [<columnname>[,...] <constraint>[,...]];
 
 **User-Storys**
 
+*User-Story 1*
+
 Im folgendem Beispiel wird eine Tabelle erstellt, die alle Adressen von Kunden, Eigentümern und den Ferienhäusern enthält. Über die Address_ID kann die jeweilige Adresse mithilfe eines [Join's](#Join) ermittelt werden.
 ```sql 
 CREATE TABLE Adresse (
@@ -199,12 +201,15 @@ CREATE TABLE Adresse (
 	Herkunftsland_ID int NULL DEFAULT (NULL));
 ```
 
+*User-Story 2*
+
 Im Beispiel sollen alle Kunden aus Dresden in der Tabelle `Dresdner` erfasst werden. 
 Dies gelingt mithilfe eines [Join's](#Join).
 ```sql
 CREATE TABLE Dresdner AS [EDGE] SELECT Adresse.Address_ID, Name FROM Kunde INNER JOIN Adresse ON Adresse.Address_ID = Kunde.Address_ID WHERE Adresse.Stadt LIKE 'Dresden';
 -- [EDGE] wird nur in T-SQL benötigt.
 ```
+
 #### Alter
 Das `ALTER` Statement wird in SQL benutzt um Spalten und [Constraints](#Constraints) zu modifizieren.  
 
@@ -235,6 +240,9 @@ ALTER TABLE <tablename> ALTER [COLUMN] <columnname> DROP SCOPE {RESTRICT | CASCA
 ```
 
 **User-Storys**
+
+*User-Story 1*
+
 Als Beispiel möchte der Auftraggeber im Nachhinein die E-Mail-Adresse der Kunden speichern. 
 Es wird das ``ALTER`` Statement benutzt, um eine neue Spalte `Email` vom Typ `nvarchar` mit einer maximalen Zeichenlänge von 255 hinzuzufügen.
 
@@ -243,12 +251,16 @@ Es wird das ``ALTER`` Statement benutzt, um eine neue Spalte `Email` vom Typ `nv
 ALTER TABLE Kunde ADD Email nvarchar(255);
 ```
 
+*User-Story 2*
+
 Nach längerer Nutzung, fällt durch Analysen auf das auch eine maximale Zeichenlänge von 100 ausreicht. Die E-Mail Spalte wird dahingehend angepasst.
 Todo: T-SQL Modify ist anders
 ```sql
 -- Änderung der maximalen Zeichenanzahl auf 100
 ALTER TABLE Kunde ALTER COLUMN Email nvarchar(100);
 ```
+
+*User-Story 3*
 
 Alle E-Mail Adressen sollen nach einer IT-Sicherheit-Analyse aufgrund von datenschutzrechtlichen Bedenken gelöscht werden. 
 ```sql
@@ -333,7 +345,7 @@ Der IT-Mitarbeiter muss die Änderung spezifisch auf das Ferienhaus mit dem Fehl
 DELETE FROM <tablename> WHERE <condition>[,...];
 ```
 
-**User-Storys**
+**User-Story**
 
 Eine Mängelanzeige, explizit eine *"Defekte Heizung"*, muss aus der Datenbank gelöscht werden, da diese sich als Fehler herausstellte. Ein IT-Mitarbeiter nimmt die Löschung im System vor. Vorher holt er sich die Mängelanzeige-ID aus dem System.
 
@@ -370,11 +382,15 @@ SELECT [{ *, <columname[,...]> } | DISTINCT] FROM <name> [AS columnname];
 
 **User-Storys**
 
+*User-Story 1*
+
 Um zu überprüfen, ob die Mietverträge richtig gespeichert werden, kann man sich alle Spalten von der Tabelle ``Mietvertrag`` anzeigen lassen.
 ```sql
 -- Anzeigen aller Mietverträge
 SELECT * FROM Mietvertrag;
 ```
+
+*User-Story 2*
 
 Man möchte ebenfalls die Funktionalität der Tabelle `Kunde` in Relation der Tabelle `Adresse` überprüfen. 
 Um manuell zu überprüfen, ob die Tabelle Kunden die `Address_ID` richtig speichert, werden beide Tabellen über das Statement projiziert.
@@ -396,11 +412,15 @@ SELECT ... FROM ... [WHERE <condition>[,...]][GROUP BY ... HAVING...][ORDER BY .
 
 **User-Storys**
 
+*User-Story 1*
+
 Der Auftraggeber wünscht sich eine Filtermöglichkeit für die Tabelle `Herkunftsländer`.
 Angezeigt werden, sollen alle Herkunftsländer deren Name mit "D" beginnt, sowie wenn deren Kürzel ein "D" ist. Da der Filter 1 : 1 in SQL übersetzt wird, werden die [Wildcards](#Wildcards) aus dem GUI ebenfalls in das Statement übernommen.
 ```sql
 SELECT Name, Abkuerzung FROM Herkunftsland WHERE Name LIKE 'D%' AND Abkuerzung = 'D';;
 ```
+
+*User-Story 2*
 
 Der Auftraggeber möchte den Filter erweitern.
 Es soll nun die durchschnittliche Anzahl an Schlafzimmern von Ferienhäusern, die später als dem 01.04.2008 in die Datenbank aufgenommen wurden, gefiltert werden.
@@ -481,14 +501,17 @@ SELECT * FROM Ferienhaus FULL JOIN Eigentuemer ON Eigentuemer.Eigentuemer_ID = F
 **Weitere Join-Varianten die für MS SQL Server gelten sind [hier](https://github.com/derech1e/LernsituationSQL/blob/vortrag_joins/README.md) zu finden.**
 
 ### Group By
+
 Durch das `GROUP BY` ist es einem möglich, mehrere Datensätze anhand von gleichen Werten zu gruppieren. 
 
 **Syntax des Statements**
+
 ```sql
 SELECT ... FROM ... [WHERE ...] GROUP BY <columnname> [ORDER BY ...]
 ```
 
 **User-Storys**
+
 ```sql
 -- Gruppiert alle Schlafzimmer von Ferienhäuser die nicht am 01.04.2008 eigestellt wurden und Sortiert der Anzahl nach aufsteigend 
 SELECT Anzahl_Schlafzimmer, Name FROM Ferienhaus GROUP BY Anzahl_Schlafzimmer, Name ORDER BY Anzahl_Schlafzimmer ASC;
@@ -500,6 +523,7 @@ SELECT fer.Anzahl_Schlafzimmer, fer.Name, eig.Name FROM Ferienhaus fer RIGHT JOI
 ```
 
 ## DCL
+
 Mit der **D**ata **C**ontrol **L**anguage *(dt. Datenkontrollsprache)* werden Berechtigungen an User erteilt und entfernt. Die Sprache ist mit einem Berechtigungssystem vergleichbar.
 
 **Befehlsübersicht**
@@ -517,6 +541,7 @@ GRANT <privilegename> ON <objectname> TO <username> [WITH GRANT OPTION];
 **User-Storys**
 
 *User-Story 1*
+
 In dieser Userstory bekommt ein neuer Mitarbeiter definierte Rechte auf die Tabellen "Ferienhaus" und "Mietvertrag", damit dieser das System benutzen kann. Er kann sich somit mit einer SQL Session verbinden und in dieser über eine UI arbeiten. 
 
 Das Statement `ALTER` gibt in diesem Beispiel dem Benutzer die Rechte, dass er auf der Datenbank unendlich viele Daten speichern kann.  [Siehe mehr](#Alter)
@@ -536,7 +561,9 @@ GRANT SELECT ON Maengelanzeige TO <username_mitarbeiter>;
 GRANT INSERT ON Maengelanzeige TO <username_mitarbeiter>;
 ALTER USER <username_mitarbeiter> QUOTA UNLIMITED ON SYSTEM;
 ```
+
 *User-Story 2*
+
 Mit dem folgendem SQL Statement kann man die Rechte auf die Befehle `SELECT`, `UPDATE`, `INSERT`, `DELETE` und `REFERENCES` auf einmal für einen Benutzer auf eine Tabelle, in dem Fall *"Ferienhaus"*, "*Mietvertrag"* und *"Maengelanzeige",* gewähren. Somit spart man sich Zeit und Arbeit. 
 
 ```sql
@@ -546,7 +573,9 @@ GRANT ALL ON Ferienhaus TO <username_mitarbeiter_chef>;
 GRANT ALL ON Mietvertrag TO <username_mitarbeiter_chef>;
 GRANT ALL ON Maengelanzeige TO <username_mitarbeiter_chef>;
 ```
+
 *User-Story 3*
+
 Ein neuer IT-Mitarbeiter wird eingestellt, welcher einzelne Tabellen erstellen und löschen muss. Dazu erhält dieser auch alle Rechte auf die *"Ferienhaus"* Tabelle, damit dieser bestimmte Datensätze ändern kann.
 
 ```sql
