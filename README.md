@@ -287,9 +287,9 @@ OUTER JOIN Kreditkarte ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer;
 ## Self Join
 
 # Quellen
-https://wiki.selfhtml.org/wiki/Datenbank/Einführung_in_Joins
-https://www.ionos.de/digitalguide/hosting/hosting-technik/inner-join-erklaerung-und-beispiele/
-https://www.ionos.de/digitalguide/hosting/hosting-technik/sql-outer-join/
+- https://wiki.selfhtml.org/wiki/Datenbank/Einführung_in_Joins
+- https://www.ionos.de/digitalguide/hosting/hosting-technik/inner-join-erklaerung-und-beispiele/
+- https://www.ionos.de/digitalguide/hosting/hosting-technik/sql-outer-join/
 
 # TODO
 
