@@ -39,8 +39,7 @@ In SQL gibt es verschiedene Vergleichsoperatoren. In der nachfolgenden Tabelle s
 | IN      | Das Spezifizieren von mehreren möglichen Werten für eine Spalte |
 
 
-> **Predicates** 
-> Ein Predicate definiert eine logische Bedingung, die auf Zeilen in einer Tabelle angewendet wird. Sie werden in der Suchbedingung von `WHERE` Klauseln verwendet, bei denen ein boolescher Wert erforderlich ist. Ein überblick zu den Predicates, ist [hier](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_PREDICATES) zu finden. 
+> Predicates sind eine weitere möglichkeit um eine logische Bedingung zu definieren, die dann auf Zeilen in einer Tabelle angewendet werden kann. Sie werden in der Suchbedingung von `WHERE` Klauseln verwendet, bei denen ein boolescher Wert erforderlich ist. Ein überblick zu den Predicates, ist [hier](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_PREDICATES) zu finden. 
 
 #### Wildcards
 
