@@ -1,4 +1,5 @@
 
+
 # Dokumentation Lernsituation SQL 
 Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
 
@@ -17,7 +18,7 @@ Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zu
 
 # Erläuterung der Struktur
 Dieses Dokument wird zunächst die verschiedenen Sprachbestandteile von SQL behandeln.
-Nach diesem erläuternden Teil, leitet das Dokument in den analytischen Teil, hier in Form von der Auftragsanalyse, SOLL-IST Analyse und Schutzbedarfsanalyse, ein und schließt mit der Quellenangabe ab.
+Nach diesem erläuternden Teil leitet das Dokument in den analytischen Teil hier in Form von der Auftragsanalyse, SOLL-IST Analyse und Schutzbedarfsanalyse ein und schließt mit der Quellenangabe ab.
 
 #### Hinweise zum Verständnis des Syntax
 Die allgemeine Syntax der Befehle orientiert sich immer an dem vom SQL vorgegebenen Standard. Darüber hinaus werden die [Anwendungsbeispiele](#User-Storys) nach dem im [MS-Server Management Studio](https://docs.microsoft.com/de-de/sql/ssms/sql-server-management-studio-ssms?view=sql-server-ver15) enthaltenen [T-SQL](https://de.wikipedia.org/wiki/Transact-SQL) Standard erläutert. 
@@ -39,19 +40,19 @@ In SQL gibt es verschiedene Vergleichsoperatoren. In der nachfolgenden Tabelle s
 | IN      | Das Spezifizieren von mehreren möglichen Werten für eine Spalte |
 
 
-> Predicates sind eine weitere möglichkeit um eine logische Bedingung zu definieren, die dann auf Zeilen in einer Tabelle angewendet werden kann. Sie werden in der Suchbedingung von `WHERE` Klauseln verwendet, bei denen ein boolescher Wert erforderlich ist. Ein überblick zu den Predicates, ist [hier](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_PREDICATES) zu finden. 
+> Predicates sind eine weitere Möglichkeit um eine logische Bedingung zu definieren, die dann auf Zeilen in einer Tabelle angewendet werden kann. Sie werden in der Suchbedingung von `WHERE` Klauseln verwendet, bei denen ein boolescher Wert erforderlich ist. Ein Überblick zu den Predicates, ist [hier](https://docs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_PREDICATES) zu finden. 
 
 #### Wildcards
 
-Wildcards sind Platzhalterzeichen, die in Zeichenfolgen eingesetzt werden können. Sie dienen zur besseren Einstellung von Filtern und werden mit dem `LIKE` Operator benutzt, bei einer `WHERE` Bedingung. Die Platzhalter werden später in die entsprechende Filter-Logik übersetzt. Eine Liste zu allen Wildcards mit entsprechender Erklärung, ist [hier](https://www.w3schools.com/sql/sql_wildcards.asp) zu finden. 
+Wildcards sind Platzhalterzeichen, die in Zeichenfolgen eingesetzt werden können. Sie dienen zur besseren Einstellung von Filtern und werden mit dem `LIKE` Operator benutzt, bei einer `WHERE` Bedingung. Die Platzhalter werden später in die entsprechende Filter-Logik übersetzt. Eine Liste zu allen Wildcards mit entsprechender Erklärung ist [hier](https://www.w3schools.com/sql/sql_wildcards.asp) zu finden. 
 
 #### Constraints
 
-Constraints heißt im Deutschen soviel wie Einschränkungen. Constraints sind Integritätsregeln die Fehler und Unschlüssigkeiten bei der Erstellung von Tabellen ausschließen sollen. Dies gewährleistet die Integrität von Daten in der Tabelle somit werden durch diese Regeln fehlerhafte Datensätze gar nicht erst von der Datenbank angenommen. Eine Liste zu allen Constraints mit entsprechender Erklärung, ist [hier](https://www.w3schools.com/sql/sql_constraints.asp) zu finden.
+Constraints heißt im Deutschen so viel wie Einschränkungen. Constraints sind Integritätsregeln, die Fehler und Unschlüssigkeiten bei der Erstellung von Tabellen ausschließen sollen. Dies gewährleistet die Integrität von Daten in der Tabelle, somit werden durch diese Regeln fehlerhafte Datensätze gar nicht erst von der Datenbank angenommen. Eine Liste zu allen Constraints mit entsprechender Erklärung ist [hier](https://www.w3schools.com/sql/sql_constraints.asp) zu finden.
 
 #### Order By
 
-Die `ORDER BY` Klausel, wird benutzt um Datensätze zu sortieren. Es gibt zwei Möglichkeiten der Sortierung. 
+Die `ORDER BY` Klausel wird benutzt, um Datensätze zu sortieren. Es gibt zwei Möglichkeiten der Sortierung. 
 `ASC` (Ascending) und `DESC` (Descending).
 
 *Syntax des Statements*
@@ -77,7 +78,7 @@ SELECT { * | <columnname>[,...]} FROM <tablename>[,...] ORDER BY <columnname>[,.
 
 Der Auftrag ist die Restrukturierung und Aktualisierung der IT-Lösung vom Unternehmen Bengel&Gölp GmbH. Eines der Hauptziele ist die Systematisierung der Geschäftsprozesse des Unternehmens in Form einer Datenbank für die Bereitstellung und Nutzung der Geschäftsdaten unter Beachtung aktueller Bestimmungen des Datenschutzes.
 
-Der erste Schritt zu Abhandlung des Auftrags, ist die Überprüfung der primären Funktionalitäten während der Nutzung der Datenbank. Mithilfe einer [Schutzbedarfsanalyse](#Schutzbedarfsanalyse) sollen Kontrollkriterien klar definiert werden, sodas alle Richtlinien des Datenschutzes und der allg. Daten- und Informationssicherheit unter den Punkten, Vertraulichkeit, Integrität, Verfügbarkeit und Authentizität erfüllt sind. 
+Der erste Schritt zu Abhandlung des Auftrags ist die Überprüfung der primären Funktionalitäten während der Nutzung der Datenbank. Mithilfe einer [Schutzbedarfsanalyse](#Schutzbedarfsanalyse) sollen Kontrollkriterien klar definiert werden, sodas alle Richtlinien des Datenschutzes und der allg. Daten- und Informationssicherheit unter den Punkten Vertraulichkeit, Integrität, Verfügbarkeit und Authentizität erfüllt sind. 
 
 Fehlende Kriterien und Zustände sind in einer [SOLL-IST Analyse](SOLLT-IST-Analyse) festzuhalten.
 
@@ -85,28 +86,21 @@ Fehlende Kriterien und Zustände sind in einer [SOLL-IST Analyse](SOLLT-IST-Anal
 
 Die Schutzbedarfsanalyse baut auf das vom Bundesamt für Sicherheit in der Informationstechnik veröffentlichte Dokument „APP.4.3: Relationale Datenbanken“ auf und versucht ein Konzept zum sicheren Betrieb von relationalen Datenbanksysteme aufzustellen. Die Schutzbedarfsanalyse ist somit ein wichtiger Teil des analytischen Anteils von jedem Projekt um Datenbanksystemen.
 
-# SOLL-IST Analyse
-
 ## Unzureichende Dimensionierung der Systemressourcen
 
-Die Analyse und Abschätzung der zureichenden Dimensionierung der Systemressourcen, ist, damit es nicht zu unzureichenden Systemressourcen kommt, in zwei Teile einzuteilen.
+Die Analyse und Abschätzung der zureichenden Dimensionierung der Systemressourcen ist, damit es nicht zu unzureichenden Systemressourcen kommt, in zwei Teile einzuteilen.
 Einmal in eine speicherorientierte und zweitens in die leistungsorientierte Abschätzung.
 
 ### Speicherorientierte Abschätzung der Systemressourcen
-Die speicherorientierte Abschätzung beschäftigt sich mit der benötigten Menge an Speicherplatz, welche auch noch nach z.B. 5 Jahren mit den vorangelegten Datenbankkonfigurationen, gemeint sind Tabellenstrukturen, Tabellenrelationen usw. nicht voll läuft.
+Die speicherorientierte Abschätzung beschäftigt sich mit der benötigten Menge an Speicherplatz, welche auch noch nach z. B. 5 Jahren mit den vor-angelegten Datenbankkonfigurationen gemeint sind Tabellenstrukturen, Tabellenrelationen usw. nicht vollläuft.
 
-Dazu sollte man folglich zuerst die Auslastung des projektspezifische Datenbanksystem (in diesem Falle ein Microsoft SQL Server) protokollieren und dann diese Daten auf den gewünschten Zeitraum spekulativ aber auch realitätsnah hochrechnen, Die Berichtserstellung für die Speicherauslastung, kann man mit dem Microsoft SQL Server Management Studio überbrücken, da dieses ein internes Feature bietet, welches diesen Bericht generiert.
+Dazu sollte man folglich zuerst die Auslastung des projektspezifische Datenbanksystem (in diesem Falle ein Microsoft SQL Server) protokollieren und dann diese Daten auf den gewünschten Zeitraum spekulativ, aber auch realitätsnah hochrechnen. Die Berichterstellung für die Speicherauslastung kann man mit dem [Microsoft SQL Server Management Studio](#https://docs.microsoft.com/de-de/sql/ssms/sql-server-management-studio-ssms?view=sql-server-ver15) überbrücken, da dieses ein internes Feature bietet, welches diesen Bericht generiert.
 
-<p align="center">
-Hier wird nun der allgemeine Bericht, welcher von auf der UI ausgelesen werden kann aufgelistet: 
-</p>
-
-<p align="center">
   <img src="https://raw.githubusercontent.com/derech1e/LernsituationSQL/master/assets/img/Datenträgerverwendung_Bericht.png"/>
-</p>
 
+*Abbildung 1: Aus dem UI ausgelesener allgemeiner Bericht*
 
-Aus den beiden Berichten kann man entnehmen, dass gerade die Datendateienspeichermenge der Datenbank 3,63 MB beträgt. Dazu muss angemerkt werden, dass die Datenbank natürlich für jeden einzelnen Teil ihrer Struktur (pro Tabellenspalte bspw.) im Speichermedium Speicherplatz reserviert. Dieses Verhalten und dessen Ergebnis (reservierter Speicherplatz) sollte mit beachtet werden. Somit kann man nun vom reservierten und aktuell belegten Speicherplatz ausgehend, die Speichermenge auf die 5 Jahre hochrechnen.
+Aus den beiden Berichten kann man entnehmen, dass gerade die Datendateienspeichermenge der Datenbank 3,63 MB beträgt. Dazu muss angemerkt werden, dass die Datenbank natürlich für jeden einzelnen Teil ihrer Struktur (pro Tabellenspalte bspw.) im Speichermedium Speicherplatz reserviert. Dieses Verhalten und dessen Ergebnis (reservierter Speicherplatz) sollte mit beachtet werden. Somit kann man nun vom reservierten und aktuell belegten Speicherplatz ausgehend die Speichermenge auf die 5 Jahre hochrechnen.
 
 Ein guter Standard, welcher hier anzuwenden ist, ist eine prophylaktische Zusatzkapazität von ungefähr 100% also 200% insgesamt einzukalkulieren. Diese würde bei 16,00 MB insgesamt reservierter Speicherplatz eine Minimalspeichermenge von 32,00 MB ergeben. 
 
@@ -120,13 +114,13 @@ Dies ergibt bei 16,00MB auf 5 Jahre mit 20% Zuwachs die folgende Tabelle
 | 4 | 27,648 | 5,5296 |
 | 5 | 33,1776 | - |
 
+*Tabelle 1: Beispielswachstum der Speicherkapazität*
+
 mit 33,1776 MB (gerundet 33,00 MB) als hypothetischer Wert für 5 Jahre Wachstum. 
-Die Differenz der zwei angewandten Methoden ist mit 1 MB wenig, und für geschätzte Werte somit ignorierbar.
+Die Differenz der zwei angewandten Methoden ist mit 1 MB wenig und für geschätzte Werte somit ignorierbar.
 Die Analyse des Speicherbedarfs in 5 Jahre ist somit mit dem Wert 32,00 MB als Ergebnis beendet.
 
 ### Leistungsorientierte Abschätzung der Systemressourcen
-
-
 →  Leistungsstarke Userstory anwenden und Bericht Analysieren
 
 
@@ -162,6 +156,8 @@ Um einem Integritätsverlust gespeicherter Daten, gerade durch fehlerhaft konfig
 ## Beschreibung der Sicherheitsrichtlinie für Datenbanksysteme
 
 → Analysieren welche Daten im DBS personenbezogen sind und somit verschlüsselt werden. → Projektspez. → in Tabelle gucken
+
+# SOLL-IST Analyse
 
 # SQL Bestandteile
 Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standard-Query-Language im Bezug auf den Auftrag "Ferienhaus".
