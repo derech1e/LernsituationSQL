@@ -121,8 +121,9 @@ Die Differenz der zwei angewandten Methoden ist mit 1 MB wenig und für geschät
 Die Analyse des Speicherbedarfs in 5 Jahre ist somit mit dem Wert 32,00 MB als Ergebnis beendet.
 
 ### Leistungsorientierte Abschätzung der Systemressourcen
-→  Leistungsstarke Userstory anwenden und Bericht Analysieren
 
+
+→  Leistungsstarke Userstory anwenden und Bericht Analysieren
 
 
 ## Aktivierte Standard-Benutzerkonten
@@ -139,7 +140,8 @@ Um diesem Gefahrenbereich auszuweichen, sollte man nach dem aufsetzen der Datenb
 
 ## Integritätsverlust der gespeicherten Daten
 
-Um einem Integritätsverlust gespeicherter Daten, gerade durch fehlerhaft konfigurierte Datenbanken und manipulierten Daten vorzubeugen, wäre allgemein und somit auch projektspezifisch zu empfehlen, ein Testsystem zu kreieren und zu nutzen. Dieses hätte effektiv eine deckungsgleiche Tabellen- bzw. Datenbankstruktur mit dem Produktivsystem. Zusammen mit einigen Testdaten, welche möglichst viele Sonderfälle abdecken sollten, kann man sicherstellen, dass kritische Änderungen zum Beispiel an Job-Abläufen im Testsystem zuerst durch allgemeine Beobachtung und Prüfung der Ergebnisse getestet werden. Die Änderungen sollten in diesem Zeitraum auch durch manipulierten Daten bezüglich der Sicherheit geprüft werden. Somit werden die angesprochenen Test-Objekte  und Strukturen für die Testung der Patches bzw. Änderungen verwendet und nachdem sich diese als Funktional erwiesen haben, können sie im Produktivsystem sicher angewendet werden.
+Um einem Integritätsverlust durch bspw. fehlerhaft konfigurierte Datenbanken oder manipulierten Daten vorzubeugen, ist allgemein und somit auch projektspezifisch die Nutzung eines Testsystem zu empfehlen. Dieses hätte effektiv eine deckungsgleiche Tabellen- bzw. Datenbankstruktur mit dem Produktivsystem. 
+Zusammen mit entsprechenden Testdaten ist somit die Abdeckung von Sonderfällen gewährleistet. Zusätzlich dazu kann man sicherstellen, dass kritische Änderungen zum Beispiel an Job-Abläufen im Testsystem zuerst durch allgemeine Beobachtung und Prüfung der Ergebnisse getestet werden. Die Änderungen sollten in diesem Zeitraum auch durch manipulierten Daten bezüglich der Sicherheit geprüft werden. Somit werden die angesprochenen Test-Objekte und Strukturen für die Testung der Patches bzw. Änderungen verwendet. Nachdem sich diese als Funktional erwiesen haben, können sie im Produktivsystem sicher angewendet werden.
 
 ## SQL-Injections
 
