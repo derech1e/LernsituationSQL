@@ -127,7 +127,7 @@ Die Analyse des Speicherbedarfs in 5 Jahre ist somit mit dem Wert 32,00 MB als E
 
 ## Aktivierte Standard-Benutzerkonten
 
-Um diesen Gefahrenbereich auszuweichen sollte man, nachdem man die Datenbank aufgesetzt hat, darauf achten, dass man die in der Überschrift erwähnten Standard-Benutzerkonten deaktiviert, löscht bzw. dessen Passwort vom Standard abändert. Dieser Hinweis ist recht allgemein, und nicht projektspezifisch. Jedes Projekt welches Teilweise mit Datenbanken zu tun hat sollte sich diesem Hinweis fügen. Wie in dem maßgebendem Dokument erwähnt, können sich Angreifer durch diese vom Hersteller vorgegebenen Passwörter, welche öffentlich zugängig sind, Zugang verschaffen und Konfigurationen durch die Rechte der offengelegten Accounts bspw. ändern.
+Um diesem Gefahrenbereich auszuweichen, sollte man nach dem aufsetzen der Datenbank darauf achten, dass man die entsprechenden Standard-Benutzerkonten deaktiviert, löscht oder dessen Passwort ändert. Dieser Hinweis ist recht allgemein und nicht projektspezifisch. Alle Projekte, die im groben Sinne mit Datenbank arbeiten, sollten sich diesem Hinweis fügen. Wie in dem maßgebendem Dokument erwähnt, können sich Angreifer durch die vom Hersteller vorgegebenen Passwörter Zugang verschaffen. Da diese öffentlich einsehbar sind, kann dies zu verehrenden Schäden in bspw. der Rechtevergabe von diversen Accounts führen.
 
 ## Unverschlüsselte Datenbankverbindung
 
