@@ -1,9 +1,7 @@
 
-
-
 # Vortrag Joins
 
-Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
+Diese Dokumentation gibt einen kleinen Einblick über die Verbindungen von Tabellen in SQL. Im Zusammenhang mit entsprechenden Beispielen werden die Vorgestellten Join Arten veranschaulicht.
 
 # Inhaltsverzeichnis
 - [Beispieldatenbank](#Beispieldatenbank)
@@ -20,7 +18,7 @@ Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zus
 
 # Beispieldatenbank
 
-Auf dieser Beispildatenbank basiren die folgenden Beispile. Das Script ist speziell an T-SQL angepasst und muss daher in entsprechender umgebung ausgeführt werden. 
+Auf dieser Datenbank basieren die folgenden Beispiele. Das Script ist speziell an T-SQL angepasst und muss daher in entsprechender Umgebung ausgeführt werden.
 
 ```sql
 CREATE DATABASE IF NOT EXISTS joinDB;
@@ -66,9 +64,7 @@ CREATE TABLE Kunden(
 
 INSERT INTO Kunden VALUES
     ('ABX039','Lissa Yockey','Deutschland'),
-    ('ABX039','Rodger Ruben','Schweiz'),
     ('ABX040','Cedric Don','USA'),
-    ('ABX050','Gretta Wimmer','Deutschland'),
     ('ABX050','Jolanda Shontz','Russland'),
     ('ABX060','Naoma Bernardi','Norwegen');
 ```
@@ -120,7 +116,6 @@ NATURAL JOIN
 ```sql
 SELECT { * | columnname[,...]} FROM tabelle1 NATURAL JOIN tabelle2;
 ```
-Es wird nach einer gleichnamigen Spalte geschaut und entsprechend automatisch gefiltert. 
 
 **Beispiel**
 ```sql
@@ -139,8 +134,20 @@ SELECT * FROM Kunden NATURAL JOIN Rechnungen;
 
 
 ## Inner Join
-Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmenden Wert haben. 
-<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/inner-schema.png" width="50%" height="50%" />
+Der Inner Join gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmenden Wert haben. 
+Die Reihenfolge, in der die Tabellen genannt werden, ist bei diesem Join egal.
+<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/inner-schema.png" width="60%" height="60%" />
+
+**Syntax**
+```sql 
+INNER JOIN
+```
+```sql
+SELECT { * | columnname[,...]} FROM <tablename> INNER JOIN <tablename> ON <columnname> = <columnname>;
+```
+
+**Beispiel**
+Gesucht werden alle Rechnungen, die mit Kreditkarte beglichen wurden.
 
 ```sql
 SELECT
@@ -155,7 +162,7 @@ FROM Kreditkarte
 INNER JOIN Rechnungen ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer
 ```
 
-Das Ergebnis der Abfrage lautet:
+**Ergebnis der Abfrage**
 
 | RechnungsNr | KundenNr | Betrag | Kartennummer | Firma            | Inhaber        | Ablaufdatum |
 | ----------- | -------- | ------ | ------------ | ---------------- | -------------- | ----------- |
@@ -165,15 +172,27 @@ Das Ergebnis der Abfrage lautet:
 | 98769       | ABX050   | 29,99  | 12348        | Diners Club      | John Doe       | 03/2008     |
 
 
-**Beachten Sie, dass die Reihenfolge, in der die Tabellen genannt werden, bei diesem Join egal ist.**
+## Left Join
+Der Left Join gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende Datensätze aus der "rechten" Tabelle. Die Reihenfolge, in der die Tabellen genannt werden, kann bei diesem Join andere Ergebnisse liefern.
+
+**Logik**
+
+Die Datensätze werden aus der linken Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit den Datensätzen aus der rechten Tabelle gibt. Erfüllt ein Datensatz das `ON`-Kriterium aus der rechten Tabelle, wird er ebenfalls zurückgegeben andernfalls bleibt die Spalte leer (`NULL`).
 
 
-## Left [Outer] Join
-Gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende Datensätze aus der "rechten" Tabelle. 
+<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/left-outer-schema.png" width="60%" height="60%" />
 
-**Wichtig: Die Datensätze werden aus der linken Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit den Datensätzen aus der rechten Tabelle gibt.**
+**Syntax**
 
-<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/left-outer-schema.png" width="50%" height="50%" />
+```sql 
+LEFT JOIN
+```
+```sql
+SELECT { * | columnname[,...]} FROM <tablename> LEFT JOIN <tablename> ON <columnname> = <columnname>;
+```
+
+**Beispiel**
+Gesucht werden alle Rechnungen. Falls sie per Kreditkarte bezahlt wurden, so sollen die Kartendaten ebenfalls ausgegeben werden.
 
 ```sql
 SELECT
@@ -197,19 +216,22 @@ LEFT JOIN Kreditkarte ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer
 | 98769       | ABX050   | 29,99  | 12348        | Diners Club      | John Doe       | 03/2008     |
 | 98770       | ABX060   | 99,99  | -           | -               | -             | -          |
 
+## Right Join
+Der Right Join gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken " Tabelle. Er arbeitet genau entgegengesetzt des [Left Joins](Left-Join).
 
-**Beachten Sie, dass im Unterschied zum INNER JOIN die Herkunft der selektierten Kartennummer eine Rolle spielt. Dies ist mehr eine syntaktische Feinheit als inhaltliche Notwendigkeit.**
+<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/right-outer-schema.png" width="50%" height="60%" />
 
+**Syntax**
 
+```sql 
+RIGHT JOIN
+```
+```sql
+SELECT { * | columnname[,...]} FROM <tablename> RIGHT JOIN <tablename> ON <columnname> = <columnname>;
+```
 
-## Right [Outer] Join
-Gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken " Tabelle.
-
-**Wichtig: Die Datensätze werden aus der rechten Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit Datensätzen aus der linken Tabelle gibt.**
-
-<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/right-outer-schema.png" width="50%" height="50%" />
-
-
+**Beispiel**
+Gesucht werden alle Karteninformationen. Falls mit der entsprechenden Kreditkarte etwas bestellt wurde, sollen die Rechnungsinformationen beigefügt werden.
 ```sql 
 SELECT
   RechnungsNr,
@@ -232,13 +254,25 @@ ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer
 | 98769       | ABX050   | 29,99  | 12348        | Diners Club      | John Doe          | 03/2008     |
 
 
-**Beachten Sie, dass im Unterschied zum INNER JOIN die Herkunft der selektierte Kartennummer eine Rolle spielt. Dies ist mehr eine syntaktische Feinheit als inhaltliche Notwendigkeit.**
+## Full Join
+Der Full Join, gibt immer Datensätze zurück, unabhängig davon ob es eine Übereinstimmung in der anderen Tabelle gibt oder nicht. Es können keine Datensätze verschwinden.
 
-## Full [Outer] Join
-Gibt immer Datensätze zurück, unabhängig davon ob es eine Übereinstimmung in der anderen Tabelle gibt oder nicht. Es können keine Datensätze verschwinden.
+<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/all-joins.png" width="60%" height="60%" />
 
-<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/all-joins.png" width="50%" height="50%" />
+**Logik**
+Jeder Datensatz der rechten und der linken Tabelle kommt in die Ergebnismenge. Findet sich über das `ON`-Kriterium ein passender Partner werden beide zusammengefügt, andernfalls wird die jeweils fehlende Seite mit `NULL` aufgefüllt.
 
+**Syntax**
+
+```sql 
+FULL JOIN
+```
+```sql
+SELECT { * | columnname[,...]} FROM <tablename> FULL JOIN <tablename> ON <columnname> = <columnname>;
+```
+
+**Beispiel**
+Gesucht werden sowohl alle Karteninformationen als auch alle Rechnungen. Sofern möglich sollen dabei Rechnungen und Karten kombiniert werden.
 
 ```sql 
 SELECT
@@ -250,7 +284,7 @@ SELECT
   Inhaber,
   Ablaufdatum
 FROM Rechnungen
-OUTER JOIN Kreditkarte ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer;
+FULL JOIN Kreditkarte ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer;
 ```
 
 | RechnungsNr | KundenNr | Betrag | Kartennummer | Firma            | Inhaber           | Ablaufdatum |
@@ -263,9 +297,49 @@ OUTER JOIN Kreditkarte ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer;
 | 98769       | ABX050   | 29,99  | 12348        | Diners Club      | John Doe          | 03/2008     |
 | 98770       | ABX060   | 99,99  | -           | -               | -                | -          |
 
-**Beachten Sie, dass in diesem Fall die Reihenfolge der Tabellen wiederum egal ist. Achtung: MySQL unterstützt diese Abfrage nicht.**
-
 ## Self Join
+Ein Self Join ist ein [Inner Join](#Inner-Join), bei dem die Tabelle mit sich selber verbunden wird.
+
+**Syntax**
+
+```sql 
+INNER JOIN
+```
+```sql
+SELECT { * | columnname[,...]} FROM <tablename> INNER JOIN <tablename> ON <columnname> = <columnname>;
+```
+**Beispiel**
+*Datensatz:*
+| Id | Name      | Gehalt | ManagerId  |
+| -- | ------------- | ------ | ---------- |
+| 1  | John Smith    | 10000  | 3          |
+| 2  | Jane Anderson | 12000  | 3          |
+| 3  | Tom Lanon     | 15000  | 4          |
+| 4  | Anne Connor   | 20000  | John Smith |
+| 5  | Jeremy York   | 9000   | 1          |
+
+*Statement:*
+```sql
+SELECT employee.Id,
+        employee.FullName,
+        employee.ManagerId,
+        manager.FullName as ManagerName
+FROM Employees employee
+JOIN Employees manager
+ON employee.ManagerId = manager.Id
+```
+
+*Zurückgegebene Tabelle:*
+| Id | Name | ManagerId | ManagerName |
+| -- | ------------- | --------- | ----------- |
+| 1  | John Smith    | 3         | Tom Lanon   |
+| 2  | Jane Anderson | 3         | Tom Lanon   |
+| 3  | Tom Lanon     | 4         | Anne Connor |
+| 5  | Jeremy York   | 1         | John Smith  |
+
+## Apply
+http://dcx.sap.com/1201/de/dbusage/apply-joins-joinsasp.html
+
 
 # Quellen
 - https://www.sqlshack.com/sql-cross-join-with-examples/
@@ -275,4 +349,5 @@ OUTER JOIN Kreditkarte ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer;
 - https://www.ionos.de/digitalguide/hosting/hosting-technik/inner-join-erklaerung-und-beispiele/
 - https://www.ionos.de/digitalguide/hosting/hosting-technik/sql-outer-join/
 - https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
+- https://learnsql.com/blog/what-is-self-join-sql/
 - https://stackedit.io
