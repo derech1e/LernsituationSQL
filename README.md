@@ -1,5 +1,6 @@
 
 
+
 # Vortrag Joins
 
 Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
@@ -22,41 +23,54 @@ Diese Dokumentation erklärt die Grundlegenden Sprachbestanteile von SQL. Im Zus
 Auf dieser Beispildatenbank basiren die folgenden Beispile. Das Script ist speziell an T-SQL angepasst und muss daher in entsprechender umgebung ausgeführt werden. 
 
 ```sql
-# CREATE DATABASE  IF NOT EXISTS `selfhtml`;
-# USE `selfhtml`;
+CREATE DATABASE IF NOT EXISTS joinDB;
+USE joinDB;
 
-DROP TABLE IF EXISTS `Kreditkarte`;
-CREATE TABLE `Kreditkarte` (
-  `Kartennummer` BIGINT(20) NOT NULL,
-  `Firma` tinytext NOT NULL,
-  `Inhaber` tinytext NOT NULL,
-  `Ablaufdatum` DATE NOT NULL,
-  KEY `Kartennummer` (`Kartennummer`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-LOCK TABLES `Kreditkarte` WRITE;
-INSERT INTO `Kreditkarte` VALUES
+DROP TABLE IF EXISTS Kreditkarte;
+CREATE TABLE Kreditkarte (
+  Kartennummer int NOT NULL,
+  Firma nvarchar(100) NOT NULL,
+  Inhaber nvarchar(75) NOT NULL,
+  Ablaufdatum DATE NOT NULL,
+  KEY Kartennummer (Kartennummer)
+);
+
+INSERT INTO Kreditkarte VALUES
     (12345,'VISA','Max Mustermann','2017-05-01'),
     (12346,'Mastercard','Katrin Musterfrau','2018-01-01'),
     (12347,'American Express','John Doe','2015-02-01'),
     (12348,'Diners Club','John Doe','2020-03-01');
-UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `Rechnungen`;
-CREATE TABLE `Rechnungen` (
-  `RechnungsNr` BIGINT(20) NOT NULL,
-  `KundenNr` tinytext NOT NULL,
-  `Betrag` DECIMAL(10,2) NOT NULL,
-  `Kartennummer` BIGINT(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-LOCK TABLES `Rechnungen` WRITE;
-INSERT INTO `Rechnungen` VALUES
+DROP TABLE IF EXISTS Rechnungen;
+CREATE TABLE Rechnungen (
+  RechnungsNr int NOT NULL,
+  KundenNr nvarchar(6) NOT NULL,
+  Betrag DECIMAL(10,2) NOT NULL,
+  Kartennummer int DEFAULT NULL
+);
+
+INSERT INTO Rechnungen VALUES
     (98765,'ABX039',49.95,12345),
     (98766,'ABX039',12.95,NULL),
     (98767,'ABX040',79.95,12347),
     (98768,'ABX050',59.99,12347),
     (98769,'ABX050',29.99,12348),
     (98770,'ABX060',99.99,NULL);
-UNLOCK TABLES;
+
+DROP TABLE IF EXISTS Kunden;
+CREATE TABLE Kunden(
+  KundenNr nvarchar(6) NOT NULL,
+  Name nvarchar(50) NOT NULL,
+  Land nvarchar(50) NOT NULL
+);
+
+INSERT INTO Kunden VALUES
+    ('ABX039','Lissa Yockey','Deutschland'),
+    ('ABX039','Rodger Ruben','Schweiz'),
+    ('ABX040','Cedric Don','USA'),
+    ('ABX050','Gretta Wimmer','Deutschland'),
+    ('ABX050','Jolanda Shontz','Russland'),
+    ('ABX060','Naoma Bernardi','Norwegen');
 ```
 
 # Join-Arten
@@ -65,8 +79,28 @@ Der Cross Join ist der "standard" Join, es wird aus alle Einträgen der beiden T
 
 Das Kreuzprodukt, lieft als Resultat alle Kombinationsmöglichkeiten beider Tabellen.
 
+**Syntax**
+
+```sql
+SELECT  { * | <columnname>[,...]} FROM <tablename1> CROSS JOIN <tablename2>
+```
+
+**Datenbankscript**
+
+```sql
+CREATE TABLE Meals(MealName nvarchar(100));
+CREATE TABLE Drinks(DrinkName nvarchar(100));
+INSERT INTO Drinks VALUES ('Orange Juice'),('Tea'),('Cofee');
+INSERT INTO Meals VALUES('Omlet'), ('Fried Egg'), ('Sausage');
+```
+
 **Beispiel**
-<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/inner-schema.png" width="50%" height="50%" />
+
+```sql
+SELECT CONCAT_WS('-',MealName,DrinkName) AS MenuList FROM Meals CROSS JOIN Drinks;
+```
+
+> `CONCAT_WS` = concatenate with separator (dt. mit Trennzeichen verketten)
 
 <p float="left">
 <img src="./assets/img/Table1.png" width="18%" height="18%" />
@@ -74,87 +108,35 @@ Das Kreuzprodukt, lieft als Resultat alle Kombinationsmöglichkeiten beider Tabe
 <img src="./assets/img/Table3.png" width="25%" height="25%" />
 </p>
 
-
-<table>
-<tr><td>
-
-| ID| Name | Ort_ID |
-|--|--|--|
-| 1 | person1 | 1 |
-| 2 | person2 | 1 |
-| 3 | person3 | 2 |
-
-*Tabelle 1: Personentabelle*
-</td><td>
-
-| Ort_ID| Ortsname |
-|--|--|
-| 1 | Berlin |
-| 2 | Hamburg |
-| 3 | München |
-
-*Tabelle 2: Ortstabelle*
-</td></tr> </table>
-
-| Person\_ID | Name    | Ort\_ID | Ort\_ID | Ortsname |
-| ---------- | ------- | ------- | ------- | -------- |
-| 1          | person1 | 1       | 1       | Berlin   |
-| 2          | person2 | 1       | 1       | Berlin   |
-| 3          | person3 | 2       | 1       | Berlin   |
-| 1          | person1 | 1       | 2       | Hamburg  |
-| 2          | person2 | 1       | 2       | Hamburg  |
-| 3          | person3 | 2       | 2       | Hamburg  |
-| 1          | person1 | 1       | 3       | München  |
-| 2          | person2 | 1       | 3       | München  |
-| 3          | person3 | 2       | 3       | München  |
-
-*Tabelle 3: Personen- und Ortstabelle im Kreuzprodukt*
-
-Quelle: https://wiki.byte-welt.net/wiki/Cross_Join_(SQL)
+![Image1](https://www.sqlshack.com/wp-content/uploads/2020/02/sql-cross-join-working-mechanism.png)
 
 ## Natural Join
-Der Natural Join ist eine Erweiterung des [Cross Join](#Cross-Join), wobei die zurückgegebene Tabelle automatisch gefiltert wird.
+Der Natural Join ist eine Erweiterung des [Cross Join](#Cross-Join), wobei die zurückgegebene Tabelle automatisch gefiltert wird. Voraussetzung dafür ist, dass mindestens eine identische Spalte existiert. Es wird keine `ON`-Klausel im Natural Join benötigt. Die gleichnamigen Spalten werden zu einer Zusammengefasst.
 
 **Syntax**
 ```sql 
 NATURAL JOIN
 ```
 ```sql
-SELECT * FROM tabelle1 NATURAL JOIN tabelle2;
+SELECT { * | columnname[,...]} FROM tabelle1 NATURAL JOIN tabelle2;
 ```
 Es wird nach einer gleichnamigen Spalte geschaut und entsprechend automatisch gefiltert. 
 
-Quelle: https://wiki.byte-welt.net/wiki/Natural_Join_(SQL)
-
 **Beispiel**
-<table>
-<tr><td>
+```sql
+SELECT * FROM Kunden NATURAL JOIN Rechnungen;
+```
 
-| ID| Name | Ort_ID |
-|--|--|--|
-| 1 | person1 | 1 |
-| 2 | person2 | 1 |
-| 3 | person3 | 2 |
 
-*Tabelle 1: Personentabelle*
-</td><td>
+| KundenNr | Name           | Land        | RechnungsNr | Betrag | Kartennummer |
+| -------- | -------------- | ----------- | ----------- | ------ | ------------ |
+| ABX039   | Lissa Yockey   | Deutschland | 98765       | 49,95  | 12345        |
+| ABX039   | Lissa Yockey   | Deutschland | 98766       | 12,95  | (Null)       |
+| ABX040   | Cedric Don     | USA         | 98767       | 79,95  | 12347        |
+| ABX050   | Gretta Wimmer  | Deutschland | 98768       | 59,99  | 12347        |
+| ABX050   | Gretta Wimmer  | Deutschland | 98769       | 29,99  | 12348        |
+| ABX060   | Naoma Bernardi | Norwegen    | 98770       | 99,99  | (Null)       |
 
-| Ort_ID| Ortsname |
-|--|--|
-| 1 | Berlin |
-| 2 | Hamburg |
-| 3 | München |
-
-*Tabelle 2: Ortstabelle*
-</td></tr> </table>
-
-| Person\_ID | Name    | Ort\_ID | Ort\_ID | Ortsname |
-| ---------- | ------- | ------- | ------- | -------- |
-| 1          | person1 | 1       | 1       | Berlin   |
-| 2          | person2 | 1       | 1       | Berlin   |
-| 3          | person3 | 2       | 2       | Hamburg  |
-
-*Tabelle 3: Ergebnis des Joins*
 
 ## Inner Join
 Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmenden Wert haben. 
@@ -286,6 +268,9 @@ OUTER JOIN Kreditkarte ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer;
 ## Self Join
 
 # Quellen
+- https://www.sqlshack.com/sql-cross-join-with-examples/
+- https://www.w3resource.com/sql/joins/natural-join.php
+- https://wiki.byte-welt.net/wiki/
 - https://wiki.selfhtml.org/wiki/Datenbank/Einführung_in_Joins
 - https://www.ionos.de/digitalguide/hosting/hosting-technik/inner-join-erklaerung-und-beispiele/
 - https://www.ionos.de/digitalguide/hosting/hosting-technik/sql-outer-join/
