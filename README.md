@@ -107,9 +107,11 @@ SELECT CONCAT_WS('-',MealName,DrinkName) AS MenuList FROM Meals CROSS JOIN Drink
 ![Image1](https://www.sqlshack.com/wp-content/uploads/2020/02/sql-cross-join-working-mechanism.png)
 
 ## Natural Join
+
 Der Natural Join ist eine Erweiterung des [Cross Join](#Cross-Join), wobei die zurückgegebene Tabelle automatisch gefiltert wird. Voraussetzung dafür ist, dass mindestens eine identische Spalte existiert. Es wird keine `ON`-Klausel im Natural Join benötigt. Die gleichnamigen Spalten werden zu einer Zusammengefasst.
 
 **Syntax**
+
 ```sql 
 NATURAL JOIN
 ```
@@ -134,11 +136,13 @@ SELECT * FROM Kunden NATURAL JOIN Rechnungen;
 
 
 ## Inner Join
+
 Der Inner Join gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmenden Wert haben. 
 Die Reihenfolge, in der die Tabellen genannt werden, ist bei diesem Join egal.
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/inner-schema.png" width="60%" height="60%" />
 
 **Syntax**
+
 ```sql 
 INNER JOIN
 ```
@@ -147,6 +151,7 @@ SELECT { * | columnname[,...]} FROM <tablename> INNER JOIN <tablename> ON <colum
 ```
 
 **Beispiel**
+
 Gesucht werden alle Rechnungen, die mit Kreditkarte beglichen wurden.
 
 ```sql
@@ -173,6 +178,7 @@ INNER JOIN Rechnungen ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer
 
 
 ## Left Join
+
 Der Left Join gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende Datensätze aus der "rechten" Tabelle. Die Reihenfolge, in der die Tabellen genannt werden, kann bei diesem Join andere Ergebnisse liefern.
 
 **Logik**
@@ -192,6 +198,7 @@ SELECT { * | columnname[,...]} FROM <tablename> LEFT JOIN <tablename> ON <column
 ```
 
 **Beispiel**
+
 Gesucht werden alle Rechnungen. Falls sie per Kreditkarte bezahlt wurden, so sollen die Kartendaten ebenfalls ausgegeben werden.
 
 ```sql
@@ -217,6 +224,7 @@ LEFT JOIN Kreditkarte ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer
 | 98770       | ABX060   | 99,99  | -           | -               | -             | -          |
 
 ## Right Join
+
 Der Right Join gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken " Tabelle. Er arbeitet genau entgegengesetzt des [Left Joins](Left-Join).
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/right-outer-schema.png" width="60%" height="60%" />
@@ -231,6 +239,7 @@ SELECT { * | columnname[,...]} FROM <tablename> RIGHT JOIN <tablename> ON <colum
 ```
 
 **Beispiel**
+
 Gesucht werden alle Karteninformationen. Falls mit der entsprechenden Kreditkarte etwas bestellt wurde, sollen die Rechnungsinformationen beigefügt werden.
 ```sql 
 SELECT
@@ -255,11 +264,13 @@ ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer
 
 
 ## Full Join
+
 Der Full Join, gibt immer Datensätze zurück, unabhängig davon ob es eine Übereinstimmung in der anderen Tabelle gibt oder nicht. Es können keine Datensätze verschwinden.
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/all-joins.png" width="60%" height="60%" />
 
 **Logik**
+
 Jeder Datensatz der rechten und der linken Tabelle kommt in die Ergebnismenge. Findet sich über das `ON`-Kriterium ein passender Partner werden beide zusammengefügt, andernfalls wird die jeweils fehlende Seite mit `NULL` aufgefüllt.
 
 **Syntax**
@@ -272,6 +283,7 @@ SELECT { * | columnname[,...]} FROM <tablename> FULL JOIN <tablename> ON <column
 ```
 
 **Beispiel**
+
 Gesucht werden sowohl alle Karteninformationen als auch alle Rechnungen. Sofern möglich sollen dabei Rechnungen und Karten kombiniert werden.
 
 ```sql 
@@ -298,6 +310,7 @@ FULL JOIN Kreditkarte ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer;
 | 98770       | ABX060   | 99,99  | -           | -               | -                | -          |
 
 ## Self Join
+
 Ein Self Join ist ein [Inner Join](#Inner-Join), bei dem die Tabelle mit sich selber verbunden wird.
 
 **Syntax**
@@ -309,7 +322,9 @@ INNER JOIN
 SELECT { * | columnname[,...]} FROM <tablename> INNER JOIN <tablename> ON <columnname> = <columnname>;
 ```
 **Beispiel**
+
 *Datensatz:*
+
 | Id | Name      | Gehalt | ManagerId  |
 | -- | ------------- | ------ | ---------- |
 | 1  | John Smith    | 10000  | 3          |
@@ -319,6 +334,7 @@ SELECT { * | columnname[,...]} FROM <tablename> INNER JOIN <tablename> ON <colum
 | 5  | Jeremy York   | 9000   | 1          |
 
 *Statement:*
+
 ```sql
 SELECT employee.Id,
         employee.FullName,
@@ -330,6 +346,7 @@ ON employee.ManagerId = manager.Id
 ```
 
 *Zurückgegebene Tabelle:*
+
 | Id | Name | ManagerId | ManagerName |
 | -- | ------------- | --------- | ----------- |
 | 1  | John Smith    | 3         | Tom Lanon   |
@@ -338,6 +355,7 @@ ON employee.ManagerId = manager.Id
 | 5  | Jeremy York   | 1         | John Smith  |
 
 ## Apply
+
 - Performance Stark
 Aufgabe: Aus einer Tabelle mit ausreichend Umsatz-Datensätzen sollen für die Top 5 Kunden die Top 5 Produkte ermittelt werden.
 http://dcx.sap.com/1201/de/dbusage/apply-joins-joinsasp.html
