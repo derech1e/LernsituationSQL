@@ -219,7 +219,7 @@ LEFT JOIN Kreditkarte ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer
 ## Right Join
 Der Right Join gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken " Tabelle. Er arbeitet genau entgegengesetzt des [Left Joins](Left-Join).
 
-<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/right-outer-schema.png" width="50%" height="60%" />
+<img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/right-outer-schema.png" width="60%" height="60%" />
 
 **Syntax**
 
@@ -338,7 +338,12 @@ ON employee.ManagerId = manager.Id
 | 5  | Jeremy York   | 1         | John Smith  |
 
 ## Apply
+- Performance Stark
+Aufgabe: Aus einer Tabelle mit ausreichend Umsatz-Datensätzen sollen für die Top 5 Kunden die Top 5 Produkte ermittelt werden.
 http://dcx.sap.com/1201/de/dbusage/apply-joins-joinsasp.html
+
+![enter image description here](https://cdn.bissantz.de/images/2016/01/SQL4.png)
+
 
 
 # Quellen
