@@ -117,7 +117,7 @@ SELECT CONCAT_WS('-',MealName,DrinkName) AS MenuList FROM Meals CROSS JOIN Drink
 
 ## Natural Join
 
-Der Natural Join ist eine Erweiterung des [Cross Join](#Cross-Join), wobei die zurückgegebene Tabelle automatisch gefiltert wird. Voraussetzung dafür ist, dass mindestens eine identische Spalte existiert. Es wird keine `ON`-Klausel im Natural Join benötigt. Die gleichnamigen Spalten werden zu einer Zusammengefasst.
+Der Natural Join verknüpft die beiden Tabellen über die Gleichheit der Felder, in Spalten mit gleichem Namen. Spalten mit gleichem Namen werden im Ergebnis nur einmal angezeigt. Haben die Tabellen keine Spalten mit gleichem Namen, wird der Natural Join automatisch zum Cross Join. Es wird keine `ON`-Klausel im Natural Join benötigt. 
 
 **Syntax**
 
@@ -192,7 +192,7 @@ Der Left Join gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übe
 
 **Logik**
 
-Die Datensätze werden aus der linken Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit den Datensätzen aus der rechten Tabelle gibt. Erfüllt ein Datensatz das `ON`-Kriterium aus der rechten Tabelle, wird er ebenfalls zurückgegeben andernfalls bleibt die Spalte leer (`NULL`).
+Die Datensätze werden aus der linken Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit den Datensätzen aus der rechten Tabelle gibt. Erfüllt ein Datensatz das `ON`-Kriterium aus der rechten Tabelle, wird er ebenfalls zurückgegeben andernfalls bleiben die Spalten leer (`NULL`).
 
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/left-outer-schema.png" width="60%" height="60%" />
@@ -367,7 +367,7 @@ ON employee.ManagerId = manager.Id
 
 Der Apply ist speziell für [T-SQL](#https://de.wikipedia.org/wiki/Transact-SQL) ein Mittel um Unterabfragen zu formulieren, die für jede Zeile im Ergebnis ausgeführt wird und dann an das Ergebnis gejoint wird. Dadurch ist diese Form des Joins mit vorsicht zu genießen, da es sehr schnell durch die Masse an Berechnungen zu hohen Gesamtkosten in der Datenbank führen kann.
 
-**Logik**
+#### Logik
 Der `APPLY` verbindet Zeilen von mehreren Tabellen, ähnlich wie ein `JOIN`, nur dass bei einem `APPLY` keine ON-Bedingung angeben wird. Der Unterschied zum `JOIN` besteht darin, dass sich die rechte Seite von `APPLY` abhängig von der aktuellen Zeile auf der linken Seite ändern kann. 
 Die aus der Berechnung resultierenden Zeilen, werden mit den jeweiligen Zeilen auf der Linken Seite verknüpft. 
 Falls eine Zeile auf der linken Seite mehr als eine Zeile rechts zurückgibt, kommt die linke Seite in den Ergebnissen so oft vor, wie es von rechts zurückgegebene Zeilen gibt.
@@ -376,7 +376,7 @@ Falls eine Zeile auf der linken Seite mehr als eine Zeile rechts zurückgibt, ko
 Der `CROSS APPLY` gibt nur Zeilen auf der linken Seite zurück, die Ergebnisse auf der rechten Seite produzieren.
 
 #### Outer-Apply
-Der `OUTER APPLY` gibt alle Zeilen zurück, die der [Cross-Apply](#Cross-Apply) zurückgibt, sowie alle Zeilen auf der linken Seite, für die die rechte Seite keine Zeilen zurückgibt
+Der `OUTER APPLY` gibt alle Zeilen zurück, die der [Cross-Apply](#Cross-Apply) zurückgibt, sowie alle Zeilen auf der linken Seite, für die die rechte Seite keine Zeilen zurückgibt.
 
 
 **Syntax**
@@ -386,7 +386,7 @@ APPLY
 ```
 
 ```sql
-SELECT { * | columnname[,...]} FROM <tablename> {CROSS | OUTER} APPLY <option>;
+SELECT { * | columnname[,...]} FROM <tablename> {CROSS | OUTER} APPLY <expression>;
 ```
 
 **Beispiel**
@@ -397,13 +397,12 @@ Aus einer Tabelle mit ausreichend Umsatz-Datensätzen sollen für die Top 5 Kund
 CREATE FUNCTION getTop5ProductsForCustomer (@CustomerID nvarchar(50)) RETURNS table AS
 RETURN 
 (
-	SELECT TOP 5 ProduktID, SUM(Umsatz) Gesamtumsatz
+	SELECT TOP 5 ProduktID, SUM(Umsatz) AS Gesamtumsatz
 	FROM dbo.T_FACT_01_Deckungsbeitragsrechnung
 	WHERE KundeID = @CustomerID
 	GROUP BY ProduktID
 	ORDER BY SUM(Umsatz) DESC
 );
-GO
 ```
 
 *Funktion in Kombination mit `APPLY`*
@@ -411,7 +410,7 @@ GO
 SELECT t.KundeID, f.ProduktID, f.Gesamtumsatz
 FROM 
 (
-	SELECT TOP 5 KundeID, SUM(Umsatz) K_Umsatz
+	SELECT TOP 5 KundeID, SUM(Umsatz) AS K_Umsatz
 	FROM dbo.T_FACT_01_Deckungsbeitragsrechnung
 	GROUP BY KundeID
 	ORDER BY SUM(Umsatz) DESC
@@ -434,3 +433,5 @@ CROSS APPLY dbo.getTop5ProductsForCustomer(t.KundeID);
 - https://learnsql.com/blog/what-is-self-join-sql/
 - http://dcx.sap.com/1201/de/dbusage/apply-joins-joinsasp.html
 - https://stackedit.io
+- https://www.bissantz.de/know-how/data-warehousing/cross-apply/
+- https://www.tsql-ninja.com/2020/02/13/woche-7-outer-apply/
