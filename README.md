@@ -448,7 +448,7 @@ Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmend
 
 **User-Story**
 
-Der Auftraggeber möchte gerne alle wissen, welche Miertverträge dem Kunde 1 zugeordnet sind. 
+Der Auftraggeber möchte gerne alle wissen, welche Mietverträge dem Kunde 1 zugeordnet sind. 
 ```sql
 SELECT Mietvertrag.Mietvertrag_ID, Mietvertrag.Kunde_ID, Kunde.Name FROM Mietvertrag INNER JOIN Kunde ON Mietvertrag.Kunde_ID = Kunde.Kunde_ID WHERE Kunde.Kunde_ID = 1;
 ```
