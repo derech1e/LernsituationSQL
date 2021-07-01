@@ -1,4 +1,5 @@
 
+
 # Vortrag Joins
 
 Diese Dokumentation gibt einen kleinen Einblick über die Verbindungen von Tabellen in SQL. Im Zusammenhang mit entsprechenden Beispielen werden die Vorgestellten Join Arten veranschaulicht.
@@ -364,11 +365,61 @@ ON employee.ManagerId = manager.Id
 
 ## Apply
 
-- Performance Stark
-Aufgabe: Aus einer Tabelle mit ausreichend Umsatz-Datensätzen sollen für die Top 5 Kunden die Top 5 Produkte ermittelt werden.
-http://dcx.sap.com/1201/de/dbusage/apply-joins-joinsasp.html
+Der Apply ist speziell für [T-SQL](#https://de.wikipedia.org/wiki/Transact-SQL) ein Mittel um Unterabfragen zu formulieren, die für jede Zeile im Ergebnis ausgeführt wird und dann an das Ergebnis gejoint wird. Dadurch ist diese Form des Joins mit vorsicht zu genießen, da es sehr schnell durch die Masse an Berechnungen zu hohen Gesamtkosten in der Datenbank führen kann.
 
-![enter image description here](https://cdn.bissantz.de/images/2016/01/SQL4.png)
+**Logik**
+Der `APPLY` verbindet Zeilen von mehreren Tabellen, ähnlich wie ein `JOIN`, nur dass bei einem `APPLY` keine ON-Bedingung angeben wird. Der Unterschied zum `JOIN` besteht darin, dass sich die rechte Seite von `APPLY` abhängig von der aktuellen Zeile auf der linken Seite ändern kann. 
+Die aus der Berechnung resultierenden Zeilen, werden mit den jeweiligen Zeilen auf der Linken Seite verknüpft. 
+Falls eine Zeile auf der linken Seite mehr als eine Zeile rechts zurückgibt, kommt die linke Seite in den Ergebnissen so oft vor, wie es von rechts zurückgegebene Zeilen gibt.
+
+#### Cross-Apply
+Der `CROSS APPLY` gibt nur Zeilen auf der linken Seite zurück, die Ergebnisse auf der rechten Seite produzieren.
+
+#### Outer-Apply
+Der `OUTER APPLY` gibt alle Zeilen zurück, die der [Cross-Apply](#Cross-Apply) zurückgibt, sowie alle Zeilen auf der linken Seite, für die die rechte Seite keine Zeilen zurückgibt
+
+
+**Syntax**
+
+```sql
+APPLY
+```
+
+```sql
+SELECT { * | columnname[,...]} FROM <tablename> {CROSS | OUTER} APPLY <option>;
+```
+
+**Beispiel**
+Aus einer Tabelle mit ausreichend Umsatz-Datensätzen sollen für die Top 5 Kunden jeweils die Top 5 Produkte ermittelt werden.
+
+*Funktion erstellen*
+```sql
+CREATE FUNCTION getTop5ProductsForCustomer (@CustomerID nvarchar(50)) RETURNS table AS
+RETURN 
+(
+	SELECT TOP 5 ProduktID, SUM(Umsatz) Gesamtumsatz
+	FROM dbo.T_FACT_01_Deckungsbeitragsrechnung
+	WHERE KundeID = @CustomerID
+	GROUP BY ProduktID
+	ORDER BY SUM(Umsatz) DESC
+);
+GO
+```
+
+*Funktion in Kombination mit `APPLY`*
+```sql
+SELECT t.KundeID, f.ProduktID, f.Gesamtumsatz
+FROM 
+(
+	SELECT TOP 5 KundeID, SUM(Umsatz) K_Umsatz
+	FROM dbo.T_FACT_01_Deckungsbeitragsrechnung
+	GROUP BY KundeID
+	ORDER BY SUM(Umsatz) DESC
+) 
+CROSS APPLY dbo.getTop5ProductsForCustomer(t.KundeID);
+```
+
+
 
 
 
@@ -381,4 +432,5 @@ http://dcx.sap.com/1201/de/dbusage/apply-joins-joinsasp.html
 - https://www.ionos.de/digitalguide/hosting/hosting-technik/sql-outer-join/
 - https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
 - https://learnsql.com/blog/what-is-self-join-sql/
+- http://dcx.sap.com/1201/de/dbusage/apply-joins-joinsasp.html
 - https://stackedit.io
