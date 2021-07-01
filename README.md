@@ -21,16 +21,23 @@ Diese Dokumentation gibt einen kleinen Einblick über die Verbindungen von Tabel
 Auf dieser Datenbank basieren die folgenden Beispiele. Das Script ist speziell an T-SQL angepasst und muss daher in entsprechender Umgebung ausgeführt werden.
 
 ```sql
-CREATE DATABASE IF NOT EXISTS joinDB;
+--Überprüft ob die Datenbank bereits existiert, wenn nicht dann wird sie neu erstellt.
+DECLARE @dbname nvarchar(128)
+SET @dbname = N'joinDB'
+
+IF (NOT EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE ('[' + name + ']' = @dbname OR name = @dbname)))
+CREATE DATABASE joinDB;
+
+GO
 USE joinDB;
+GO
 
 DROP TABLE IF EXISTS Kreditkarte;
 CREATE TABLE Kreditkarte (
-  Kartennummer int NOT NULL,
+  Kartennummer int PRIMARY KEY,
   Firma nvarchar(100) NOT NULL,
   Inhaber nvarchar(75) NOT NULL,
-  Ablaufdatum DATE NOT NULL,
-  KEY Kartennummer (Kartennummer)
+  Ablaufdatum DATE NOT NULL
 );
 
 INSERT INTO Kreditkarte VALUES
@@ -44,7 +51,8 @@ CREATE TABLE Rechnungen (
   RechnungsNr int NOT NULL,
   KundenNr nvarchar(6) NOT NULL,
   Betrag DECIMAL(10,2) NOT NULL,
-  Kartennummer int DEFAULT NULL
+  Kartennummer int DEFAULT NULL,
+  CONSTRAINT c_Kredikarte FOREIGN KEY (Kartennummer) REFERENCES Kreditkarte (Kartennummer)
 );
 
 INSERT INTO Rechnungen VALUES
