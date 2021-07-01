@@ -1,5 +1,4 @@
 
-
 # Dokumentation Lernsituation SQL 
 Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zusammenhang mit einem Ferienhaus-Auftrag werden diese anschaulich dargestellt und verdeutlicht.
 
@@ -128,7 +127,7 @@ Die Analyse des Speicherbedarfs in 5 Jahre ist somit mit dem Wert 32,00 MB als E
 
 ## Aktivierte Standard-Benutzerkonten
 
-Um diesem Gefahrenbereich auszuweichen, sollte man nach dem aufsetzen der Datenbank darauf achten, dass man die entsprechenden Standard-Benutzerkonten deaktiviert, löscht oder dessen Passwort ändert. Dieser Hinweis ist recht allgemein und nicht projektspezifisch. Alle Projekte, die im groben Sinne mit Datenbank arbeiten, sollten sich diesem Hinweis fügen. Wie in dem maßgebendem Dokument erwähnt, können sich Angreifer durch die vom Hersteller vorgegebenen Passwörter Zugang verschaffen. Da diese öffentlich einsehbar sind, kann dies zu verehrenden Schäden in bspw. der Rechtevergabe von diversen Accounts führen.
+Um diesem Gefahrenbereich auszuweichen, sollte man nach dem Aufsetzen der Datenbank darauf achten, dass man die in der Überschrift erwähnten Standard-Benutzerkonten deaktiviert, löscht bzw. deren Passwort vom Standard abändert. Dieser Hinweis ist recht allgemein, und nicht projektspezifisch. Jedes Projekt welches im Ansatz mit Datenbanken zu tun hat, sollte sich diesem Hinweis fügen. Wie in dem maßgebendem Dokument erwähnt, könnten sich Angreifer durch diese vom Hersteller vorgegebenen Passwörter, welche öffentlich zugängig sind, Zugang verschaffen und Konfigurationen durch die Rechte der offengelegten Accounts bspw. ändern.
 
 ## Unverschlüsselte Datenbankverbindung
 
@@ -140,8 +139,8 @@ Um diesem Gefahrenbereich auszuweichen, sollte man nach dem aufsetzen der Datenb
 
 ## Integritätsverlust der gespeicherten Daten
 
-Um einem Integritätsverlust durch bspw. fehlerhaft konfigurierte Datenbanken oder manipulierten Daten vorzubeugen, ist allgemein und somit auch projektspezifisch die Nutzung eines Testsystem zu empfehlen. Dieses hätte effektiv eine deckungsgleiche Tabellen- bzw. Datenbankstruktur mit dem Produktivsystem. 
-Zusammen mit entsprechenden Testdaten ist somit die Abdeckung von Sonderfällen gewährleistet. Zusätzlich dazu kann man sicherstellen, dass kritische Änderungen zum Beispiel an Job-Abläufen im Testsystem zuerst durch allgemeine Beobachtung und Prüfung der Ergebnisse getestet werden. Die Änderungen sollten in diesem Zeitraum auch durch manipulierten Daten bezüglich der Sicherheit geprüft werden. Somit werden die angesprochenen Test-Objekte und Strukturen für die Testung der Patches bzw. Änderungen verwendet. Nachdem sich diese als Funktional erwiesen haben, können sie im Produktivsystem sicher angewendet werden.
+Um einem Integritätsverlust gespeicherter Daten, gerade durch fehlerhaft konfigurierte Datenbanken und manipulierten Daten vorzubeugen, wäre allgemein und somit auch projektspezifisch zu empfehlen, ein Testsystem zu kreieren und zu nutzen. Dieses hätte effektiv eine deckungsgleiche Tabellen- bzw. Datenbankstruktur mit dem Produktivsystem. 
+Zusammen mit einigen Testdaten, welche möglichst viele Sonderfälle abdecken sollten, kann man sicherstellen, dass kritische Änderungen zum Beispiel an Job-Abläufen im Testsystem zuerst durch allgemeine Beobachtung und Prüfung der Ergebnisse getestet werden. Die Änderungen sollten in diesem Zeitraum auch durch manipulierten Daten bezüglich der Sicherheit geprüft werden. Somit werden die angesprochenen Test-Objekte und Strukturen für die Testung der Patches bzw. Änderungen verwendet und nachdem sich diese als Funktional erwiesen haben, können sie im Produktivsystem sicher angewendet werden.
 
 ## SQL-Injections
 
@@ -448,7 +447,7 @@ Gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmend
 
 **User-Story**
 
-Der Auftraggeber möchte gerne alle wissen, welche Mietverträge dem Kunde 1 zugeordnet sind. 
+Der Auftraggeber möchte gerne alle wissen, welche Miertverträge dem Kunde 1 zugeordnet sind. 
 ```sql
 SELECT Mietvertrag.Mietvertrag_ID, Mietvertrag.Kunde_ID, Kunde.Name FROM Mietvertrag INNER JOIN Kunde ON Mietvertrag.Kunde_ID = Kunde.Kunde_ID WHERE Kunde.Kunde_ID = 1;
 ```
