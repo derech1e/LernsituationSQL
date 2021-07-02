@@ -79,14 +79,20 @@ INSERT INTO Kunden VALUES
 ```
 
 # Join-Arten
-> Outer Join:
-> Todo...
+
+![Joins-Typen](https://www.ionos.de/digitalguide/fileadmin/DigitalGuide/Screenshots_2018/Outer-Join.jpg)
 
 
+#### Outer Joins:
+- [Left Join](#Left-Join)
+- [Right Join](#Right-Join)
+- [Full Join](#Full-Join)
 
-> Inner Join:
-> Todo....
-
+#### Inner Joins:
+- ([Cross Join](#Cross-Join))
+- [Natural Join](#Natrual-Join)
+- [Inner Join](#Inner-Join)
+- [Self Join](#Self-Join)
 
 
 ## Cross Join
@@ -366,7 +372,7 @@ SELECT employee.Id,
         employee.ManagerId,
         manager.Name as ManagerName
 FROM Employees employee
-JOIN Employees manager
+INNER JOIN Employees manager
 ON employee.ManagerId = manager.Id
 ```
 
