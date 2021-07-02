@@ -93,6 +93,8 @@ SELECT  { * | <columnname>[,...]} FROM <tablename1> CROSS JOIN <tablename2>
 **Datenbankscript**
 
 ```sql
+CREATE DATABASE Essen;
+Go
 CREATE TABLE Meals(MealName nvarchar(100));
 CREATE TABLE Drinks(DrinkName nvarchar(100));
 INSERT INTO Drinks VALUES ('Orange Juice'),('Tea'),('Cofee');
@@ -100,18 +102,6 @@ INSERT INTO Meals VALUES('Omlet'), ('Fried Egg'), ('Sausage');
 ```
 
 **Beispiel**
-*Beispieldatenbank*
-
-```sql
-REATE DATABASE Essen;
-Go
-CREATE TABLE Meals(MealName nvarchar(100));
-CREATE TABLE Drinks(DrinkName nvarchar(100));
-INSERT INTO Drinks VALUES('Orange Juice'), ('Tea'), ('Cofee');
-INSERT INTO Meals VALUES('Omlet'), ('Fried Egg'), ('Sausage');
-```
-
-
 
 ```sql
 SELECT CONCAT_WS('-',MealName,DrinkName) AS MenuList FROM Meals CROSS JOIN Drinks;
