@@ -84,13 +84,13 @@ Der Cross Join verbindet jede Zeile der ersten Tabelle mit jeder Zeile der Zweit
 
 > Das Kreuzprodukt, lieft als Resultat alle Kombinationsmöglichkeiten beider Tabellen.
 
-**Syntax**
+#### Syntax
 
 ```sql
 SELECT  { * | <columnname>[,...]} FROM <tablename1> CROSS JOIN <tablename2>
 ```
 
-**Logik**
+#### Logik
 
 <p float="left">
 <img src="./assets/img/Table1.png" width="18%" height="18%" />
@@ -100,7 +100,7 @@ SELECT  { * | <columnname>[,...]} FROM <tablename1> CROSS JOIN <tablename2>
 
 ![Image1](https://www.sqlshack.com/wp-content/uploads/2020/02/sql-cross-join-working-mechanism.png)
 
-**Datenbankscript**
+#### Datenbankscript
 
 ```sql
 CREATE DATABASE Essen;
@@ -111,7 +111,7 @@ INSERT INTO Drinks VALUES ('Orange Juice'),('Tea'),('Cofee');
 INSERT INTO Meals VALUES('Omlet'), ('Fried Egg'), ('Sausage');
 ```
 
-**Beispiel**
+#### Beispiel
 
 ```sql
 SELECT CONCAT_WS('-',MealName,DrinkName) AS MenuList FROM Meals CROSS JOIN Drinks;
@@ -125,7 +125,7 @@ SELECT CONCAT_WS('-',MealName,DrinkName) AS MenuList FROM Meals CROSS JOIN Drink
 Der Natural Join verknüpft die beiden Tabellen über die Gleichheit der Felder, in Spalten mit gleichem Namen. Spalten mit gleichem Namen werden im Ergebnis nur einmal angezeigt. Haben die Tabellen keine Spalten mit gleichem Namen, wird der Natural Join automatisch zum Cross Join. Es wird keine `ON`-Klausel im Natural Join benötigt. 
 
 
-**Syntax**
+#### Syntax
 
 ```sql 
 NATURAL JOIN
@@ -157,7 +157,7 @@ Die Reihenfolge, in der die Tabellen genannt werden, ist bei diesem Join egal.
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/inner-schema.png" width="60%" height="60%" />
 
-**Syntax**
+#### Syntax
 
 ```sql 
 INNER JOIN
@@ -166,7 +166,7 @@ INNER JOIN
 SELECT { * | columnname[,...]} FROM <tablename> INNER JOIN <tablename> ON <columnname> = <columnname>;
 ```
 
-**Beispiel**
+#### Beispiel
 
 Gesucht werden alle Rechnungen, die mit Kreditkarte beglichen wurden.
 
@@ -183,7 +183,7 @@ FROM Kreditkarte
 INNER JOIN Rechnungen ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer
 ```
 
-**Ergebnis der Abfrage**
+#### Ergebnis der Abfrage
 
 | RechnungsNr | KundenNr | Betrag | Kartennummer | Firma            | Inhaber        | Ablaufdatum |
 | ----------- | -------- | ------ | ------------ | ---------------- | -------------- | ----------- |
@@ -197,14 +197,14 @@ INNER JOIN Rechnungen ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer
 
 Der Left Join gibt alle Datensätze aus der "linken" Tabelle zurück sowie übereinstimmende Datensätze aus der "rechten" Tabelle. Die Reihenfolge, in der die Tabellen genannt werden, kann bei diesem Join andere Ergebnisse liefern. Die zu vergleichenden Spalten müssen explizit Angegeben werden. 
 
-**Logik**
+#### Logik
 
 Die Datensätze werden aus der linken Tabelle werden mit den Datensätzen aus der rechten Tabelle verglichen. Erfüllt ein Datensatz das `ON`-Kriterium aus der rechten Tabelle, wird er zurückgegeben andernfalls bleiben die Spalten leer (`NULL`).
 
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/left-outer-schema.png" width="60%" height="60%" />
 
-**Syntax**
+#### Syntax
 
 ```sql 
 LEFT JOIN
@@ -212,8 +212,7 @@ LEFT JOIN
 ```sql
 SELECT { * | columnname[,...]} FROM <tablename> LEFT JOIN <tablename> ON <columnname> = <columnname>;
 ```
-
-**Beispiel**
+#### Beispiel
 
 Gesucht werden alle Rechnungen. Falls sie per Kreditkarte bezahlt wurden, so sollen die Kartendaten ebenfalls ausgegeben werden.
 
@@ -245,7 +244,7 @@ Der Right Join gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie ü
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/right-outer-schema.png" width="60%" height="60%" />
 
-**Syntax**
+#### Syntax
 
 ```sql 
 RIGHT JOIN
@@ -254,7 +253,7 @@ RIGHT JOIN
 SELECT { * | columnname[,...]} FROM <tablename> RIGHT JOIN <tablename> ON <columnname> = <columnname>;
 ```
 
-**Beispiel**
+#### Beispiel
 
 Gesucht werden alle Karteninformationen. Falls mit der entsprechenden Kreditkarte etwas bestellt wurde, sollen die Rechnungsinformationen beigefügt werden.
 ```sql 
@@ -285,11 +284,11 @@ Der Full Join ist eine Kombination aus [Left Join](Left-Join) und [Right-Join](R
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/all-joins.png" width="60%" height="60%" />
 
-**Logik**
+#### Logik
 
 Jeder Datensatz der rechten und der linken Tabelle kommt in die Ergebnismenge. Findet sich über das `ON`-Kriterium ein passender Partner werden beide zusammengefügt, andernfalls wird die jeweils fehlende Seite mit `NULL` aufgefüllt.
 
-**Syntax**
+#### Syntax
 
 ```sql 
 FULL JOIN
@@ -298,7 +297,7 @@ FULL JOIN
 SELECT { * | columnname[,...]} FROM <tablename> FULL JOIN <tablename> ON <columnname> = <columnname>;
 ```
 
-**Beispiel**
+#### Beispiel
 
 Gesucht werden sowohl alle Karteninformationen als auch alle Rechnungen. Sofern möglich sollen dabei Rechnungen und Karten kombiniert werden.
 
@@ -329,7 +328,7 @@ FULL JOIN Kreditkarte ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer;
 
 Ein Self Join ist ein [Inner Join](#Inner-Join), bei dem die Tabelle mit sich selber verbunden wird. Dazu muss man der Tabelle zwei verschiedene Aliasnamen geben. 
 
-**Syntax**
+#### Syntax
 
 ```sql 
 INNER JOIN
@@ -337,7 +336,7 @@ INNER JOIN
 ```sql
 SELECT { * | columnname[,...]} FROM <tablename> INNER JOIN <tablename> ON <columnname> = <columnname>;
 ```
-**Beispiel**
+#### Beispiel
 
 *Datensatz:*
 
@@ -386,7 +385,7 @@ Der `CROSS APPLY` gibt nur Zeilen auf der linken Seite zurück, die Ergebnisse a
 Der `OUTER APPLY` gibt alle Zeilen zurück, die der [Cross-Apply](#Cross-Apply) zurückgibt, sowie alle Zeilen auf der linken Seite, für die die rechte Seite keine Zeilen zurückgibt.
 
 
-**Syntax**
+#### Syntax
 
 ```sql
 APPLY
@@ -396,7 +395,7 @@ APPLY
 SELECT { * | columnname[,...]} FROM <tablename> {CROSS | OUTER} APPLY <expression>;
 ```
 
-**Beispiel**
+#### Beispiel
 Aus einer Tabelle mit ausreichend Umsatz-Datensätzen sollen für die Top 5 Kunden jeweils die Top 5 Produkte ermittelt werden.
 
 *Funktion erstellen*
