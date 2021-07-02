@@ -90,6 +90,8 @@ Der Cross Join verbindet jede Zeile der ersten Tabelle mit jeder Zeile der Zweit
 SELECT  { * | <columnname>[,...]} FROM <tablename1> CROSS JOIN <tablename2>
 ```
 
+**Logik**
+
 <p float="left">
 <img src="./assets/img/Table1.png" width="18%" height="18%" />
 <img src="./assets/img/Table2.png" hspace="50" width="25%" height="25%" />
