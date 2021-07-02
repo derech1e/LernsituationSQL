@@ -423,15 +423,15 @@ CROSS APPLY dbo.getTop5ProductsForCustomer(t.KundeID);
 
 
 # Quellen
-- https://www.sqlshack.com/sql-cross-join-with-examples/
-- https://www.w3resource.com/sql/joins/natural-join.php
-- https://wiki.byte-welt.net/wiki/
-- https://wiki.selfhtml.org/wiki/Datenbank/Einführung_in_Joins
-- https://www.ionos.de/digitalguide/hosting/hosting-technik/inner-join-erklaerung-und-beispiele/
-- https://www.ionos.de/digitalguide/hosting/hosting-technik/sql-outer-join/
-- https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html
-- https://learnsql.com/blog/what-is-self-join-sql/
-- http://dcx.sap.com/1201/de/dbusage/apply-joins-joinsasp.html
-- https://stackedit.io
-- https://www.bissantz.de/know-how/data-warehousing/cross-apply/
-- https://www.tsql-ninja.com/2020/02/13/woche-7-outer-apply/
+- https://www.sqlshack.com/sql-cross-join-with-examples/, 02.07.2021
+- https://www.w3resource.com/sql/joins/natural-join.php, 02.07.2021
+- https://wiki.byte-welt.net/wiki/, 02.07.2021
+- https://wiki.selfhtml.org/wiki/Datenbank/Einführung_in_Joins, 02.07.2021
+- https://www.ionos.de/digitalguide/hosting/hosting-technik/inner-join-erklaerung-und-beispiele/, 02.07.2021
+- https://www.ionos.de/digitalguide/hosting/hosting-technik/sql-outer-join/, 02.07.2021
+- https://www.devart.com/dbforge/sql/sqlcomplete/sql-join-statements.html, 02.07.2021
+- https://learnsql.com/blog/what-is-self-join-sql/, 02.07.2021
+- http://dcx.sap.com/1201/de/dbusage/apply-joins-joinsasp.html, 02.07.2021
+- https://www.bissantz.de/know-how/data-warehousing/cross-apply/, 02.07.2021
+- https://www.tsql-ninja.com/2020/02/13/woche-7-outer-apply/, 02.07.2021
+- https://glossar.hs-augsburg.de/Verbundoperatoren_(Join), 02.07.2021
