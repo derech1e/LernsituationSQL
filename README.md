@@ -90,6 +90,14 @@ Der Cross Join verbindet jede Zeile der ersten Tabelle mit jeder Zeile der Zweit
 SELECT  { * | <columnname>[,...]} FROM <tablename1> CROSS JOIN <tablename2>
 ```
 
+<p float="left">
+<img src="./assets/img/Table1.png" width="18%" height="18%" />
+<img src="./assets/img/Table2.png" hspace="50" width="25%" height="25%" />
+<img src="./assets/img/Table3.png" width="25%" height="25%" />
+</p>
+
+![Image1](https://www.sqlshack.com/wp-content/uploads/2020/02/sql-cross-join-working-mechanism.png)
+
 **Datenbankscript**
 
 ```sql
@@ -109,13 +117,6 @@ SELECT CONCAT_WS('-',MealName,DrinkName) AS MenuList FROM Meals CROSS JOIN Drink
 
 > `CONCAT_WS` = concatenate with separator (dt. mit Trennzeichen verketten)
 
-<p float="left">
-<img src="./assets/img/Table1.png" width="18%" height="18%" />
-<img src="./assets/img/Table2.png" hspace="50" width="25%" height="25%" />
-<img src="./assets/img/Table3.png" width="25%" height="25%" />
-</p>
-
-![Image1](https://www.sqlshack.com/wp-content/uploads/2020/02/sql-cross-join-working-mechanism.png)
 
 ## Natural Join
 
