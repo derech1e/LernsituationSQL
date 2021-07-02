@@ -148,6 +148,7 @@ SELECT * FROM Kunden NATURAL JOIN Rechnungen;
 
 Der Inner Join gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmenden Wert haben. 
 Die Reihenfolge, in der die Tabellen genannt werden, ist bei diesem Join egal.
+
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/inner-schema.png" width="60%" height="60%" />
 
 **Syntax**
