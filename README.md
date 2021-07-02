@@ -80,9 +80,9 @@ INSERT INTO Kunden VALUES
 
 # Join-Arten
 ## Cross Join
-Der Cross Join ist der "standard" Join, es wird aus alle Einträgen der beiden Tabellen das Kreuzprodukt gebildet. Das Ergebnis des Join wird ungefiltert zurückgegeben.
+Der Cross Join verbindet jede Zeile der ersten Tabelle mit jeder Zeile der Zweiten Tabelle. Die Ergebnistabelle eines Cross Joins ist das Kreuzprodukt der beiden Tabellen und kann daher sehr groß werden und ist häufig nutzlos. 
 
-Das Kreuzprodukt, lieft als Resultat alle Kombinationsmöglichkeiten beider Tabellen.
+> Das Kreuzprodukt, lieft als Resultat alle Kombinationsmöglichkeiten beider Tabellen.
 
 **Syntax**
 
@@ -119,6 +119,7 @@ SELECT CONCAT_WS('-',MealName,DrinkName) AS MenuList FROM Meals CROSS JOIN Drink
 
 Der Natural Join verknüpft die beiden Tabellen über die Gleichheit der Felder, in Spalten mit gleichem Namen. Spalten mit gleichem Namen werden im Ergebnis nur einmal angezeigt. Haben die Tabellen keine Spalten mit gleichem Namen, wird der Natural Join automatisch zum Cross Join. Es wird keine `ON`-Klausel im Natural Join benötigt. 
 
+
 **Syntax**
 
 ```sql 
@@ -146,7 +147,7 @@ SELECT * FROM Kunden NATURAL JOIN Rechnungen;
 
 ## Inner Join
 
-Der Inner Join gibt Datensätze zurück, die in beiden Tabellen mindestens ein übereinstimmenden Wert haben. 
+Der Inner Join verbindet Datensätze aus zwei Tabellen, welche in beiden Tabellen denselben Werte enthalten. Die Spalten die in beiden Tabellen verglichen werden sollen, muß explizit angegeben werden.
 Die Reihenfolge, in der die Tabellen genannt werden, ist bei diesem Join egal.
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/inner-schema.png" width="60%" height="60%" />
@@ -189,11 +190,11 @@ INNER JOIN Rechnungen ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer
 
 ## Left Join
 
-Der Left Join gibt alle Datensätze aus der "linken" Tabelle zurück, sowie übereinstimmende Datensätze aus der "rechten" Tabelle. Die Reihenfolge, in der die Tabellen genannt werden, kann bei diesem Join andere Ergebnisse liefern.
+Der Left Join gibt alle Datensätze aus der "linken" Tabelle zurück sowie übereinstimmende Datensätze aus der "rechten" Tabelle. Die Reihenfolge, in der die Tabellen genannt werden, kann bei diesem Join andere Ergebnisse liefern. Die zu vergleichenden Spalten müssen explizit Angegeben werden. 
 
 **Logik**
 
-Die Datensätze werden aus der linken Tabelle immer zurückgegeben, auch wenn es keine Übereinstimmung mit den Datensätzen aus der rechten Tabelle gibt. Erfüllt ein Datensatz das `ON`-Kriterium aus der rechten Tabelle, wird er ebenfalls zurückgegeben andernfalls bleiben die Spalten leer (`NULL`).
+Die Datensätze werden aus der linken Tabelle werden mit den Datensätzen aus der rechten Tabelle verglichen. Erfüllt ein Datensatz das `ON`-Kriterium aus der rechten Tabelle, wird er zurückgegeben andernfalls bleiben die Spalten leer (`NULL`).
 
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/left-outer-schema.png" width="60%" height="60%" />
@@ -235,7 +236,7 @@ LEFT JOIN Kreditkarte ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer
 
 ## Right Join
 
-Der Right Join gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken " Tabelle. Er arbeitet genau entgegengesetzt des [Left Joins](Left-Join).
+Der Right Join gibt alle Datensätze aus der "rechten" Tabelle zurück, sowie übereinstimmende Datensätze aus der "linken " Tabelle. Er arbeitet genau entgegengesetzt des [Left Joins](Left-Join). Die zu vergleichenden Spalten müssen explizit Angegeben werden. 
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/right-outer-schema.png" width="60%" height="60%" />
 
@@ -275,7 +276,7 @@ ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer
 
 ## Full Join
 
-Der Full Join, gibt immer Datensätze zurück, unabhängig davon ob es eine Übereinstimmung in der anderen Tabelle gibt oder nicht. Es können keine Datensätze verschwinden.
+Der Full Join ist eine Kombination aus [Left Join](Left-Join) und [Right-Join](Right-Join) und gibt immer alle Datensätze zurück, unabhängig davon ob es eine Übereinstimmung in der anderen Tabelle gibt. Es können keine Datensätze verschwinden. Die zu vergleichenden Spalten müssen explizit Angegeben werden. 
 
 <img src="https://www.devart.com/dbforge/sql/sqlcomplete/images/all-joins.png" width="60%" height="60%" />
 
@@ -321,7 +322,7 @@ FULL JOIN Kreditkarte ON Kreditkarte.Kartennummer = Rechnungen.Kartennummer;
 
 ## Self Join
 
-Ein Self Join ist ein [Inner Join](#Inner-Join), bei dem die Tabelle mit sich selber verbunden wird.
+Ein Self Join ist ein [Inner Join](#Inner-Join), bei dem die Tabelle mit sich selber verbunden wird. Dazu muss man der Tabelle zwei verschiedene Aliasnamen geben. 
 
 **Syntax**
 
@@ -366,11 +367,11 @@ ON employee.ManagerId = manager.Id
 
 ## Apply
 
-Der Apply ist speziell für [T-SQL](#https://de.wikipedia.org/wiki/Transact-SQL) ein Mittel um Unterabfragen zu formulieren, die für jede Zeile im Ergebnis ausgeführt wird und dann an das Ergebnis gejoint wird. Dadurch ist diese Form des Joins mit vorsicht zu genießen, da es sehr schnell durch die Masse an Berechnungen zu hohen Gesamtkosten in der Datenbank führen kann.
+Der Apply ist speziell für [T-SQL](#https://de.wikipedia.org/wiki/Transact-SQL) ein Mittel, um Unterabfragen zu formulieren, die für jede Zeile im Ergebnis ausgeführt wird und dann an das Ergebnis gejoint wird. Dadurch ist diese Form des Joins mit Vorsicht zu genießen, da es sehr schnell durch die Masse an Berechnungen zu hohen Gesamtkosten in der Datenbank führen kann.
 
 #### Logik
 Der `APPLY` verbindet Zeilen von mehreren Tabellen, ähnlich wie ein `JOIN`, nur dass bei einem `APPLY` keine ON-Bedingung angeben wird. Der Unterschied zum `JOIN` besteht darin, dass sich die rechte Seite von `APPLY` abhängig von der aktuellen Zeile auf der linken Seite ändern kann. 
-Die aus der Berechnung resultierenden Zeilen, werden mit den jeweiligen Zeilen auf der Linken Seite verknüpft. 
+Die aus der Berechnung resultierenden Zeilen, werden mit den jeweiligen Zeilen auf der linken Seite verknüpft. 
 Falls eine Zeile auf der linken Seite mehr als eine Zeile rechts zurückgibt, kommt die linke Seite in den Ergebnissen so oft vor, wie es von rechts zurückgegebene Zeilen gibt.
 
 #### Cross-Apply
@@ -418,10 +419,6 @@ FROM
 ) 
 CROSS APPLY dbo.getTop5ProductsForCustomer(t.KundeID);
 ```
-
-
-
-
 
 # Quellen
 - https://www.sqlshack.com/sql-cross-join-with-examples/, 02.07.2021
