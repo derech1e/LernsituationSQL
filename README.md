@@ -340,7 +340,7 @@ SELECT { * | columnname[,...]} FROM <tablename> INNER JOIN <tablename> ON <colum
 
 *Datensatz:*
 
-| Id | Name      | Gehalt | ManagerId  |
+| Id | Name          | Gehalt | ManagerId  |
 | -- | ------------- | ------ | ---------- |
 | 1  | John Smith    | 10000  | 3          |
 | 2  | Jane Anderson | 12000  | 3          |
@@ -352,9 +352,9 @@ SELECT { * | columnname[,...]} FROM <tablename> INNER JOIN <tablename> ON <colum
 
 ```sql
 SELECT employee.Id,
-        employee.FullName,
+        employee.Name,
         employee.ManagerId,
-        manager.FullName as ManagerName
+        manager.Name as ManagerName
 FROM Employees employee
 JOIN Employees manager
 ON employee.ManagerId = manager.Id
