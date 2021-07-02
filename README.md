@@ -79,6 +79,16 @@ INSERT INTO Kunden VALUES
 ```
 
 # Join-Arten
+> Outer Join:
+> Todo...
+
+
+
+> Inner Join:
+> Todo....
+
+
+
 ## Cross Join
 Der Cross Join verbindet jede Zeile der ersten Tabelle mit jeder Zeile der Zweiten Tabelle. Die Ergebnistabelle eines Cross Joins ist das Kreuzprodukt der beiden Tabellen und kann daher sehr groß werden und ist häufig nutzlos. 
 
