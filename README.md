@@ -14,10 +14,11 @@ Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zu
 	- [DML](#DML)
 	- [DQL](#DQL)
 	- [DCL](#DCL)
+- [Quellen](#Quellen)
 
 # Erläuterung der Struktur
-Dieses Dokument wird zunächst die verschiedenen Sprachbestandteile von SQL behandeln.
-Nach diesem erläuternden Teil leitet das Dokument in den analytischen Teil hier in Form von der Auftragsanalyse, SOLL-IST Analyse und Schutzbedarfsanalyse ein und schließt mit der Quellenangabe ab.
+Dieses Dokument, leitet zunächst in den analytischen Teil hier in Form von der Auftragsanalyse, SOLL-IST Analyse und Schutzbedarfsanalyse ein. Nach diesem Teil, werdem verschiedene Sprachbestandteile von SQL behandeln.
+
 
 #### Hinweise zum Verständnis des Syntax
 Die allgemeine Syntax der Befehle orientiert sich immer an dem vom SQL vorgegebenen Standard. Darüber hinaus werden die [Anwendungsbeispiele](#User-Storys) nach dem im [MS-Server Management Studio](https://docs.microsoft.com/de-de/sql/ssms/sql-server-management-studio-ssms?view=sql-server-ver15) enthaltenen [T-SQL](https://de.wikipedia.org/wiki/Transact-SQL) Standard erläutert. 
