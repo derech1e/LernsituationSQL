@@ -140,6 +140,7 @@ SELECT CONCAT_WS('-',MealName,DrinkName) AS MenuList FROM Meals CROSS JOIN Drink
 
 Der Natural Join verknüpft die beiden Tabellen über die Gleichheit der Felder, in Spalten mit gleichem Namen. Spalten mit gleichem Namen werden im Ergebnis nur einmal angezeigt. Haben die Tabellen keine Spalten mit gleichem Namen, wird der Natural Join automatisch zum Cross Join. Es wird keine `ON`-Klausel im Natural Join benötigt. 
 
+> Der Natutral Join ist nicht in T-SQL vorhanden.
 
 #### Syntax
 
