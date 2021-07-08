@@ -80,7 +80,7 @@ Der Auftrag ist die Restrukturierung und Aktualisierung der IT-Lösung vom Unter
 
 Der erste Schritt zu Abhandlung des Auftrags ist die Überprüfung der primären Funktionalitäten während der Nutzung der Datenbank. Mithilfe einer [Schutzbedarfsanalyse](#Schutzbedarfsanalyse) sollen Kontrollkriterien klar definiert werden, sodas alle Richtlinien des Datenschutzes und der allg. Daten- und Informationssicherheit unter den Punkten Vertraulichkeit, Integrität, Verfügbarkeit und Authentizität erfüllt sind. 
 
-Fehlende Kriterien und Zustände sind in einer [SOLL-IST Analyse](SOLLT-IST-Analyse) festzuhalten.
+Fehlende Kriterien und Zustände sind in einer [SOLL-IST Analyse](SOLL-IST-Analyse) festzuhalten.
 
 # Schutzbedarfsanalyse
 
