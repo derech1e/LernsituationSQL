@@ -6,9 +6,8 @@ Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zu
 - [Erläuterung der Struktur](#Erläuterung-der-Struktur)
 - [Auftragsanalyse](#Auftragsanalyse)
 - [Schutzbedarfsanalyse](#Schutzbedarfsanalyse)
-- [SOLL-IST Analyse](#SOLL-IST-Analyse)
+- [SOLL-IST-Analyse](#SOLL-IST-Analyse)
 - [Arbeitsplanung](#Arbeitsplanung)
-- [Hinweise zum Verständnis](#Hinweise-zum-Verständnis)
 - [SQL Bestandteile](#SQL-Bestandteile)
 	- [DDL](#DDL)
 	- [DML](#DML)
@@ -21,7 +20,7 @@ Dieses Dokument, leitet zunächst in den analytischen Teil hier in Form von der 
 
 
 #### Hinweise zum Verständnis des Syntax
-Die allgemeine Syntax der Befehle orientiert sich immer an dem vom SQL vorgegebenen Standard. Darüber hinaus werden die [Anwendungsbeispiele](#User-Storys) nach dem im [MS-Server Management Studio](https://docs.microsoft.com/de-de/sql/ssms/sql-server-management-studio-ssms?view=sql-server-ver15) enthaltenen [T-SQL](https://de.wikipedia.org/wiki/Transact-SQL) Standard erläutert. 
+Die allgemeine Syntax der Befehle orientiert sich immer an dem vom SQL vorgegebenen Standard. Darüber hinaus werden die Anwendungsbeispiele nach dem im [MS-Server Management Studio](https://docs.microsoft.com/de-de/sql/ssms/sql-server-management-studio-ssms?view=sql-server-ver15) enthaltenen [T-SQL](https://de.wikipedia.org/wiki/Transact-SQL) Standard erläutert. 
 
 #### Conditions/ WHERE Clause
 
@@ -44,7 +43,7 @@ In SQL gibt es verschiedene Vergleichsoperatoren. In der nachfolgenden Tabelle s
 
 #### Wildcards
 
-Wildcards sind Platzhalterzeichen, die in Zeichenfolgen eingesetzt werden können. Sie dienen zur besseren Einstellung von Filtern und werden mit dem `LIKE` Operator benutzt, bei einer `WHERE` Bedingung. Die Platzhalter werden später in die entsprechende Filter-Logik übersetzt. Eine Liste zu allen Wildcards mit entsprechender Erklärung ist [hier](https://www.w3schools.com/sql/sql_wildcards.asp) zu finden. 
+Wildcards sind Platzhalterzeichen, die in Zeichenfolgen eingesetzt werden können. Sie dienen zur besseren Einstellung von Filtern und werden in Verbindung mit dem `LIKE` Operator bei z.B. einer `WHERE` Bedingung genutzt. Die Platzhalter werden später in die entsprechende Filter-Logik übersetzt. Eine Liste zu allen Wildcards mit entsprechender Erklärung ist [hier](https://www.w3schools.com/sql/sql_wildcards.asp) zu finden. 
 
 #### Constraints
 
@@ -55,7 +54,7 @@ Constraints heißt im Deutschen so viel wie Einschränkungen. Constraints sind I
 Die `ORDER BY` Klausel wird benutzt, um Datensätze zu sortieren. Es gibt zwei Möglichkeiten der Sortierung. 
 `ASC` (Ascending) und `DESC` (Descending).
 
-*Syntax des Statements*
+*Syntax zum Anwenden der Statements*
 ```sql
 SELECT { * | <columnname>[,...]} FROM <tablename>[,...] ORDER BY <columnname>[,...] {ASC | DESC}
 ```
@@ -80,13 +79,13 @@ SELECT { * | <columnname>[,...]} FROM <tablename>[,...] ORDER BY <columnname>[,.
 
 Der Auftrag ist die Restrukturierung und Aktualisierung der IT-Lösung vom Unternehmen Bengel&Gölp GmbH. Eines der Hauptziele ist die Systematisierung der Geschäftsprozesse des Unternehmens in Form einer Datenbank für die Bereitstellung und Nutzung der Geschäftsdaten unter Beachtung aktueller Bestimmungen des Datenschutzes.
 
-Der erste Schritt zu Abhandlung des Auftrags ist die Überprüfung der primären Funktionalitäten während der Nutzung der Datenbank. Mithilfe einer [Schutzbedarfsanalyse](#Schutzbedarfsanalyse) sollen Kontrollkriterien klar definiert werden, sodas alle Richtlinien des Datenschutzes und der allg. Daten- und Informationssicherheit unter den Punkten Vertraulichkeit, Integrität, Verfügbarkeit und Authentizität erfüllt sind. 
+Der erste Schritt zu Abhandlung des Auftrags ist die Überprüfung der primären Funktionalitäten während der Nutzung der Datenbank. Mithilfe einer [Schutzbedarfsanalyse](#Schutzbedarfsanalyse) sollen Kontrollkriterien klar definiert werden, sodass alle Richtlinien des Datenschutzes und der allg. Daten- und Informationssicherheit unter den Punkten Vertraulichkeit, Integrität, Verfügbarkeit und Authentizität erfüllt sind. 
 
 Fehlende Kriterien und Zustände sind in einer [SOLL-IST Analyse](#SOLL-IST-Analyse) festzuhalten.
 
 # Schutzbedarfsanalyse
 
-Die Schutzbedarfsanalyse baut auf das vom Bundesamt für Sicherheit in der Informationstechnik veröffentlichte Dokument „APP.4.3: Relationale Datenbanken“ auf und versucht ein Konzept zum sicheren Betrieb von relationalen Datenbanksysteme aufzustellen. Die Schutzbedarfsanalyse ist somit ein wichtiger Teil des analytischen Anteils von jedem Projekt um Datenbanksystemen.
+Die Schutzbedarfsanalyse baut auf das vom Bundesamt für Sicherheit in der Informationstechnik veröffentlichte Dokument „APP.4.3: Relationale Datenbanken“ auf und versucht ein Konzept zum sicheren Betrieb von relationalen Datenbanksysteme aufzustellen. Die Schutzbedarfsanalyse ist somit ein wichtiger Teil des analytischen Elements von jedem Projekt um Datenbanksystemen.
 
 ## Unzureichende Dimensionierung der Systemressourcen
 
@@ -94,15 +93,15 @@ Die Analyse und Abschätzung der zureichenden Dimensionierung der Systemressourc
 Einmal in eine speicherorientierte und zweitens in die leistungsorientierte Abschätzung.
 
 ### Speicherorientierte Abschätzung der Systemressourcen
-Die speicherorientierte Abschätzung beschäftigt sich mit der benötigten Menge an Speicherplatz, welche auch noch nach z. B. 5 Jahren mit den vor-angelegten Datenbankkonfigurationen gemeint sind Tabellenstrukturen, Tabellenrelationen usw. nicht vollläuft.
+Die speicherorientierte Abschätzung beschäftigt sich mit der benötigten Menge an Speicherplatz, welche auch noch nach z. B. 5 Jahren mit den vorangelegten Datenbankkonfigurationen gemeint sind Tabellenstrukturen, Tabellenrelationen usw. nicht vollläuft.
 
-Dazu sollte man folglich zuerst die Auslastung des projektspezifische Datenbanksystem (in diesem Falle ein Microsoft SQL Server) protokollieren und dann diese Daten auf den gewünschten Zeitraum spekulativ, aber auch realitätsnah hochrechnen. Die Berichterstellung für die Speicherauslastung kann man mit dem [Microsoft SQL Server Management Studio](#https://docs.microsoft.com/de-de/sql/ssms/sql-server-management-studio-ssms?view=sql-server-ver15) überbrücken, da dieses ein internes Feature bietet, welches diesen Bericht generiert.
+Dazu sollte man folglich zuerst die Auslastung des projektspezifischen Datenbanksystems (in diesem Falle ein Microsoft SQL Server) protokollieren und dann diese Daten auf den gewünschten Zeitraum spekulativ, aber auch realitätsnah hochrechnen. Die Berichterstellung für die Speicherauslastung kann man mit dem [Microsoft SQL Server Management Studio](#https://docs.microsoft.com/de-de/sql/ssms/sql-server-management-studio-ssms?view=sql-server-ver15) überbrücken, da dieses ein internes Feature bietet, welches den notwendigen Bericht generiert.
 
   <img src="https://raw.githubusercontent.com/derech1e/LernsituationSQL/master/assets/img/Datenträgerverwendung_Bericht.png"/>
 
 *Abbildung 1: Aus dem UI ausgelesener allgemeiner Bericht*
 
-Aus den beiden Berichten kann man entnehmen, dass gerade die Datendateienspeichermenge der Datenbank 3,63 MB beträgt. Dazu muss angemerkt werden, dass die Datenbank natürlich für jeden einzelnen Teil ihrer Struktur (pro Tabellenspalte bspw.) im Speichermedium Speicherplatz reserviert. Dieses Verhalten und dessen Ergebnis (reservierter Speicherplatz) sollte mit beachtet werden. Somit kann man nun vom reservierten und aktuell belegten Speicherplatz ausgehend die Speichermenge auf die 5 Jahre hochrechnen.
+Aus den beiden Berichten kann man entnehmen, dass die Datendateienspeichermenge der Datenbank 3,63 MB beträgt. Dazu muss angemerkt werden, dass die Datenbank natürlich für jeden einzelnen Teil ihrer Struktur (pro Tabellenspalte bspw.) im Speichermedium Speicherplatz reserviert. Dieses Verhalten und dessen Ergebnis (reservierter Speicherplatz) sollte mit beachtet werden. Somit kann man nun vom reservierten und aktuell belegten Speicherplatz ausgehend die Speichermenge auf die 5 Jahre hochrechnen.
 
 Ein guter Standard, welcher hier anzuwenden ist, ist eine prophylaktische Zusatzkapazität von ungefähr 100% also 200% insgesamt einzukalkulieren. Diese würde bei 16,00 MB insgesamt reservierter Speicherplatz eine Minimalspeichermenge von 32,00 MB ergeben. 
 
@@ -159,20 +158,20 @@ Zusammen mit einigen Testdaten, welche möglichst viele Sonderfälle abdecken so
 Eine SQL-Injection ist eine Form von Angriffen auf die IT-Sicherheit und kann zum Integritätsverlust der Daten, das unerlaubte Ausgeben von vertraulichen Daten, oder im schlimmsten Fall der Komplettausfall der Datenbank durch die Löschung Systemnotwendiger Datenbanken führen. Diese SQL-Injections sind bösartiger Code, welcher in eine schlecht gestaltete Anwendung eingebettet und dann an die Backend-Datenbank weitergeleitet wird. Die bösartigen Anfragen erzeugen da Datenbankabfrageergebnisse oder Aktionen, welche zu den oben genannten fatalen Ergebnissen führen. Um diese abzufangen, sollte man seine an die Datenbank anliegende Anwendung gut logisch durchdenken und somit bösartige Anfragen noch vor dem Absenden abgreifen. Besonders in Modulen wo die Eingaben vom Nutzer verarbeitet werden und zu sensiblen Datenbankabfragen führen, sollte man durch z.B. vorbereiteten Statements, welche der Nutzer nur durch seine eingebenenen Parameter ändern kann, diese einschränken. Hier gilt das Grundprinzip der Minimierung der Freiheit des Nutzers bei dem Interagieren mit dem Datenbanksystem im Backend.
 
 ## Unsichere Konfiguration und Nutzermanagment im DBS 
-Als unsichere Konfiguration werden Standardeinstellungen angesehen, welche den Fokus meist mehr auf benutzerfreundlichkeit legen als auf die sichere Konfiguration eines DBS. Im Extremfall können schlechte Konfigurationen zu einfachen Sicherheitslücken führen welche Angreifer nutzen könnten, um Rechte zu erlangen oder andere bösartige Änderungen am DBS vorzunehmen. Dazu zählen zum Beispiel [Aktivierte Standard-Benutzerkonten](##Aktivierte_Standard-Benutzerkonten) oder [Unverschlüsselte Datenbankverbindung](##Unverschlüsselte_Datenbankverbindung). 
+Als unsichere Konfiguration werden Standardeinstellungen angesehen, welche den Fokus meist mehr auf benutzerfreundlichkeit legen als auf die sichere Konfiguration eines DBS. Im Extremfall können schlechte Konfigurationen zu einfachen Sicherheitslücken führen welche Angreifer nutzen könnten, um Rechte zu erlangen oder andere bösartige Änderungen am DBS vorzunehmen. Dazu zählen zum Beispiel [Aktivierte Standard-Benutzerkonten](<#Aktivierte Standard-Benutzerkonten>) oder [Unverschlüsselte Datenbankverbindung](<#Unverschlüsselte Datenbankverbindung>). 
 Andere unsichere (Nutzer-)Konfigurationen können z.B. auch eine Verteilung der Lese und Schreibrechte auf unwichtige und ungeeignete Nutzer oder Nutzergruppen sein. Es ist essenziell die Rechteverteilung, wenn gegeben, auf wenige Nutzer einzuschränken. 
 
 Hier ist es zu empfehlen sich Zeit zu nehmen und jede Sicherheitsrelevante Konfiguration einzeln zu betrachten und auf das Projekt und dessen Ansprüche anzupassen. Somit kann man am besten ein projektspezifischen Kompromiss in der Konfiguration finden.
 
 ## Malware und unsichere Datenbank-Skripte
-Um eine Gefährdung der Daten und des eigentlichen DBS durch Schadsoftware und Fremdzugriffen zu verhindern ist es zu empfehlen den Backend SQL Server hinter einer Firewall zu plazieren. Somit ist der Server durch die Infrastruktur um ihn, bzw. zu ihm geschützt. So eine Firewall könnte durch ein Proxy eingeführt werden, über dem dann jede Anfrage geleitet wird. Hier ist auch ein Kompromiss zwischen Schnelligkeit und Sicherheit des DBS zu finden, da der Proxy mitunter die Antwortgeschwindigkeit des Servers beeinträchtigen kann. Außerdem wäre es Netzwerktopologisch ungünstig wenn dieser Proxy ausfallen würde. Die Persistenz wäre hier dann nicht mehr garantiert. Zu den unsicheren Datenbankskripten sei gesagt, dass man die Testung dieser in einem Testsystem siehe [Integritätsverlust der gespeicherten Daten](##Integritätsverlust_der_gespeicherten_Daten) vornehmen kann, um eine ungeprüfte Nutzung mit möglichen verheerenden Konsequenzen zu vermeiden. Somit sollten sie auch den Softwareentwicklungsstandards weiterer von der Bengel&Gölp GmbH beauftragten Softwareunternehmen entsprechen.
+Um eine Gefährdung der Daten und des eigentlichen DBS durch Schadsoftware und Fremdzugriffen zu verhindern ist es zu empfehlen den Backend SQL Server hinter einer Firewall zu plazieren. Somit ist der Server durch die Infrastruktur um ihn, bzw. zu ihm geschützt. So eine Firewall könnte durch ein Proxy eingeführt werden, über dem dann jede Anfrage geleitet wird. Hier ist auch ein Kompromiss zwischen Schnelligkeit und Sicherheit des DBS zu finden, da der Proxy mitunter die Antwortgeschwindigkeit des Servers beeinträchtigen kann. Außerdem wäre es Netzwerktopologisch ungünstig wenn dieser Proxy ausfallen würde. Die Persistenz wäre hier dann nicht mehr garantiert. Zu den unsicheren Datenbankskripten sei gesagt, dass man die Testung dieser in einem Testsystem siehe [Integritätsverlust der gespeicherten Daten](<#Integritätsverlust der gespeicherten Daten>) vornehmen kann, um eine ungeprüfte Nutzung mit möglichen verheerenden Konsequenzen zu vermeiden. Somit sollten sie auch den Softwareentwicklungsstandards weiterer von der Bengel&Gölp GmbH beauftragten Softwareunternehmen entsprechen.
 
 ## Beschreibung der Sicherheitsrichtlinie für Datenbanksysteme
 
 Eine wichtige Datenschutzrichtlinie ist das Verschlüsseln jeder personenbezogenen Datensätze auf der Datenbank, sodass diese bei Fremdzugriff durch z.B. eine [SQL-Injection](#SQL-Injections) für den Angreifer unbrauchbar zu machen. Projektspezifisch hat das Unternehmen Bengel&Gölp GmbH eine besondere Plficht die personenbezogenen Daten von seinen Kunden und deren Verträge zu schützen. Diese befinden sich in den Tabellen "Kunde" mit den Spalten "Kunde_ID", "Adress_ID", "Name" und in "Mietvertrag" mit "Ferienhaus_ID", "Kunde_ID", "Beginn", "Ende". Die Datensätze könnten durch ein Script in der Benutzeroberfläche verschlüsselt werden und beim eintragen bereits verschlüsselt sein (durch Algorythmen wie AES-256, o.ä.), oder durch die bereits in Microsoft SQL Server enthaltenen Methoden zur Spaltenverschlüsselung siehe [hier](https://docs.microsoft.com/en-us/sql/relational-databases/security/encryption/encrypt-a-column-of-data?view=sql-server-ver15) intern in der Datenbank verschlüsselt werden. 
 Mit der internen Variante kommen noch unzählige Varianten der Verschlüsselung auf, wie z.B. die Verschlüsselung mit AES-256 über ein spezielles Zertifikat als Key (siehe Link).
 
-# SOLL-IST Analyse
+# SOLL-IST-Analyse
 ### IST-Zustand
 Der IST-Zustand gibt an, wie etwas im Zeitpunkt der Projektaufnahme ist.
 Im Projektauftrag wurde bereits erwähnt, das die Projektgruppe ImmoDB des Unternehmens die Migration des physischen Datenbestandes auf die Softwareumgebung MS SQL Server laut Kundenanforderung schon durchgeführt.
