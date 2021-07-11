@@ -17,7 +17,7 @@ Diese Dokumentation erklärt die grundlegenden Sprachbestandteile von SQL. Im Zu
 - [Quellen](#Quellen)
 
 # Erläuterung der Struktur
-Dieses Dokument, leitet zunächst in den analytischen Teil hier in Form von der Auftragsanalyse, SOLL-IST Analyse und Schutzbedarfsanalyse ein. Nach diesem Teil, werdem verschiedene Sprachbestandteile von SQL behandeln.
+Dieses Dokument, leitet zunächst in den analytischen Teil hier in Form von der Auftragsanalyse, SOLL-IST Analyse und Schutzbedarfsanalyse ein. Nach diesem Teil, werden verschiedene Sprachbestandteile von SQL behandeln.
 
 
 #### Hinweise zum Verständnis des Syntax
