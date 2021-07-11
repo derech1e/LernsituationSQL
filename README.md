@@ -64,6 +64,8 @@ SELECT { * | <columnname>[,...]} FROM <tablename>[,...] ORDER BY <columnname>[,.
 
 **Louis:**
 - [Schutzbedarfsanalyse](#Schutzbedarfsanalyse)
+- [SOLL-IST-Analyse](#SOLL-IST-Analyse)
+- Korrekturlesen
 
 **Anton:**
 - [DML](#DML)
@@ -122,9 +124,18 @@ Die Analyse des Speicherbedarfs in 5 Jahre ist somit mit dem Wert 32,00 MB als E
 
 ### Leistungsorientierte Abschätzung der Systemressourcen
 
+Mit der Leistungsorientierten Abschätzung der benötigten Systemressourcen versucht man den Umfang der verarbeitenden Komponenten, wie die CPU (oder GPU), für die zukünftigen Ansprüche abzuschätzen.
+Somit kann man mit dieser dann Hardware empfehlen, welche den Leistungsbedarf des Datenbanksystems für die darauf folgenden 5, oder mehr Jahre deckt.
 
-→  Leistungsstarke Userstory anwenden und Bericht Analysieren
+Die dafür verwendeten Daten sollten aus der Anwendung einer besonders leistungsfordernden aber trotzdem realistischen Userstory gewonnen werden. 
+Der `UPDATE` Befehl kann bei der Testung besonders Effektiv sein, da er die Grenzen durch das Aufrufen und Überschreiben gleichzeitig (somit SELECT und ALTER gleichzeitig) ausreizt und somit gute Analysedaten liefert.
+In der Beispieldatenbank wurde die Spalte "Zusatz" der Tabelle "Adresse" durch `NULL` Werte ersetzt und durch die fehlende Where Klausel wurde dies bei jeder Zeile angewendet. 
 
+```sql
+UPDATE Adresse SET Zusatz = NULL;
+```
+
+Das ist im Verhältnis zu anderen realistischen Userstory-Möglichkeiten relativ Leistungsfordernd und brachte die CPU-Auslastung zeitweise auf ganze 7%. Im größeren Kontext könnte man somit sagen, dass die gerade genutzte Hardware für die nächsten Jahre reichen sollte. Man kann auch nicht von einer häufigen oder gar gleichzeitigen Verarbeitung einer `UPDATE` Anfrage durch das DBS rechnen, da diese nur den Datenbankadministratoren möglich sein sollten, welche diese Abfrage dann auch nicht in den Hauptgeschäftszeiten ausführen müssten.
 
 ## Aktivierte Standard-Benutzerkonten
 
@@ -132,11 +143,11 @@ Um diesem Gefahrenbereich auszuweichen, sollte man nach dem Aufsetzen der Datenb
 
 ## Unverschlüsselte Datenbankverbindung
 
-→ Recherche MS-Datenbank verschlüsselte Verbindung
+In diesem Projekt wird das Microsoft SQL Server Management Studio mit dem Microsoft SQL Server im Backend verwendet, welches eine durch **T**ansport **L**ayer **S**ecurity gesicherte Verbindung anbietet. Hierzu sollten die Punkte in der [hier](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/enable-encrypted-connections-to-the-database-engine) angegebenen Website berücksichtigt werden. Zusammengefasst sollte hier mithilfe der Integration eines Zertifikatmanagmentsystems, welches ab der Version SQL Server 2019 15.x bereits im SQL Server Configuration Manager integriert ist ein TLS Zertifikat auf den SQL Server installiert werden. So wird jede Verbindung durch TLS verschlüsselt. Alternativ kann man sich mit **S**ecure **Sh**ell durch pure Konsolenbefehle auch sicher mit dem Datenbanksystem verbinden. Der Vorgänger des TLS, **S**ecure **S**ocket **L**ayer ist deprecated also veraltet und ist somit nicht mehr zu verwenden.
 
 ## Datenverlust in der Datenbank
 
-→ Persistenz und Backups recherchieren (Da Daten auch von Anwendungen genutzt werden, welche nicht ausfallen sollten)
+Die Datensicherheit und die Persistenz (ständige Verfügbarkeit der Daten, auch bei Ausfall einzelner Teile des Systems) der Daten kann durch verschiedene Backuplösungen abgesichert werden. Hier zu empfehlen währen einige wohlbekannte Industriestandards, wie das Großvater-Vater-Sohn Backup-Prinzip oder anderen Rotationsschemata zusammen mit einem Backupzeitplan, welche die Daten automatisch durch Datenbankjobs (mit PL/SQL) oder äußere Anwendungen regelmäßig auf andere Instanzen kopieren und somit den Datenverlust effektiv verhindern.
 
 ## Integritätsverlust der gespeicherten Daten
 
@@ -145,22 +156,32 @@ Zusammen mit einigen Testdaten, welche möglichst viele Sonderfälle abdecken so
 
 ## SQL-Injections
 
-→ nochmals genauer Recherchieren → Durch String-Prüfung
+Eine SQL-Injection ist eine Form von Angriffen auf die IT-Sicherheit und kann zum Integritätsverlust der Daten, das unerlaubte Ausgeben von vertraulichen Daten, oder im schlimmsten Fall der Komplettausfall der Datenbank durch die Löschung Systemnotwendiger Datenbanken führen. Diese SQL-Injections sind bösartiger Code, welcher in eine schlecht gestaltete Anwendung eingebettet und dann an die Backend-Datenbank weitergeleitet wird. Die bösartigen Anfragen erzeugen da Datenbankabfrageergebnisse oder Aktionen, welche zu den oben genannten fatalen Ergebnissen führen. Um diese abzufangen, sollte man seine an die Datenbank anliegende Anwendung gut logisch durchdenken und somit bösartige Anfragen noch vor dem Absenden abgreifen. Besonders in Modulen wo die Eingaben vom Nutzer verarbeitet werden und zu sensiblen Datenbankabfragen führen, sollte man durch z.B. vorbereiteten Statements, welche der Nutzer nur durch seine eingebenenen Parameter ändern kann, diese einschränken. Hier gilt das Grundprinzip der Minimierung der Freiheit des Nutzers bei dem Interagieren mit dem Datenbanksystem im Backend.
 
-## Unsichere Konfiguration des DBS
+## Unsichere Konfiguration und Nutzermanagment in dem DBS 
+Als unsichere Konfiguration werden Standardeinstellungen angesehen, welche den Fokus meist mehr auf benutzerfreundlichkeit legen als auf die sichere Konfiguration eines DBS. Im Extremfall können schlechte Konfigurationen zu einfachen Sicherheitslücken führen welche Angreifer nutzen könnten, um Rechte zu erlangen oder andere bösartige Änderungen am DBS vorzunehmen. Dazu zählen zum Beispiel [Aktivierte Standard-Benutzerkonten](##Aktivierte_Standard-Benutzerkonten) oder [Unverschlüsselte Datenbankverbindung](##Unverschlüsselte_Datenbankverbindung). 
+Andere unsichere (Nutzer-)Konfigurationen können z.B. auch eine Verteilung der Lese und Schreibrechte auf unwichtige und ungeeignete Nutzer oder Nutzergruppen sein. Es ist essenziell die Rechteverteilung, wenn gegeben, auf wenige Nutzer einzuschränken. 
 
-→ Standardkonfiguration erklären und Verbesserungen vorschlagen
+Hier ist es zu empfehlen sich Zeit zu nehmen und jede Sicherheitsrelevante Konfiguration einzeln zu betrachten und auf das Projekt und dessen Ansprüche anzupassen. Somit kann man am besten ein projektspezifischen Kompromiss in der Konfiguration finden.
 
 ## Malware und unsichere Datenbank-Skripte
-
-→ Recherchieren dazu.
+Um eine Gefährdung der Daten und des eigentlichen DBS durch Schadsoftware und Fremdzugriffen zu verhindern ist es zu empfehlen den Backend SQL Server hinter einer Firewall zu plazieren. Somit ist der Server durch die Infrastruktur um ihn, bzw. zu ihm geschützt. So eine Firewall könnte durch ein Proxy eingeführt werden, über dem dann jede Anfrage geleitet wird. Hier ist auch ein Kompromiss zwischen Schnelligkeit und Sicherheit des DBS zu finden, da der Proxy mitunter die Antwortgeschwindigkeit des Servers beeinträchtigen kann. Außerdem wäre es Netzwerktopologisch ungünstig wenn dieser Proxy ausfallen würde. Die Persistenz wäre hier dann nicht mehr garantiert. Zu den unsicheren Datenbankskripten sei gesagt, dass man die Testung dieser in einem Testsystem siehe [Integritätsverlust der gespeicherten Daten](##Integritätsverlust_der_gespeicherten_Daten) vornehmen kann, um eine ungeprüfte Nutzung mit möglichen verheerenden Konsequenzen zu vermeiden. Somit sollten sie auch den Softwareentwicklungsstandards weiterer von der Bengel&Gölp GmbH beauftragten Softwareunternehmen entsprechen.
 
 ## Beschreibung der Sicherheitsrichtlinie für Datenbanksysteme
 
-→ Analysieren welche Daten im DBS personenbezogen sind und somit verschlüsselt werden. → Projektspez. → in Tabelle gucken
+Eine wichtige Datenschutzrichtlinie ist das Verschlüsseln jeder personenbezogenen Datensätze auf der Datenbank, sodass diese bei Fremdzugriff durch z.B. eine [SQL-Injection](#SQL-Injections) für den Angreifer unbrauchbar zu machen. Projektspezifisch hat das Unternehmen Bengel&Gölp GmbH eine besondere Plficht die personenbezogenen Daten von seinen Kunden und deren Verträge zu schützen. Diese befinden sich in den Tabellen "Kunde" mit den Spalten "Kunde_ID", "Adress_ID", "Name" und in "Mietvertrag" mit "Ferienhaus_ID", "Kunde_ID", "Beginn", "Ende". Die Datensätze könnten durch ein Script in der Benutzeroberfläche verschlüsselt werden und beim eintragen bereits verschlüsselt sein (durch Algorythmen wie AES-256, o.ä.), oder durch die bereits in Microsoft SQL Server enthaltenen Methoden zur Spaltenverschlüsselung siehe [hier](https://docs.microsoft.com/en-us/sql/relational-databases/security/encryption/encrypt-a-column-of-data?view=sql-server-ver15) intern in der Datenbank verschlüsselt werden. 
+Mit der internen Variante kommen noch unzählige Varianten der Verschlüsselung auf, wie z.B.
 
 # SOLL-IST Analyse
+## IST-Zustand
+Der IST-Zustand gibt an, wie etwas im Zeitpunkt der Projektaufnahme ist.
+Projektgruppe ImmoDB hat schon Migration auf physischen Datenbestandes auf Softwareumgebung MS SQL Server durchgeführt.
 
+
+## SOLL-Zustand
+Rekonstruierung und Aktualisieren mit Datenschutz und Sicherheit
+Vorbereiten auf Anbindung der Datenbank auf eine anbindung an Benutzeroberfläche der Immobiliensoftware
+-> Berüclsichtigung der oben genannten Punkte
 # SQL Bestandteile
 Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standard-Query-Language im Bezug auf den Auftrag "Ferienhaus".
 
