@@ -129,10 +129,10 @@ Somit kann man mit dieser dann Hardware empfehlen, welche den Leistungsbedarf de
 
 Die dafür verwendeten Daten sollten aus der Anwendung einer besonders leistungsfordernden aber trotzdem realistischen Userstory gewonnen werden. 
 Der `UPDATE` Befehl kann bei der Testung besonders Effektiv sein, da er die Grenzen durch das Aufrufen und Überschreiben gleichzeitig (somit SELECT und ALTER gleichzeitig) ausreizt und somit gute Analysedaten liefert.
-In der Beispieldatenbank wurde die Spalte "Zusatz" der Tabelle "Adresse" durch `NULL` Werte ersetzt und durch die fehlende Where Klausel wurde dies bei jeder Zeile angewendet. 
+In der Beispieldatenbank wurde die Spalte "Zusatz" der Tabelle "Adresse" durch "Bungalow oder Appartement" Werte ersetzt und durch die Where Klausel wurde dies bei jeder Zeile angewendet. 
 
 ```sql
-UPDATE Adresse SET Zusatz = NULL;
+UPDATE Adresse SET Zusatz = "Bungalow oder Appartement" WHERE Zusatz = NULL;
 ```
 
 Das ist im Verhältnis zu anderen realistischen Userstory-Möglichkeiten relativ Leistungsfordernd und brachte die CPU-Auslastung zeitweise auf ganze 7%. Im größeren Kontext könnte man somit sagen, dass die gerade genutzte Hardware für die nächsten Jahre reichen sollte. Man kann auch nicht von einer häufigen oder gar gleichzeitigen Verarbeitung einer `UPDATE` Anfrage durch das DBS rechnen, da diese nur den Datenbankadministratoren möglich sein sollten, welche diese Abfrage dann auch nicht in den Hauptgeschäftszeiten ausführen müssten.
@@ -170,18 +170,27 @@ Um eine Gefährdung der Daten und des eigentlichen DBS durch Schadsoftware und F
 ## Beschreibung der Sicherheitsrichtlinie für Datenbanksysteme
 
 Eine wichtige Datenschutzrichtlinie ist das Verschlüsseln jeder personenbezogenen Datensätze auf der Datenbank, sodass diese bei Fremdzugriff durch z.B. eine [SQL-Injection](#SQL-Injections) für den Angreifer unbrauchbar zu machen. Projektspezifisch hat das Unternehmen Bengel&Gölp GmbH eine besondere Plficht die personenbezogenen Daten von seinen Kunden und deren Verträge zu schützen. Diese befinden sich in den Tabellen "Kunde" mit den Spalten "Kunde_ID", "Adress_ID", "Name" und in "Mietvertrag" mit "Ferienhaus_ID", "Kunde_ID", "Beginn", "Ende". Die Datensätze könnten durch ein Script in der Benutzeroberfläche verschlüsselt werden und beim eintragen bereits verschlüsselt sein (durch Algorythmen wie AES-256, o.ä.), oder durch die bereits in Microsoft SQL Server enthaltenen Methoden zur Spaltenverschlüsselung siehe [hier](https://docs.microsoft.com/en-us/sql/relational-databases/security/encryption/encrypt-a-column-of-data?view=sql-server-ver15) intern in der Datenbank verschlüsselt werden. 
-Mit der internen Variante kommen noch unzählige Varianten der Verschlüsselung auf, wie z.B.
+Mit der internen Variante kommen noch unzählige Varianten der Verschlüsselung auf, wie z.B. die Verschlüsselung mit AES-256 über ein spezielles Zertifikat als Key (siehe Link).
 
 # SOLL-IST Analyse
-## IST-Zustand
+### IST-Zustand
 Der IST-Zustand gibt an, wie etwas im Zeitpunkt der Projektaufnahme ist.
-Projektgruppe ImmoDB hat schon Migration auf physischen Datenbestandes auf Softwareumgebung MS SQL Server durchgeführt.
+Im Projektauftrag wurde bereits erwähnt, das die Projektgruppe ImmoDB des Unternehmens die Migration des physischen Datenbestandes auf die Softwareumgebung MS SQL Server laut Kundenanforderung schon durchgeführt.
+Es liegt somit ein Vollständiges Datenbanksystem vor, welches von der Tabellenstruktur und Verknüpfung funktionstüchtig ist. Die Tabellenstruktur liegt im  Auftragsvertrag im Anhang vor. Die Produktivdaten wurden auch schon übernommen.
 
+### SOLL-Zustand
+Der SOLL-Zustand definiert die Ziele und Absichten des Auftrags. Es gibt die Ziele vor, aber nicht die spezifischen Details.
+Es ist zusammenfassend verlangt, dass die Datenbank rekonstruiert und aktualisiert wird um den Anforderungen von Datenschutz und Datensicherheit zu entsprechen. Grundlagen dazu wurden genauer in der Schutzbedarfsanalyse des Projekts gemacht. Diese nimmt auch die Vorbereitung auf eine Anbindung einer Benutzeroberfläche der Immobiliensoftware in den Fokus und bietet dazu Lösungen und projektspezifische Methoden an, um die Ziele umzusetzen.
 
-## SOLL-Zustand
-Rekonstruierung und Aktualisieren mit Datenschutz und Sicherheit
-Vorbereiten auf Anbindung der Datenbank auf eine anbindung an Benutzeroberfläche der Immobiliensoftware
--> Berüclsichtigung der oben genannten Punkte
+Fehlende Kriterien sind somit:
+- eine Nutzerrollenverteilung, 
+- eine sichere Konfiguration der Datenbank, 
+- das Anpassen des Datenbankschemas (wenn nötig) oder das verschlüsseln einzelner Spalten, 
+- Bereitstellen eines Systems, welches auch in näherer Zukunft genug Systemressourcen haben wird, 
+- Abdeckung der Persistenz und eine andersweitige sichere Infrastruktur um das eigentliche Datenbanksystem,
+- Installation von sicheren Verbindungszertifikaten zum verschlüsselten Abfragen der DBS,
+- 
+
 # SQL Bestandteile
 Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standard-Query-Language im Bezug auf den Auftrag "Ferienhaus".
 
