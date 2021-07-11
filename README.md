@@ -158,7 +158,7 @@ Zusammen mit einigen Testdaten, welche möglichst viele Sonderfälle abdecken so
 
 Eine SQL-Injection ist eine Form von Angriffen auf die IT-Sicherheit und kann zum Integritätsverlust der Daten, das unerlaubte Ausgeben von vertraulichen Daten, oder im schlimmsten Fall der Komplettausfall der Datenbank durch die Löschung Systemnotwendiger Datenbanken führen. Diese SQL-Injections sind bösartiger Code, welcher in eine schlecht gestaltete Anwendung eingebettet und dann an die Backend-Datenbank weitergeleitet wird. Die bösartigen Anfragen erzeugen da Datenbankabfrageergebnisse oder Aktionen, welche zu den oben genannten fatalen Ergebnissen führen. Um diese abzufangen, sollte man seine an die Datenbank anliegende Anwendung gut logisch durchdenken und somit bösartige Anfragen noch vor dem Absenden abgreifen. Besonders in Modulen wo die Eingaben vom Nutzer verarbeitet werden und zu sensiblen Datenbankabfragen führen, sollte man durch z.B. vorbereiteten Statements, welche der Nutzer nur durch seine eingebenenen Parameter ändern kann, diese einschränken. Hier gilt das Grundprinzip der Minimierung der Freiheit des Nutzers bei dem Interagieren mit dem Datenbanksystem im Backend.
 
-## Unsichere Konfiguration und Nutzermanagment in dem DBS 
+## Unsichere Konfiguration und Nutzermanagment im DBS 
 Als unsichere Konfiguration werden Standardeinstellungen angesehen, welche den Fokus meist mehr auf benutzerfreundlichkeit legen als auf die sichere Konfiguration eines DBS. Im Extremfall können schlechte Konfigurationen zu einfachen Sicherheitslücken führen welche Angreifer nutzen könnten, um Rechte zu erlangen oder andere bösartige Änderungen am DBS vorzunehmen. Dazu zählen zum Beispiel [Aktivierte Standard-Benutzerkonten](##Aktivierte_Standard-Benutzerkonten) oder [Unverschlüsselte Datenbankverbindung](##Unverschlüsselte_Datenbankverbindung). 
 Andere unsichere (Nutzer-)Konfigurationen können z.B. auch eine Verteilung der Lese und Schreibrechte auf unwichtige und ungeeignete Nutzer oder Nutzergruppen sein. Es ist essenziell die Rechteverteilung, wenn gegeben, auf wenige Nutzer einzuschränken. 
 
@@ -189,7 +189,7 @@ Fehlende Kriterien sind somit:
 - Bereitstellen eines Systems, welches auch in näherer Zukunft genug Systemressourcen haben wird, 
 - Abdeckung der Persistenz und eine andersweitige sichere Infrastruktur um das eigentliche Datenbanksystem,
 - Installation von sicheren Verbindungszertifikaten zum verschlüsselten Abfragen der DBS,
-- 
+- Einrichten und Verknüpfen eines Testsystems das vor dem Produktivsystem gestellt wird.
 
 # SQL Bestandteile
 Die User-Stories umfassen Erklärungen und Anwendungsfälle der Standard-Query-Language im Bezug auf den Auftrag "Ferienhaus".
